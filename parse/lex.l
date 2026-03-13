@@ -40,7 +40,7 @@ is-teken-witruimte = x → (x = ' ' ∨ x = 10 ∨ x = 13 ∨ x = 9
     }
 
 	#include "loc.h"
-	#include ".taal.yy.h"
+	#include ".lang.yy.h"
 	#include <lua.h>
 	#include "lua.h"
 

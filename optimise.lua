@@ -260,7 +260,7 @@ end
 
 local function multiopt(exp, maakindex)
 	local klaar = {}
-	for exp in treepairsdfs(exp) do
+	for exp1 in treepairsdfs(exp) do
 
 		-- som
 		if fn(exp) == 'Σ' then
@@ -289,14 +289,14 @@ local function multiopt(exp, maakindex)
 		end
 
 		-- map/reduce
-		exp = mapreduceer(exp, maakindex)
-		exp = lmapreduceer(exp, maakindex)
-		exp = filterreduceer(exp, maakindex)
+		exp2 = mapreduceer(exp1, maakindex)
+		exp3 = lmapreduceer(exp2, maakindex)
+		exp4 = filterreduceer(exp3, maakindex)
 
-		exp = mapvouw(exp, maakindex)
-		exp = filtervouw(exp, maakindex)
+		exp5 = mapvouw(exp4, maakindex)
+		exp6 = filtervouw(exp5, maakindex)
 
-		exp = mapreduceer(exp, maakindex)
+		exp = mapreduceer(exp6, maakindex)
 
 		-- map/map
 		if fname(exp) == 'map' and fname(arg1(exp)) == 'map' then

@@ -8,8 +8,14 @@ require 'parse'
 require 'typify'
 require 'solve'
 
-local socket = require 'socket'
-local server = socket.bind('127.0.0.1','1237')
+socket = require 'socket.core'
+function socket.bind(...)
+	local sock = socket.tcp4()
+	sock:bind(...)
+	sock:listen()
+	return sock
+end
+local server = socket.bind('127.0.0.1',1237)
 assert(server, 'serverpoort 1237 is niet beschikbaar')
 local sockets = {server}
 local coros = {}
@@ -52,7 +58,7 @@ function vt(code, isdebug)
 	if icode then
 		js = jsgen(icode)
 	end
-	file('a.js', js)
+	--file('a.js', js)
 	local fouten = map(fouten, fout2json)
 
 	return {
@@ -200,13 +206,14 @@ From: vraag@metamine.nl
 	local h = string.format('HTTP/1.0 %d %s\r\n', status, statusberichten[status])
 	local t = {}
 	t[#t+1] = h
-	t[#t+1] = "Host: localhost\r\n"
-	t[#t+1] = "Server: Lua 5.2\r\n"
+	t[#t+1] = "Host: localhost:1237\r\n"
+	t[#t+1] = "Server: Lua 5.5\r\n"
 	t[#t+1] = "Content-Length: "..#uit.."\r\n"
 	t[#t+1] = "Content-Type: "..contenttype.."\r\n"
 	t[#t+1] = "\r\n"
 	t[#t+1] = uit
 	sendblocking(sock, table.concat(t))
+	--print("sent file [[".. pad.."]]")
 
 	sock:close()
 end
@@ -220,7 +227,7 @@ if veto then return end
 
 
 while true do
-	local rs = socket.select(sockets, nil, 0.16) -- rapido
+	local rs = socket.select(sockets, nil, 9999)
 
 	-- connect
 	if rs[1] == server then

@@ -2,7 +2,8 @@ linux: parse.so
 
 parse.so: lua.c .lex.yy.h .lex.yy.c .lang.yy.h .lang.yy.c
 	mkdir -p bin
-	gcc -g -Wall -Wno-unused -std=c11 -shared -I/usr/include/lua5.1 -o bin/parse.so -fPIC lua.c .lang.yy.c .lex.yy.c -Wno-multichar
+	#gcc -g -Wall -Wno-unused -std=c11 -shared -I/usr/include/lua5.1 -o bin/parse.so -fPIC lua.c .lang.yy.c .lex.yy.c -Wno-multichar
+	gcc -g -Wall -Wno-unused -std=c11 -shared -I/usr/local/opt/brew/Cellar/lua/5.5.0/include/lua -llua5.5 -o bin/parse.so -fPIC lua.c .lang.yy.c .lex.yy.c -Wno-multichar
 	ln -sf bin/parse.so .
 
 test: test.c lua.c .lang.yy.h .lang.yy.c .lex.yy.h .lex.yy.c
@@ -21,7 +22,9 @@ wintest: main.c .lang.yy.c
 	flex --header-file=.lex.yy.h --outfile=.lex.yy.c lex.l
 
 .lang.yy.h .lang.yy.c: lang.y
-	bison --report=all -d -t --locations --defines=.lang.yy.h --output=.lang.yy.c lang.y
+	#bison --report=all -d -t --locations --defines=.lang.yy.h --output=.lang.yy.c lang.y
+	/usr/local/opt/brew/Cellar/bison/3.8.2/bin/bison --report=all -d -t --locations --defines=.lang.yy.h --output=.lang.yy.c lang.y
+
 
 bin/parse: .lang.yy.c
 	gcc -ggdb -o bin/parse .lang.yy.c .lex.yy.c -lm -llua

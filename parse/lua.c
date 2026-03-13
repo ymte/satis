@@ -4,12 +4,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
-#include <sys/sysinfo.h>
+//#include <sys/sysinfo.h> // waarom?
 #include <stddef.h>
 
 #include "loc.h"
 #include "lua.h"
-#include ".taal.yy.h"
+#include ".lang.yy.h"
 #include ".lex.yy.h"
 #define LREG LUA_REGISTRYINDEX
 
