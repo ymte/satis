@@ -696,7 +696,7 @@ function lib()
 	end;
 
 	-- trig
-	['sin'] = math.sinh;
+	['sin'] = math.sin;
 	['asin'] = math.asin;
 	['cos'] = math.cos;
 	['acos'] = math.acos;
