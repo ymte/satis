@@ -1,11 +1,11 @@
 ; concentric circles
-w = 18
-h = 10
+w = 180
+h = 100
 pos = 0..w × 0..h
 
 ; circlepattern
-dx = x - mouse.x/10 
-dy = y - mouse.y/10
+dx = x - mouse.x
+dy = y - mouse.y
 dst = √(dx²+dy²)
 
 ; is the block on (x,y) on?
@@ -14,10 +14,8 @@ golf = (runtime·10 - dst) mod 5
 blocks = pos filter isaan
 
 ; blocks
-shape = square(a·10,b·10,9) paint color
-color = rgb(a/10,b/10,blue)
+shape = square(a·1,b·1,1) paint color
+color = rgb(a/100,b/100,blue)
 blue = sin(runtime)/2+0.5
 squares = blocks map (a,b → shape)
 out = draw squares
-
-

@@ -40,7 +40,7 @@ cubemapbind: sprog, (nat → letter), cubemap, int → sprog
 superrender: iets, texture, sprog, int → iets
 
 ; lol/lijst
-grabbel: lijst, int → iets
+grab: lijst, int → iets
 splits: lijst, iets → lijst
 append: lijst, iets → lijst
 prepend: lijst, iets → lijst

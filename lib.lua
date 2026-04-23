@@ -40,7 +40,7 @@ function lib()
 		return c
 	end,
 
-	['grabbel'] = function (lijst) return lijst[math.random(1, #lijst)] end,
+	['grab'] = function (lijst) return lijst[math.random(1, #lijst)] end,
 	-- canvas
 	['pad.begin'] = true,
 	--['context2d'] = true,

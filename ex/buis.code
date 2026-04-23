@@ -2,7 +2,7 @@
 
 ; loop met pijltjes en WASD
 veld2 = -2..3 × -2..3 × -2..3 × [1]
-veld = veld2 map ((((A,B),C),D) → (X,Y,Z,1))
+veld = veld2; map ((((A,B),C),D) → (X,Y,Z,1))
 X = cos ((A/5+B/25)·τ+looptijd)
 Y = sin ((A/5+B/25)·τ+looptijd)
 Z = C/2
@@ -15,7 +15,7 @@ y := 0
 z := 0
 
 als toets.w dan z := z + .1 eind
-als toets.s dan z := z - .1 eind
+als toets.s dan z := z - .2 eind
 als toets.d dan x := x - .1 eind
 als toets.a dan x := x + .1 eind
 als toets.omhoog dan y := y - .1 eind
@@ -41,7 +41,12 @@ punten = veld map transformeer
 gesorteerd = punten sorteer ggg
 ggg = fa,fb → fa₂ < fb₂
 
+; lib
+mat4.vmul = mvm,mvv → (mat4.transponeer mvm) rits1 mvv map vec.dot
+mat4.transponeer = mta,mtb,mtc,mtd → ((mta₀,mtb₀,mtc₀,mtd₀),(mta₁,mtb₁,mtc₁,mtd₁),(mta₂,mtb₂,mtc₂,mtd₂),(mta₃,mtb₃,mtc₃,mtd₃))
+vec.dot = vda,vdb → Σ (vda zip vdb map (·))
+
+
 ; util
 uit = teken (gesorteerd map plot)
-
 

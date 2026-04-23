@@ -1,4 +1,4 @@
-#!/usr/bin/luajit
+#!lua
 package.path = package.path .. ";../?.lua"
 require 'exp'
 require 'lib'

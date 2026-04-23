@@ -1,0 +1,12 @@
+points := []
+current := (0,0)
+
+vertices = [(0,0), (50,100), (100,0)]
+randomvertex = vertices(grab [0,1,2])
+
+if screen.refreshes then
+	points := points ‖ [circle(current,0.3)]
+	current := randomvertex/2 + current/2
+end
+
+out = draw points
