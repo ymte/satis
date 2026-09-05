@@ -1,4 +1,4 @@
-linux: parse.so socket.so
+linux: parse.so
 deploy: parse.so web/www/
 	scp -r web/www/* metamine.nl:/var/www/html/
 
@@ -11,28 +11,6 @@ run: linux
 
 test: linux
 	luajit test.lua
-
-webdemos: web/www/ex/
-	./tolk ex/aap5.code web/www/ex/aap5.en.code
-	./tolk ex/pong.code web/www/ex/pong.en.code
-	./tolk ex/cirkels.code web/www/ex/cirkels.en.code
-	./tolk ex/salvobal.code web/www/ex/salvobal.en.code
-	./tolk ex/buis.code web/www/ex/buis.en.code
-	./tolk ex/paint.code web/www/ex/paint.en.code
-	./tolk ex/paint2.code web/www/ex/paint2.en.code
-	./tolk ex/grafiek.code web/www/ex/grafiek.en.code
-	./tolk ex/demo.code web/www/ex/demo.en.code
-	./tolk ex/leip.code web/www/ex/leip.en.code
-	./tolk ex/oog.code web/www/ex/oog.en.code
-	./tolk ex/schaken.code web/www/ex/schaken.en.code
-	./tolk ex/voer.code web/www/ex/voer.en.code
-	./tolk ex/pe1.code web/www/ex/pe1.en.code
-	./tolk ex/pe2.code web/www/ex/pe2.en.code
-	./tolk ex/pe3.code web/www/ex/pe3.en.code
-	./tolk ex/pe4.code web/www/ex/pe4.en.code
-	./tolk ex/pe5.code web/www/ex/pe5.en.code
-	./tolk ex/pe6.code web/www/ex/pe6.en.code
-	
 
 parse.so: parse/lex.l parse/lang.y parse/lua.c
 	cd parse; make linux

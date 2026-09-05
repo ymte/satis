@@ -188,6 +188,7 @@ From: vraag@metamine.nl
 		if not uit then
 			uit = 'pagina niet gevonden'
 			status = 404
+			print('404', pad)
 		end
 	end
 
