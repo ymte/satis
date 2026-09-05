@@ -2,14 +2,12 @@ linux: parse.so socket.so
 deploy: parse.so web/www/
 	scp -r web/www/* metamine.nl:/var/www/html/
 
-#ssh -f pi  'cd taal ; git pull ; make ; pkill lua ; /etc/dienst'
-
 socket.so: socket/main.c
 	cd socket; make
 	cp socket/bin/socket.so .
 	
 run: linux
-	lua web/dienst.lua
+	lua web/service.lua
 
 test: linux
 	luajit test.lua

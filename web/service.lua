@@ -11,7 +11,11 @@ require 'solve'
 socket = require 'socket.core'
 function socket.bind(...)
 	local sock = socket.tcp4()
-	sock:bind(...)
+	local ok,err = sock:bind(...)
+	if not ok then
+		sock:close()
+		return ok,err
+	end
 	sock:listen()
 	return sock
 end
