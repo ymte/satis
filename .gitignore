@@ -10,12 +10,6 @@ ontleed/taal.h
 
 res/
 
-web/www/index.nl.html
-web/www/index.en.html
-web/www/index.html
-web/www/en
-web/www/nl
-
 *.output
 bin/
 troep/
