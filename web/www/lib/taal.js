@@ -28,31 +28,14 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 
   // long list of standard functions from lua manual
   var builtins = wordRE([
-    'niets', 'uit', 'ja', 'nee', 'fout', '∅',
-		'tekst', 'int', 'looptijd', 'nu',
-		'teken', 'render', 'rgb',
+    	'∅',
 		'icode', 'newindex',
-		'sorteer', 'tot', 'vanaf', 'deel', 'vind', 'reduceer',
-		'scherm.breedte', 'scherm.hoogte', 'willekeurig', 'misschien', 'scherm.ververst', 'verf',
-		'grabbel', 'kies', 'type', 'plet', 'canvas.fontsize', 'canvas.linewidth', 'splits', 'split',
-		'ovaal',
-		'vertexbuffer', 'shaderbind', 'shaderprogram', 'uniformbind', 'matrixbind',
+		'canvas.fontsize', 'canvas.linewidth', 'splits', 'split',
+		'vertexbuffer', 'shaderbind', 'shaderprogram',
+		'uniformbind', 'matrixbind',
 		'download', 'texturebind', 'texture', 'cubemap', 'cubemapbind',
 		'jsonencodeer', 'jsondecodeer',
 		'id',
-
-		// muis
-		'muis.x', 'muis.y', 'muis.pos', 'muis.beweegt',
-		'muis.klik', 'muis.klik.begin', 'muis.klik.eind',
-
-		// keyboard
-		'toets.w', 'toets.a', 'toets.s', 'toets.d',
-		'toets.w.begin', 'toets.a.begin', 'toets.s.begin', 'toets.d.begin',
-		'toets.w.eind', 'toets.a.eind', 'toets.s.eind', 'toets.d.eind',
-		'toets.links', 'toets.rechts', 'toets.omhoog', 'toets.omlaag',
-		'toets.links.begin', 'toets.rechts.begin', 'toets.omhoog.begin', 'toets.omlaag.begin',
-		'toets.links.eind', 'toets.rechts.eind', 'toets.omhoog.eind', 'toets.omlaag.eind',
-		'toets.spatie', 'toets.spatie.begin', 'toets.spatie.eind',
 
 		// tekening
 		'cirkel', 'rechthoek', "vierkant", "lijn", "label", "boog", "polygoon",
@@ -72,23 +55,14 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		'grab', 'choose', 'type', 'flatten', 'canvas.fontsize', 'split',
 		'jsonencode', 'jsondecode',
 
-		// muis
+		// mouse
 		'mouse.x', 'mouse.y', 'mouse.pos', 'mouse.moves',
 		'mouse.click', 'mouse.click.begin', 'mouse.click.end',
 
 		// keyboard
-		'toets.w', 'toets.a', 'toets.s', 'toets.d',
-		'toets.w.begin', 'toets.a.begin', 'toets.s.begin', 'toets.d.begin',
-		'toets.w.eind', 'toets.a.eind', 'toets.s.eind', 'toets.d.eind',
-		'toets.links', 'toets.rechts', 'toets.omhoog', 'toets.omlaag',
-		'toets.links.begin', 'toets.rechts.begin', 'toets.omhoog.begin', 'toets.omlaag.begin',
-		'toets.links.eind', 'toets.rechts.eind', 'toets.omhoog.eind', 'toets.omlaag.eind',
-		'toets.spatie', 'toets.spatie.begin', 'toets.spatie.eind',
-
-		// keyboard engels
 		'key.w', 'key.a', 'key.s', 'key.d',
 		'key.w.begin', 'key.a.begin', 'key.s.begin', 'key.d.begin',
-	'key.w.end', 'key.a.end', 'key.s.end', 'key.d.end',
+		'key.w.end', 'key.a.end', 'key.s.end', 'key.d.end',
 		'key.left', 'key.right', 'key.up', 'toets.down',
 		'key.left.begin', 'key.right.begin', 'key.up.begin', 'key.down.begin',
 		'key.left.end', 'key.right.end', 'key.up.end', 'key.down.end',
@@ -96,19 +70,21 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 	 
 		// drawing
 		"draw", "render",
-		"circle", "rectangle", "square", "line", "label", "arc", "polygon", "map", "zip", "fold", "sin", "cos", "tan", "abs",
-		"color.black", "color.red", "color.yellow", "color.green", "color.cyan", "color.purple", "color.white", "color.orange", "color.lime", "color.blue", "color.gray",
+		"circle", "rectangle", "square", "line", "label", "arc",
+		"polygon", "map", "zip", "fold", "sin", "cos", "tan", "abs",
+		"color.black", "color.red", "color.yellow", "color.green",
+		"color.cyan", "color.purple", "color.white", "color.orange",
+		"color.lime", "color.blue", "color.gray",
 
   ]);
 	var keywords = wordRE([
-		"als","dan","andersals", "anders","eind",
-		"if","then","elseif","else","end","herhaal","repeat","fout","error",
-		"en", "of", "and", "or", "xof", "noch",
+		"if","then","elseif","else","end",
+		"en", "of", "and", "or", "xof", "nor",
 	]);
 
-  var indentTokens = wordRE(["dan", "then"]);//"function", "if","repeat","do", "\\(", "{", "\\["]);
-	var dedentTokens = wordRE(["anders", "andersals", "eind", "else", "elseif", "end"]);//"end", "until", "\\)", "}"]);
-	var dedentPartial = prefixRE(["anders", "andersals", "else", "elseif"]);//"end", "until", "\\)", "}", "\\]", "else", "elseif"]);
+  var indentTokens = wordRE(["then"]);
+	var dedentTokens = wordRE(["else", "elseif", "end"]);
+	var dedentPartial = prefixRE(["else", "elseif"]);
 
 	// getallen
 	var subp = new Set( ('∞ τ ₀ ₁ ₂ ₃ ₄ ² ³').split(' '));
