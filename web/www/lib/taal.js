@@ -40,7 +40,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		// tekening
 		'cirkel', 'rechthoek', "vierkant", "lijn", "label", "boog", "polygoon",
 		'map', 'zip', 'rits', 'vouw', 'filter', 'getal',
-		'sin', "cos", "tan", 'atan', 'sincos',
+		'sin', "cos", "tan", 'atan', 'sincos', 'cossin',
 		'abs', 'mod',
 		'max', 'min', 'klem', 'maxindex',
 

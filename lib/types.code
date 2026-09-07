@@ -1,7 +1,7 @@
 ; basisobjecten
-verzameling: iets
-functie: iets
-getal: iets
+verzameling: something
+functie: something
+getal: something
 
 ; getallen
 dt: getal ; seconde
@@ -15,7 +15,7 @@ kommagetal: getal
 τ: getal
 π: getal
 
-icode: iets → (nat → (nat → letter))
+icode: something → (nat → (nat → letter))
 
 ; html
 canvas.fontsize: functie, getal → functie
@@ -32,18 +32,18 @@ vertexbuffer: (nat → getal) → vbuffer
 texture: lijst letter, int → texture ; url
 cubemap: (nat → (nat → letter)), int → cubemap ; urls
 
-uniformbind: sprog, (nat → letter), iets → sprog
-matrixbind:  sprog, (nat → letter), iets → sprog
+uniformbind: sprog, (nat → letter), something → sprog
+matrixbind:  sprog, (nat → letter), something → sprog
 shaderbind:  sprog, (nat → letter), vbuffer → sprog
 texturebind: sprog, (nat → letter), texture, int → sprog
 cubemapbind: sprog, (nat → letter), cubemap, int → sprog
-superrender: iets, texture, sprog, int → iets
+superrender: something, texture, sprog, int → something
 
 ; lol/lijst
-grab: lijst, int → iets
-splits: lijst, iets → lijst
-append: lijst, iets → lijst
-prepend: lijst, iets → lijst
+grab: lijst, int → something
+splits: lijst, something → lijst
+append: lijst, something → lijst
+prepend: lijst, something → lijst
 componeer: (nat → functie) → functie
 
 ; net
@@ -70,8 +70,8 @@ zak: verzameling
 vorm: functie
 html: lijst(letter) → lijst(letter)
 consoleLog: lijst(letter) → bit
-tekst: iets → lijst(letter)
-;model: lijst(getal), lijst(getal) → iets
+tekst: something → lijst(letter)
+;model: lijst(getal), lijst(getal) → something
 
 setcontext: functie
 xdraai: getal → (nat → (nat → getal))
@@ -91,65 +91,65 @@ rgb: (getal, getal, getal) → (getal, getal, getal)
 ;boog: ((ℝ,ℝ),ℝ,ℝ,ℝ) → vorm
 ;rechthoek: (ℝ,ℝ),(ℝ,ℝ) → vorm
 lijn: (nat → getal,getal) → functie
-newindex: lijst, nat, iets → lijst
-newindex2: lijst, nat, iets → lijst
-;label: iets → functie
-draai: vorm → vorm
-vouw: lijst,(iets,iets → iets) → iets
-reduceer: iets,lijst,(iets,iets → iets) → iets
+newindex: lijst, nat, something → lijst
+newindex2: lijst, nat, something → lijst
+;label: something → functie
+rotate: vorm → vorm
+fold: lijst,(something,something → something) → something
+reduce: something,lijst,(something,something → something) → something
 
 requestAnimationFrame: (getal → lijst(letter)) → int
 contextVan: lijst(letter) → canvas
 invoer.registreer: lijst(letter) → lijst(letter)
 
 ; hardware
-scherm.ververst: bit
-muis.klik: bit
-muis.klik.begin: bit
-muis.klik.eind: bit
-muis.beweegt: bit
-muis.pos: getal, getal
-muis.x: getal
-muis.y: getal
+screen.refreshes: bit
+mouse.click: bit
+mouse.click.begin: bit
+mouse.click.end: bit
+mouse.moves: bit
+mouse.pos: getal, getal
+mouse.x: getal
+mouse.y: getal
 
-toets.code: int
-toets.begin: int → bit
-toets.eind: int → bit
+key.code: int
+key.begin: int → bit
+key.eind: int → bit
 
-syscall: iets → int
+syscall: something → int
 
-stduit.schrijf: lijst(letter) → int
-app: iets
+stdout.write: lijst(letter) → int
+app: something
 
-bit: iets
+bit: something
 ja: bit
 nee: bit
 
 ; functie
-iets → iets: functie
-(_fn) : (iets→iets),iets → iets
-(_) :  ((iets→iets), iets) → iets
-rits: lijst, lijst → lijst
-rits1: iets, iets → lijst
-rrits1: iets, iets → lijst
-map: lijst, (iets→iets) → lijst
-filter: lijst, (iets→bit) → lijst
+something → something: functie
+(_fn) : (something→something),something → something
+(_) :  ((something→something), something) → something
+zip: lijst, lijst → lijst
+zip1: something, something → lijst
+rzip1: something, something → lijst
+map: lijst, (something→something) → lijst
+filter: lijst, (something→bit) → lijst
 
 ; lijst
 (×) : lijst, lijst → lijst
 ;(‖) :  lijst, lijst → lijst
 (∘) : functie, functie → functie
-(|) : lijst → iets
-(=) :  (iets, iets) → bit 
-(:=) : (iets, iets) → bit
-(→) :  (iets, iets) → (iets → iets)
+(|) : lijst → something
+(=) :  (something, something) → bit 
+(:=) : (something, something) → bit
+(→) :  (something, something) → (something → something)
 
 sin :  getal → getal
 cos :  getal → getal
 tan :  getal → getal
 sincos :  getal → getal, getal
 cossin :  getal → getal, getal
-;(+) :  iets, iets → iets
+;(+) :  something, something → something
 ;(+) :  int, int → getal
 ;(-) :  getal → getal
 ;(·) :  (getal, getal) → getal
@@ -158,8 +158,8 @@ cossin :  getal → getal, getal
 ;(^) :  (getal, getal) → getal
 ;(^) :  (int, int) → int
 ;(^) :  (int, int) → int
-;(^) :  ((→), nat) → iets
-(^): iets,getal → iets
+;(^) :  ((→), nat) → something
+(^): something,getal → something
 (#) :  lijst → int
 (√) : getal → getal
 
@@ -174,7 +174,7 @@ set: verzameling
 
 ; logica
 (¬) : bit → bit
-;(') : iets → iets
+;(') : something → something
 ;(>) : getal, getal → bit
 (≥) : getal, getal → bit
 (≤) : getal, getal → bit
@@ -194,27 +194,27 @@ abs: getal → getal
 absd: getal → getal
 max: (getal,getal) → getal
 min: (getal,getal) → getal
-klem: (getal,getal,getal) → getal
-afrond: getal → int
-afrond.boven: getal → int
-afrond.onder: getal → int
-(:): (iets,iets) → bit
+clamp: (getal,getal,getal) → getal
+round: getal → int
+ceil: getal → int
+floor: getal → int
+(:): (something,something) → bit
 
-(iets → iets) : iets
-(iets → int) : iets
+(something → something) : something
+(something → int) : something
 
 byte: int
 letter: int
 tekst: lijst letter
 
-looptijd : getal
-nu : getal
-vind : (lijst, iets, int) → int
-tot : (lijst, int) → lijst
-vanaf : (lijst, int) → lijst
-deel : (lijst, int, int) → lijst
+runtime : getal
+now : getal
+find : (lijst, something, int) → int
+until : (lijst, int) → lijst
+from : (lijst, int) → lijst
+slice : (lijst, int, int) → lijst
 
 ;herhaal : ((→) → (→))
 ;herhaal : ((→), int) → (→)
-waarvoor : ((nat → iets), (iets → bit)) → (nat → iets)
+where : ((nat → something), (something → bit)) → (nat → something)
 mod : getal, getal → getal

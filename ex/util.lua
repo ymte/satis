@@ -53,7 +53,7 @@ function lenc(t)
 	if type(t) == 'number' then
 		return tostring(t)
 	elseif t == nil then
-		return 'niets'
+		return 'nothing'
 	elseif t == true then
 		return 'ja'
 	elseif t == false then
@@ -82,7 +82,7 @@ function lenc(t)
 			local previ = 1
 			for i,v in pairs(t) do
 				for j=1,i-previ-1 do
-					r[#r+1] = 'niets,'
+					r[#r+1] = 'nothing,'
 				end
 				r[#r+1] = lenc(v)
 				r[#r+1] = ','

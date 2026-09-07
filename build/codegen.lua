@@ -107,7 +107,7 @@ function codegen(exp, hash2name)
 			if arg2(exp) then
 				codegen(arg2(exp), ins, callarg)
 			else
-				codegen(X'niets', ins, callarg)
+				codegen(X'nothing', ins, callarg)
 			end
 
 

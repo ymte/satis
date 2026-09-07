@@ -1,66 +1,59 @@
-;ververs = moment → schrijf(tekst(uit))
-;main = herhaal.langzaam(ververs)
-main = (in.vars, start, nu, setcontext, setcontext3d, scherm.breedte, scherm.ververst, toets.code, toets.begint, toets.eindigt, toets.begin, toets.eind, muis.beweegt, muis.beweegt.naar, muis.klik.begin, muis.klik.eind, misschien, dt) → mainuit
+main = (in.vars, start, now, setcontext, setcontext3d, screen.width, screen.refreshes, key.code, key.begins, key.ends, key.begin, key.end, mouse.moves, mouse.moves.to, mouse.click.begin, mouse.click.end, maybe, dt) → mainout
 
 id = X → X
 
 if start then
-	mainuit = in.startvars,niets ;(uit.vars, uit)
+	mainout = in.startvars,∅
 else
-	mainuit = uit.vars, uit
+	mainout = out.vars, out
 end
 
 screen.height = 100
-klem = V,L,H → min(max(V,L),H)
+clamp = clampV,clampL,clampH → min(max(clampV,clampL),clampH)
 screen.middle = (screen.width/2,50)
 screen.size = (screen.width,100)
 
-; linq helpers
-;maxindex = M → ((0..#M) zip M vouw Mfunc)₀
-;maxindex = M → reduceer((0,M₀), 1..#M, ((A,B),(C,D) → (⇒)((B > D), (A,B), (C,D))))
-;maxindex = M → reduceer(0, M, (I,W → (⇒)( ((M W) > (M I)), W, I)))
-;maxindex = M → reduceer((0,M₀), 1..#M, (I,W → (⇒)( (M(W) > M(I)), W, I)))
-maxindex = L → reduceer(0, L, (A,B → (⇒)(((L A) > (L B)), A, B)))
+maxindex = maxindexL → reduceer(0, maxindexL, (maxindexA,maxindexB → (⇒)(((maxindexL maxindexA) > (maxindexL maxindexB)), maxindexA, maxindexB)))
 
-; toetsenbord
-toetsen := {}
-toets.aan = toets → (toets ∈ toetsen)
+; keyboard
+keys := {}
+key.on = key → (key ∈ keys)
 
-als toets.begint dan
-	toetsen := toetsen ∪ {toets.code}
-eind
+if key.begins then
+	keys := keys ∪ {key.code}
+end
 
-als toets.eindigt dan
-	toetsen := toetsen \ {toets.code}
-eind
+if key.ends then
+	keys := keys \ {key.code}
+end
 
 ; canvas
-canvas.wis = verf(rechthoek((0,0),(scherm.breedte,scherm.hoogte)), kleur.zwart)
+canvas.clear = paint(rectangle(screen.origin,screen.size), color.black)
 
-teken = Vormen → setcontext(canvas.wis ∘ (componeer Vormen))
+draw = drawShapes → setcontext(canvas.clear ∘ (compose drawShapes))
 ;render = Vormen → setcontext3d(reduceer(Vormen, id, (∘)))
 
-; muis
-muis.pos := (0,0)
-muis.x = muis.pos₀
-muis.y = muis.pos₁
-muis.klik := nee
+; mouse
+mouse.pos := (0,0)
+mouse.x = mouse.pos₀
+mouse.y = mouse.pos₁
+mouse.click := no
 
-als muis.klik.begin dan
-	muis.klik := ja
-eind
+if mouse.click.begin then
+	mouse.click := yes
+end
 
-als muis.klik.eind dan
-	muis.klik := nee
-eind
+if mouse.click.end then
+	mouse.click := no
+end
 
-als muis.beweegt dan
-	muis.pos := muis.beweegt.naar
-eind
+if mouse.moves then
+	mouse.pos := mouse.moves.to
+end
 
-; tijd
-looptijd = nu - starttijd
-starttijd := nu
+; time
+runtime = now - starttime
+starttime := now
 
 ; transformatie
 verplaats = Px,Py,Pz → [[1,0,0,0],[0,1,0,0],[0,0,1,0],[Px,Py,Pz,1]]
@@ -81,45 +74,47 @@ mat4.id = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
 mat4.transponeer = [A,B,C,D] → [[A₀,B₀,C₀,D₀],[A₁,B₁,C₁,D₁],[A₂,B₂,C₂,D₂],[A₃,B₃,C₃,D₃]]
 
 ; kleuren
-kleur.beige = rgb(96%, 96%, 86%)
-kleur.bruin = rgb(60%, 40%, 20%)
-kleur.rood = rgb(1,0,0)
-kleur.groen = rgb(0,1,0)
-kleur.blauw = rgb(0,0,1)
-kleur.zwart = rgb(0,0,0)
-kleur.wit = rgb(1,1,1)
-kleur.geel = rgb(1,1,0)
-kleur.paars = rgb(1,0,1)
-kleur.cyaan = rgb(0,1,1)
-kleur.oranje = rgb(1,.5,0)
+color.beige = rgb(96%, 96%, 86%)
+color.brown = rgb(60%, 40%, 20%)
+color.red = rgb(1,0,0)
+color.green = rgb(0,1,0)
+color.blue = rgb(0,0,1)
+color.black = rgb(0,0,0)
+color.white = rgb(1,1,1)
+color.gray = rgb(.5,.5,.5)
+color.yellow = rgb(1,1,0)
+color.purple = rgb(1,0,1)
+color.cyan = rgb(0,1,1)
+color.orange = rgb(1,.5,0)
+color.lime = rgb(.5,1,0)
 
-; toetsenbord
-toets.spatie = toets.aan(32)
-toets.links = toets.aan(37)
-toets.omhoog = toets.aan(38)
-toets.rechts = toets.aan(39)
-toets.omlaag = toets.aan(40)
-toets.a = toets.aan(65)
-toets.w = toets.aan(87)
-toets.d = toets.aan(68)
-toets.s = toets.aan(83)
+; keyboard
+key.space = key.on(32)
+key.left = key.on(37)
+key.up = key.on(38)
+key.right = key.on(39)
+key.down = key.on(40)
+key.w = key.on(87)
+key.a = key.on(65)
+key.d = key.on(68)
+key.s = key.on(83)
 
-toets.spatie.begin = toets.begin(32)
-toets.links.begin = toets.begin(37)
-toets.omhoog.begin = toets.begin(38)
-toets.rechts.begin = toets.begin(39)
-toets.omlaag.begin = toets.begin(40)
-toets.a.begin = toets.begin(65)
-toets.d.begin = toets.begin(68)
-toets.s.begin = toets.begin(83)
-toets.w.begin = toets.begin(87)
+key.space.begin = key.begin(32)
+key.left.begin = key.begin(37)
+key.up.begin = key.begin(38)
+key.right.begin = key.begin(39)
+key.down.begin = key.begin(40)
+key.a.begin = key.begin(65)
+key.d.begin = key.begin(68)
+key.s.begin = key.begin(83)
+key.w.begin = key.begin(87)
 
-toets.spatie.eind = toets.eind(32)
-toets.links.eind = toets.eind(37)
-toets.omhoog.eind = toets.eind(38)
-toets.rechts.eind = toets.eind(39)
-toets.omlaag.eind = toets.eind(40)
-toets.a.eind = toets.eind(65)
-toets.d.eind = toets.eind(68)
-toets.s.eind = toets.eind(83)
-toets.w.eind = toets.eind(87)
+key.space.end = key.end(32)
+key.left.end = key.end(37)
+key.up.end = key.end(38)
+key.right.end = key.end(39)
+key.down.end = key.end(40)
+key.a.end = key.end(65)
+key.d.end = key.end(68)
+key.s.end = key.end(83)
+key.w.end = key.end(87)

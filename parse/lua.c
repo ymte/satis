@@ -595,7 +595,7 @@ int yyerror(YYLTYPE* loc, lua_State* L, int* ref, int* fouten, void* scanner, co
 EXPORT int luaopen_parse(lua_State* L) {
 	lua_pushcfunction(L, lua_parse); lua_setglobal(L, "parse");
 	lua_pushcfunction(L, lua_parseexp); lua_setglobal(L, "parseexp");
-	lua_pushcfunction(L, lua_nu); lua_setglobal(L, "nu");
+	lua_pushcfunction(L, lua_nu); lua_setglobal(L, "now");
 	return 1;
 }
 

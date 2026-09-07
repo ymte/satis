@@ -21,13 +21,13 @@ function metatypegraph:issubtype(type, super)
 	if hash(type) == hash(super) then return true end
 
 	-- ontologisch
-	if atom(type) == 'iets' then
-		if atom(super) == 'iets' then
+	if atom(type) == 'something' then
+		if atom(super) == 'something' then
 			return true
 		else
 			return false
 		end
-	elseif atom(super) == 'iets' then
+	elseif atom(super) == 'something' then
 		return true
 	end
 
@@ -96,7 +96,7 @@ function metatypegraph:maaktype(type, super)
 	if not super and obj(type) == '[]' then super = X'lijst' end
 	if not super and obj(type) == '{}' then super = X'set' end
   
-	local super = super or X'iets' --self.iets
+	local super = super or X'something' --self.something
 	local superhash, typehash
 	typehash = hash(type)
 	superhash = hash(super)
@@ -120,7 +120,7 @@ function metatypegraph:maaktype(type, super)
 			--print('LINK', deparse(super), deparse(super.a[1]))
 		else
 			--print(superhash)
-			super = self:maaktype(super, self.iets)
+			super = self:maaktype(super, self.something)
 		end
 	end
 	super = assert(self.types[superhash], superhash)
@@ -203,7 +203,7 @@ function metatypegraph:unie(a, b)
 			for i=1,#a do
 				a[i] = self:unie(a[i], b[i])
 				if not a[i] then
-					a[i] = X'iets'
+					a[i] = X'something'
 				end
 			end
 			return a
@@ -214,7 +214,7 @@ function metatypegraph:unie(a, b)
 		return a
 	end
 		
-	return self:maaktype('iets')
+	return self:maaktype('something')
 end
 
 -- subset
@@ -266,9 +266,9 @@ function metatypegraph:intersectie(a, b, exp)
     end
 	end
 
-	if atom(a) == 'iets' then
+	if atom(a) == 'something' then
 		return assign(a, b)
-	elseif atom(b) == 'iets' then
+	elseif atom(b) == 'something' then
 		return a
 	end
 
@@ -342,8 +342,8 @@ function metatypegraph:paramtype(type, paramtype)
 		end
 		doel = nieuwdoel
 	end
-	do return X'iets' end
-	error('no paramter found for '..exp2string(paramtype))
+	do return X'something' end
+	error('no parameter found for '..exp2string(paramtype))
 end
 
 -- typegraph:
@@ -355,12 +355,12 @@ function maaktypegraph()
 	end
 
 	local t = setmetatable({}, {__index=metatypegraph,__tostring=tostring})
-	t.types = {iets = X'iets', niets = X'niets'}
-	t.iets = t.types.iets
-	t.niets = t.types.niets
+	t.types = {something = X'something', nothing = X'nothing'}
+	t.something = t.types.something
+	t.nothing = t.types.nothing
 	t.graph = maakflow()
-	t.graph:punt('iets')
-	t.graph:punt('niets')
+	t.graph:punt('something')
+	t.graph:punt('nothing')
 
 	return t
 end

@@ -1,6 +1,5 @@
 require 'build.gen.js'
 require 'compile'
-require 'translate'
 require 'deparse'
 require 'json'
 

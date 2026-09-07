@@ -50,14 +50,14 @@ function lib()
 	['canvas.fontsize'] = true,
 	['canvas.linewidth'] = true,
 	['canvas.drawImage'] = true,
-	['plet'] = true,
-	['jsonencodeer'] = true,
-	['jsondecodeer'] = true,
+	['flatten'] = true,
+	['jsonencode'] = true,
+	['jsondecode'] = true,
 
 	-- webgl
 	['alert'] = true,
-	['splits'] = true,
-	['kubus'] = true,
+	['split'] = true,
+	['cube'] = true,
 	['superrender'] = true,
 	['gl.drawArrays'] = true,
 	['gl.drawTriangles'] = true,
@@ -83,13 +83,13 @@ function lib()
 	['cubemapbind'] = true,
 
 	-- functioneel
-	['fn.plus'] = function(x) return function(y) return x + y end end; -- fn.plus(3) = x -> x + 3
+	['fn.add'] = function(x) return function(y) return x + y end end; -- fn.plus(3) = x -> x + 3
 	['fn.inc'] = function(x) return x + 1 end;
 	['fn.dec'] = function(x) return x - 1 end;
-	['l.eerste'] = function(x) return x[1] end;
-	['l.tweede'] = function(x) return x[2] end;
-	['l.derde'] = function(x) return x[3] end;
-	['l.vierde'] = function(x) return x[4] end;
+	['l.first'] = function(x) return x[1] end;
+	['l.second'] = function(x) return x[2] end;
+	['l.third'] = function(x) return x[3] end;
+	['l.fourth'] = function(x) return x[4] end;
 	['fn.merge'] = function(fns)
 		return function(x)
 			local r = {}
@@ -112,13 +112,13 @@ function lib()
 			return x
 		end
 	end;
-	['fn.kruid'] = function(args)
+	['fn.curry'] = function(args)
 		local fn,x = args[1], args[2]
 		return function(y)
 			return fn(x,y)
 		end
 	end;
-	['fn.kruidL'] = function(args)
+	['fn.curryL'] = function(args)
 		local fn,y = args[1], args[2]
 		return function(x)
 			return fn(x,y)
@@ -128,7 +128,7 @@ function lib()
 	-- net
 
 	-- host, poort → socket
-	['tcp.verbind'] = function (args)
+	['tcp.connect'] = function (args)
 		local host,poort = args[1],args[2]
 		if not sockets[host] or not sockets[host][poort] then
 			local sock = socket.connect(host, poort)
@@ -155,7 +155,7 @@ function lib()
 	end;
 
 	-- socket → set(socket)
-	['tcp.accepteer'] = function(sock)
+	['tcp.accept'] = function(sock)
 		clients[sock] = clients[sock] or {}
 		while true do
 			local client = sock:accept()
@@ -170,7 +170,7 @@ function lib()
 	end;
 			
 	-- socket, data → socket
-	['tcp.schrijf'] = function(args)
+	['tcp.write'] = function(args)
 		local sock, data = args[1], args[2]
 		local n = written[sock] or 0
 		if type(data) == 'table' then
@@ -187,7 +187,7 @@ function lib()
 	end;
 
 	-- socket → data
-	['tcp.lees'] = function(sock)
+	['tcp.read'] = function(sock)
 		read[sock] = read[sock] or ''
 		local data = sock:receive()
 		if data then
@@ -197,27 +197,27 @@ function lib()
 	end;
 		
 	['⊤'] = true,
-	['sorteer'] = function (a) return table.sort(a[0], a[1]) end,
+	['sort'] = function (a) return table.sort(a[0], a[1]) end,
 	['⊥'] = false,
 	['log2'] = function (a) return math.log(a, 2) end,
 	['log10'] = math.log10,
 	['τ'] = math.pi*2,
 	['∅'] = {},
 	['π'] = math.pi,
-	['fout'] = true,
-	['verf'] = true,
+	['error'] = true,
+	['paint'] = true,
 
 	rgb = true,
 
-	polygoon = function() return('polygoon') end;
-	vierkant = function() return('vierkant') end;
-	boog = function() return('boog') end;
+	polygon = function() return('polygoon') end;
+	square = function() return('vierkant') end;
+	arc = function() return('boog') end;
 	label = function() return('label') end;
-	rechthoek = function() return('rechthoek') end;
-	afbeelding = function() return('rechthoek') end;
-	cirkel = function() return('cirkel') end;
-	ovaal = function() return('ovaal') end;
-	lijn = function() return('lijn') end;
+	rectangle = function() return('rechthoek') end;
+	image = function() return('rechthoek') end;
+	circle = function() return('cirkel') end;
+	ellipse = function() return('ovaal') end;
+	line = function() return('lijn') end;
 
 	['_'] = function(a, b)
 		if type(a) == 'string' then
@@ -247,7 +247,7 @@ function lib()
 	['call3'] = function(f, a, b, c) return f(a, b, c) end;
 
 	-- io
-	['stduit.schrijf'] = function(a)
+	['stdout.write'] = function(a)
 		do
 			io.write(deparse(w2exp(a)))
 			io.flush()
@@ -312,9 +312,9 @@ function lib()
 		-- TODO copy
 		return v
 	end,
-	['inverteer'] = true; -- sure
+	['invert'] = true; -- sure
 	['sqrt'] = math.sqrt;
-	['niets'] = false;
+	['nothing'] = false;
 	['min'] = math.min;
 	['mod'] = function(a, b) return a % b end;
 
@@ -408,12 +408,12 @@ function lib()
 		end
 	end;
 
-	['doe'] = function(exp)
+	['do'] = function(exp)
 		return doe0(exp)
 	end;
 
-	-- componeer
-	['componeer'] = function(fns)
+	-- compose
+	['compose'] = function(fns)
 		return function(x)
 			for i, fn in ipairs(fns) do
 				--print('TUSSENRESULTAAT', lenc(x))
@@ -529,7 +529,7 @@ function lib()
 		return r
 	end;
 
-	['klok'] = function(f)
+	['clock'] = function(f)
 		local voor = socket.gettime()
 		f()
 		local na = socket.gettime()
@@ -537,7 +537,7 @@ function lib()
 		return dt
 	end;
 
-	['voor'] = function(a)
+	['for'] = function(a)
 		local max,start,filter1,map,filter2,reduce = a[1],a[2],a[3],a[4],a[5],a[6]
 		local val = start
 
@@ -571,7 +571,7 @@ function lib()
 		return val
 	end;
 
-	['lvoor'] = function(a)
+	['lfor'] = function(a)
 		local max,filter1,map,filter2 = a[1],a[2],a[3],a[4]
 		local val = {}
 		if type(max) == 'table' then
@@ -610,7 +610,7 @@ function lib()
 		return val
 	end;
 
-	['omdraai'] = function(a)
+	['reverse'] = function(a)
 		local r = {}
 		for i=#a,1,-1 do
 			r[#r+1] = a[i]
@@ -618,7 +618,7 @@ function lib()
 		return r
 	end;
 
-	['rits'] = function(a, b)
+	['zip'] = function(a, b)
 		local v = {}
 		for i=#a,1,-1 do
 			v[i] = {a[i], b[i]}
@@ -626,7 +626,7 @@ function lib()
 		return v
 	end;
 
-	['rits1'] = function(a, b)
+	['zip1'] = function(a, b)
 		local v = {}
 		for i=#a,1,-1 do
 			v[i] = {a[i], b}
@@ -634,7 +634,7 @@ function lib()
 		return v
 	end;
 
-	['rrits1'] = function(a, b)
+	['rzip1'] = function(a, b)
 		local v = {}
 		for i=#b,1,-1 do
 			v[i] = {a, b[i]}
@@ -678,7 +678,7 @@ function lib()
 		return r
 	end;
 
-	['vouw'] = function(lijst, func)
+	['fold'] = function(lijst, func)
 		local r = lijst[1]
 		local k = 1
 		for i=2,#lijst do
@@ -687,7 +687,7 @@ function lib()
 		return r
 	end;
 
-	['reduceer'] = function(init, lijst, func)
+	['reduce'] = function(init, lijst, func)
 		local k = 1
 		for i=1,#lijst do
 			init = func(init, lijst[i])
@@ -727,7 +727,7 @@ function lib()
 	end;
 
 	-- herhaal functie totdat geen resultaat
-	['herhaal'] = function(f)
+	['repeat'] = function(f)
 		return function(a)
 			local r = a
 			while a do
@@ -739,7 +739,7 @@ function lib()
 	end;
 
 	-- while loop
-	['zolang'] = function(a)
+	['while'] = function(a)
 		local init,cond,update = a[1],a[2],a[3]
 		local x = init
 		while cond(x) do
@@ -748,17 +748,17 @@ function lib()
 		return x
 	end;
 
-	['schrijf'] = function(a) io.write(ansi.wisregel, ansi.regelbegin) ; io.write(a, '  '); io.flush() ; return a ; end;
+	['write'] = function(a) io.write(ansi.wisregel, ansi.regelbegin) ; io.write(a, '  '); io.flush() ; return a ; end;
 
-	['tekst'] = lenc,
+	['text'] = lenc,
 
-	['getal'] = function(a)
+	['number'] = function(a)
 		return tonumber(string.char(table.unpack(a)))
 	end;
 
-	['afrond.onder'] = math.floor;
-	['afrond.boven'] = math.ceil;
-	['afrond'] = function(a) return math.floor(a+0.5) end;
+	['floor'] = math.floor;
+	['ceil'] = math.ceil;
+	['round'] = function(a) return math.floor(a+0.5) end;
 
 	['int'] = function(a)
 		if tonumber(a) then
@@ -769,7 +769,7 @@ function lib()
 		return math.floor(getal)
 	end;
 
-	['cijfer0'] = function(a)
+	['digit0'] = function(a)
 		--return not not (tonumber(a) and #tostring(a) == 1)
 		a = tonumber(a)
 		return 48 <= a and a <= 57
@@ -823,21 +823,21 @@ function lib()
 	end;
 
 	-- aux
-	['net-adres'] = function(a)
+	['net-adress'] = function(a)
 		local socket = require 'socket'
 		local ip = string.char(table.unpack(a))
 		return table.pack(ip:match('([^:]*):(.*)'))
   end;
-	['bestand-in'] = function(name)
+	['file-in'] = function(name)
 		local name = string.char(table.unpack(name))
 		local bestand = io.open(name, 'r')
 		_G.print('OPEN '..name)
 		return {fd = bestand, buf = false}
 	end;
-	['bestand'] = function(name)
+	['file'] = function(name)
 		return file(name)
 	end;
-	['kan-lezen'] = function(b)
+	['can-read'] = function(b)
 		if not b.buf then b.buf = b.fd:read(1024) end
 		return b.buf
 	end;
@@ -851,7 +851,7 @@ function lib()
 	end;
 
 	-- text
-	['vind'] = function(a,b)
+	['find'] = function(a,b)
 		for i=1,#a-#b+1 do
 			local gevonden = true
 			for j=i,i+#b-1 do
@@ -867,7 +867,7 @@ function lib()
 		return false
 	end;
 
-	['vind2'] = function(a,b)
+	['find2'] = function(a,b)
 		for i=1,#a-#b+1 do
 			local gevonden = true
 			for j=i,i+#b-1 do
@@ -883,7 +883,7 @@ function lib()
 		return false
 	end;
 
-	['vanaf'] = function(a,van)
+	['from'] = function(a,van)
 		local t = {f='[]'}
 		for i=van+1,#a do
 			t[#t+1] = a[i]
@@ -896,7 +896,7 @@ function lib()
 		return t
 	end;
 
-	['tot'] = function(args)
+	['until'] = function(args)
 		local t, tot = args[1], args[2]
 		local t = {f='[]'}
 		for i=1,tot do
@@ -905,7 +905,7 @@ function lib()
 		return t
 	end;
 
-	['tot2'] = function(args)
+	['until2'] = function(args)
 		local t = {f='[]'}
 		for i=1,tot do
 			t[#t+1] = a[i]
@@ -913,7 +913,7 @@ function lib()
 		return t
 	end;
 
-	['deel'] = function(a,b,c)
+	['slice'] = function(a,b,c)
 		local van,tot = b, c
 		local t = {f='[]'}
 		for i=van+1,tot do
@@ -922,11 +922,11 @@ function lib()
 		return t
 	end;
 
-	['willekeurig'] = function(a, b)
+	['random'] = function(a, b)
 		return math.random(a, b-1)
 	end;
 
-	['recursief'] = function(rec)
+	['recursive'] = function(rec)
 		-- rec: zelf → (w → zelf(w))
 
 		-- recf: volledig recursieve functie

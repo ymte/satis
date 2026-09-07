@@ -6,7 +6,7 @@ local noops = {
 
 	['eval'] = 'eval',
 
-	['plet'] = [[args => {
+	['flatten'] = [[args => {
 		var res = [];
 		var k = 0;
 		for (var i = 0; i < args.length; i++)
@@ -50,8 +50,8 @@ local noops = {
 
 		return "";
 	} ]],
-	['getal'] = 'parseFloat',
-	['splits'] = [[ (a, b) => a.split(b) ]],
+	['number'] = 'parseFloat',
+	['split'] = [[ (a, b) => a.split(b) ]],
 
 	['matrixbind'] = [[ (prog, name, val) => {
 		var loc = gl.getUniformLocation(prog, name);
@@ -285,7 +285,7 @@ local noops = {
 
 	['superrender'] = [[ (gl, tex, shaderProgram, num) => {
 		if (!window.canvas) {
-		 window.canvas = document.getElementById('uit').children[0];
+		 window.canvas = document.getElementById('out').children[0];
 		}
 
          /* Step1: Prepare the canvas and get WebGL context */
@@ -316,21 +316,21 @@ local noops = {
 				]],
 
 	['grab'] = 'x => [Math.floor(Math.random()*x.length)]',
-	['fn.nul'] = 'x => x(0)',
-	['fn.een'] = 'x => x(1)',
-	['fn.twee'] = 'x => x(2)',
-	['fn.drie'] = 'x => x(3)',
+	['fn.zero'] = 'x => x(0)',
+	['fn.one'] = 'x => x(1)',
+	['fn.two'] = 'x => x(2)',
+	['fn.three'] = 'x => x(3)',
 	
-	['fn.kruid'] = 'fx => y => (fx[0](fx[1], y))',
-	['fn.kruidL'] = 'fx => y => (fx[0](y, fx[1]))',
+	['fn.curry'] = 'fx => y => (fx[0](fx[1], y))',
+	['fn.curryL'] = 'fx => y => (fx[0](y, fx[1]))',
 
-	['l.eerste'] = 'x => x[0]',
-	['l.tweede'] = 'x => x[1]',
-	['l.derde'] = 'x => x[2]',
-	['l.vierde'] = 'x => x[3]',
+	['l.first'] = 'x => x[0]',
+	['l.second'] = 'x => x[1]',
+	['l.third'] = 'x => x[2]',
+	['l.fourth'] = 'x => x[3]',
 
 	-- hetzelde als boven
-	['componeer'] = [[args => (x => {
+	['compose'] = [[args => (x => {
 		var res = x;
 		if (!Array.isArray(args))
 			args = [args];
@@ -343,18 +343,18 @@ local noops = {
 		return res;
 	}) ]],
 
-	['niets'] = 'null',
-	['omdraai'] = 'x => typeof(x) == "string" ? x.split("").reverse().join("") : x.reverse()',
-	['klok'] = 'x => { var begin = new Date().getTime(); x(); var eind = new Date().getTime(); return eind - begin; }',
+	['nothing'] = 'null',
+	['reverse'] = 'x => typeof(x) == "string" ? x.split("").reverse().join("") : x.reverse()',
+	['clock'] = 'x => { var begin = new Date().getTime(); x(); var eind = new Date().getTime(); return eind - begin; }',
 
 
 
 	-- niet goed
 	['newindex2']  = '(lijst,index,val) => { lijst[ index ] = val; return lijst; }',
 	['newindex'] = '(lijst,index,val) => { var t = []; for (var i = 0; i< lijst.length; i++) { if (i == index) t[i] = val; else t[i] = lijst[i]; } return t; }',
-	['scherm.ververst'] = 'true',
+	['scherm.refreshes'] = 'true',
 	['canvas.drawImage'] = '(i,x,y) => (c => c.drawImage(x, SCHAAL*x, SCHAAL*(100-y)))',
-	['herhaal2'] = [[x => {
+	['repeat2'] = [[x => {
 	var value = x[0];
 	var len = x[1];
   if (len == 0) return [];
@@ -365,17 +365,17 @@ local noops = {
 	}]],
 
 	-- functioneel
-	['rits'] = '(a, b) => {  var c = []; for (var i = 0; i < a.length; i++) { c[i] = [a[i], b[i]]; }; return c;}',
-  ['rits1'] = '(a, b) => {  var c = []; for (var i = 0; i < a.length; i++) { c[i] = [a[i], b]; }; return c;}',
-  ['rrits1'] = '(a, b) => {  var c = []; for (var i = 0; i < a.length; i++) { c[i] = [b, a[i]]; }; return c;}',
+	['zip'] = '(a, b) => {  var c = []; for (var i = 0; i < a.length; i++) { c[i] = [a[i], b[i]]; }; return c;}',
+  ['zip1'] = '(a, b) => {  var c = []; for (var i = 0; i < a.length; i++) { c[i] = [a[i], b]; }; return c;}',
+  ['rzip1'] = '(a, b) => {  var c = []; for (var i = 0; i < a.length; i++) { c[i] = [b, a[i]]; }; return c;}',
   --['map'] = '(a, b) => a.map(b)',
   ['map'] = '(a, b) => { var r = []; for (var i = 0; i < a.length; i++) r[i] = b(a[i]); return r;}',
 	['lmap'] = '(a, b) => a.map(x => b[x])',
   ['map4'] = '(a, b) => a.map(x => b(x[0], x[1], x[2], x[3]))',
   ['filter'] = '(a, b) => a.filter(b)',
   ['filter4'] = '(a, b) => a.filter(x => b(x[0], x[1], x[2], x[3]))',
-  ['vouw'] = '(a, b) => a.reduce(b)',
-	['reduceer'] = '(i, l, f) => l.reduce(f, i)',
+  ['fold'] = '(a, b) => a.reduce(b)',
+	['reduce'] = '(i, l, f) => l.reduce(f, i)',
 	['sincos'] = 'x => [Math.cos(x), Math.sin(x)]',
 	['cossin'] = 'x => [Math.sin(x), Math.cos(x)]',
 	['atan'] = 'Math.atan2',
@@ -396,10 +396,10 @@ local noops = {
 	}]],
 
 	-- webgl
-	 ['jsonencodeer'] = 'x => { try { return JSON.stringify(x); } catch (e) {return e.message; }}',
-	 ['jsondecodeer'] = 'x => { try { return JSON.parse(x); } catch (e) {return e.message; }}',
-	 ['deel'] = '(x,y,z) => x.slice(y, z)',
-	 ['vind'] = [[(lijst, doel, index) => {
+	 ['jsonencode'] = 'x => { try { return JSON.stringify(x); } catch (e) {return e.message; }}',
+	 ['jsondecode'] = 'x => { try { return JSON.parse(x); } catch (e) {return e.message; }}',
+	 ['slice'] = '(x,y,z) => x.slice(y, z)',
+	 ['find'] = [[(lijst, doel, index) => {
 		 var doel = JSON.stringify(doel);
 		 for (var i = index || 0; i < lijst.length; i++) {
 			if (JSON.stringify(lijst[i]) == doel)
@@ -407,9 +407,9 @@ local noops = {
 			return null;
 		}]],
 	 
-	 ['vind'] = '(x,y) => x.indexOf(y)',
-	 ['vanaf'] = '(x,y) => x.slice(y)',
-	 ['tot'] = '(x,y) => x.slice(0, y)',
+	 ['find'] = '(x,y) => x.indexOf(y)',
+	 ['from'] = '(x,y) => x.slice(y)',
+	 ['until'] = '(x,y) => x.slice(0, y)',
 	 ['canvas.linewidth'] = [[ (lijn, linewidth) => {
 	 return c => {
 		c.lineWidth = linewidth * SCHAAL;
@@ -418,7 +418,7 @@ local noops = {
 	}
  }]],
 
-	 ['verf'] = [[
+	 ['paint'] = [[
  (vorm, kleur) => (c => {
   var r = kleur[0]*255;
   var g = kleur[1]*255;
@@ -433,15 +433,15 @@ local noops = {
  })]],
 
 	['rgb'] = '(r,g,b) => [r,g,b]',
-	['sorteer'] = '(function(a){ return a[0].sort(function (c,d) { return a[1]([c, d]); }); })',
-	['afrond.onder'] = 'Math.floor',
-	['afrond']       = 'Math.round',
-	['afrond.boven'] = 'Math.ceil',
-	['willekeurig'] = '(x, y) => Math.random()*(y-x) + x',
+	['sort'] = '(function(a){ return a[0].sort(function (c,d) { return a[1]([c, d]); }); })',
+	['floor'] = 'Math.floor',
+	['round']       = 'Math.round',
+	['ceiling'] = 'Math.ceil',
+	['random'] = '(x, y) => Math.random()*(y-x) + x',
 	['int'] = 'Math.floor',
 	['abs'] = 'Math.abs',
-	['tekst'] = 'toString', --'x => (typeof(x)=="object" && x.has && "{"+[...x].toString()+"}") || JSON.stringify(x) || (x || "niets").toString()',
-	['polygoon'] = [[ args => {
+	['text'] = 'toString', --'x => (typeof(x)=="object" && x.has && "{"+[...x].toString()+"}") || JSON.stringify(x) || (x || "nothing").toString()',
+	['polygon'] = [[ args => {
 		return context => {
 			context.beginPath();
 			for (var i = 0; i < args.length; i++) {
@@ -458,7 +458,7 @@ local noops = {
 		};
 	} ]],
 
-	['vierkant'] = [[ (a, b, c) => {
+	['square'] = [[ (a, b, c) => {
 	var x,y,r;
 	if (c) {
 		r = c * SCHAAL;
@@ -505,7 +505,7 @@ local noops = {
 		return image;
 	}]],
 
-	['afbeelding'] = [[ (a, b, c, d, e) => {
+	['image'] = [[ (a, b, c, d, e) => {
 		var img, x, y, w, h;
 		img = a;
 		if (Array.isArray(b)) {
@@ -526,7 +526,7 @@ local noops = {
 	} ]],
 
 
-	['rechthoek'] = [[ (a, b, c, d) => {
+	['rectangle'] = [[ (a, b, c, d) => {
 	var x, y, w, h;
 	if (c == null) {
 		x = a[0] * SCHAAL;
@@ -545,7 +545,7 @@ local noops = {
   }
 	} ]],
 
-	['lijn'] = [[ args => {
+	['line'] = [[ args => {
   return context => {
 		context.beginPath();
 		for (var i = 0; i < args.length; i++) {
@@ -561,10 +561,7 @@ local noops = {
   }
 	} ]],
 
-	['kubus'] = [[ args => {
-	} ]],
-
-	['cirkel'] = [[ (a, b, c) => {
+	['circle'] = [[ (a, b, c) => {
 		return ctx => {
 			var x, y, r;
 			if (c == null) {
@@ -583,7 +580,7 @@ local noops = {
 		};
 	}]],
 
-	['ovaal'] = [[ args => {
+	['ellipse'] = [[ args => {
 	var a = args[0];
 	var b = args[1];
 	var c = args[2];
@@ -614,7 +611,7 @@ local noops = {
 	} ]],
 
 
-	['boog'] = [[ args => {
+	['arc'] = [[ args => {
 		return (function(c){
 			var x, y, r, a1, a2;
 			if (args.length == 4) {
@@ -650,7 +647,7 @@ local noops = {
 
 	['fn.constant'] = 'x => y => x',
 	['fn.merge'] = 'fns => (x => fns.map(fn => fn(x)))',
-	['fn.plus'] = 'x => y => x + y',
+	['fn.add'] = 'x => y => x + y',
 	['fn.mul'] = 'x => y => x * y',
 	['-'] = 'function(x) return -x end',
 	['log10'] = 'math.log10',
@@ -661,10 +658,10 @@ local noops = {
 	['π'] = 'Math.PI',
 
 	-- dynamic
-	['eerste'] = '(typeof($1)=="function") ? $1(0) : $1[0]',
-	['tweede'] = '(typeof($1)=="function") ? $1(1) : $1[1]',
-	['derde'] = '(typeof($1)=="function") ? $1(2) : $1[2]',
-	['vierde'] = '(typeof($1)=="function") ? $1(3) : $1[3]',
+	['first'] = '(typeof($1)=="function") ? $1(0) : $1[0]',
+	['second'] = '(typeof($1)=="function") ? $1(1) : $1[1]',
+	['third'] = '(typeof($1)=="function") ? $1(2) : $1[2]',
+	['fourth'] = '(typeof($1)=="function") ? $1(3) : $1[3]',
 }
 
 local unops = {
@@ -859,7 +856,7 @@ function jsgen(sfc)
 
 	local function emit(fmt, ...)
 		local args = {...}
-		uit[#uit+1] = fmt:gsub('$(%d)', function(i) return args[tonumber(i)] end)
+		out[#out+1] = fmt:gsub('$(%d)', function(i) return args[tonumber(i)] end)
 	end
 
 	local function ins2js(ins)

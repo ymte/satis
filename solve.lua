@@ -38,7 +38,7 @@ function solve(exp, voor, isdebug)
 		return (tonumber(val) and tostring(val))
 			or val == '_arg'
 			or val == '_fn'
-			or val == 'niets'
+			or val == 'nothing'
 			or lib[val] ~= nil -- KUCH KUCH
 	end
 
@@ -75,7 +75,7 @@ function solve(exp, voor, isdebug)
 		if fn(eq) == '+=' then
 			local a, b = arg0(eq), arg1(eq)
 			local B = X('+', a, X('·', b, 'dt'))
-			local neq = X('|:=', a, X('⇒', X('≠', a, 'niets'), B))
+			local neq = X('|:=', a, X('⇒', X('≠', a, 'nothing'), B))
 			--assign(eq, neq)
 			nieuw[neq] = true
 			oud[eq] = true
@@ -89,7 +89,7 @@ function solve(exp, voor, isdebug)
 				--local neq = X(sym.ass, a, X(sym.map, makevar(), X(sym.dan, X(sym.is, 'looptijd', '0'), b)))
 				local B = X('+', copy(a), X('·', copy(b), 'dt'))
 				local nexp = X(':=', a, B)
-				--local nexp = X(':=', a, X('⇒', X('∧', X('¬', 'start'), X('≠', a, 'niets')), B, 'niets'))
+				--local nexp = X(':=', a, X('⇒', X('∧', X('¬', 'start'), X('≠', a, 'nothing')), B, 'nothing'))
 				--print(e2s(neq))
 				--oud[eq] = true
 				--nieuw[neq] = true
@@ -263,8 +263,8 @@ function solve(exp, voor, isdebug)
 			local b = eq.a[2].a[2]
 
 			-- twee nieuwe
-			local ae = eq.a[3] and eq.a[3].a[1] or X'niets'
-			local be = eq.a[3] and eq.a[3].a[2] or X'niets'
+			local ae = eq.a[3] and eq.a[3].a[1] or X'nothing'
+			local be = eq.a[3] and eq.a[3].a[2] or X'nothing'
 			--assert(ae and be)
 			local eqa = X('|'..f, a, X(sym.dan, c, b))--, be))
 			local eqb = X('|'..f, b, X(sym.dan, c, a))--, ae))
@@ -359,7 +359,7 @@ function solve(exp, voor, isdebug)
 			--print('VAAG', e2s(eq))
 
 			if not v then
-				local fout = solvefout(eq.loc, '{code} is geen variabele', name)
+				local fout = solvefout(eq.loc, '{code} is not a variable', name)
 				fouten[#fouten+1] = fout
 			else
 				if eq.start then
@@ -383,8 +383,8 @@ function solve(exp, voor, isdebug)
 			alts[#alts+1] = X('index', 'in.vars', tostring(schaduw[name]-1))
 
 			local index = schaduw[name]
-			assert(index, 'geen index voor variabele '..name)
-			local eq = X('=', 'uit.'..name, X('|', alts))
+			assert(index, 'no index for variable '..name)
+			local eq = X('=', 'out.'..name, X('|', alts))
 			eqs[eq] = true
 			local eq = X('=', name, X('index', 'in.vars', tostring(schaduw[name]-1)))
 			eqs[eq] = true
@@ -461,7 +461,7 @@ function solve(exp, voor, isdebug)
 				-- onbekende variabele
 				if not schaduw[name] then
 					--local def = bron2def[punt]
-					local fout = solvefout(exp.loc, '{code} is geen variabele', punt)
+					local fout = solvefout(exp.loc, '{code} is not a variable', punt)
 					fouten[#fouten+1] = fout
 				else
 					--assign(exp, X('_', 'in.vars', schaduw[name]))
@@ -479,9 +479,9 @@ function solve(exp, voor, isdebug)
 	local ivars = {o=X'[]'}
 	for var in spairs(vars) do
 		local i = schaduw[var]
-		ivars[i] = X('uit.'..var)
+		ivars[i] = X('out.'..var)
 	end
-	local eq = X('=', 'uit.vars', ivars)
+	local eq = X('=', 'out.vars', ivars)
 	nieuw[eq] = true
 
 	eqs = unie(eqs, nieuw)
@@ -497,14 +497,14 @@ function solve(exp, voor, isdebug)
 		for lam in treepairs(eq) do
 			-- 
 			if fn(lam) == '→' then
-				local inn,uit = lam.a[1], lam.a[2]
+				local inn,out = lam.a[1], lam.a[2]
 				local argindex = tostring(maakindex())
 
 				-- pas vergelijking aan
 				for i in pairs(lam) do lam[i] = nil end
 				local var = makevar()
 				lam.f = X('_fn')
-				lam.a = X(',', argindex, uit)
+				lam.a = X(',', argindex, out)
 				local name = X('_arg', argindex)
 
 				-- complexe parameters
@@ -566,7 +566,7 @@ function solve(exp, voor, isdebug)
 			if k.v == name.v and not alfout[k.v] then
 				alfout[k.v] = true
 				ok = false
-				local fout = solvefout(k.loc, '{exp} is recursief gedefinieerd', k)
+				local fout = solvefout(k.loc, '{exp} is defined recursively', k)
 				fouten[#fouten+1] = fout
 			end
 			bron[k.v] = true
@@ -602,7 +602,7 @@ function solve(exp, voor, isdebug)
 		for punt in pairs(halfnaar.begin) do
 			if not halfvan.punten[punt] then
 				local def = bron2def[punt]
-				local fout = solvefout(def.loc, '{code} is ongedefinieerd', punt)
+				local fout = solvefout(def.loc, '{code} is undefined', punt)
 				fouten[#fouten+1] = fout
 			end
 		end
@@ -610,7 +610,7 @@ function solve(exp, voor, isdebug)
 		if #fouten == 0 then
 			--print(halfnaar:text())
 			
-			local fout = solvefout(nergens, 'kon niet solvesen')
+			local fout = solvefout(nergens, 'could not solve')
 			fouten[#fouten+1] = fout
 		end
 		return false, fouten, {}
@@ -670,7 +670,7 @@ function solve(exp, voor, isdebug)
 			local num = atom(arg(exp))
 			if not def[num] then
 				local name = argindex2name[num]
-				local fout = solvefout(name.loc, '{exp} is ongedefinieerd buiten functie', name)
+				local fout = solvefout(name.loc, '{exp} is undefined outside function', name)
 				fouten[#fouten+1] = fout
 			end
 		else

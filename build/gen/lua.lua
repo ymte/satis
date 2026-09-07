@@ -189,7 +189,7 @@ function luagen(sfc)
 
 	local function emit(fmt, ...)
 		local args = {...}
-		uit[#uit+1] = fmt:gsub('$(%d)', function(i) return args[tonumber(i)] end)
+		out[#out+1] = fmt:gsub('$(%d)', function(i) return args[tonumber(i)] end)
 	end
 
 	function ins2lua(ins)

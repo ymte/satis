@@ -90,9 +90,9 @@ left = rectangle(left.min, left.max)
 ; draw ball
 ball = circle((ball.x, ball.y), 5)
 
-label1 = label((90-9, 90), string(score2))
+label1 = label((90-9, 90), text(score2))
 label2 = label((90-2, 90), "-")
-label3 = label((90+3, 90), string(score1))
+label3 = label((90+3, 90), text(score1))
 
 out = draw [ left, right, ball, label1, label2, label3 ]
 

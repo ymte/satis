@@ -176,8 +176,8 @@ left  = arc(left.x,left.y, 10, τ/2, τ)   paint color.yellow
 right = arc(right.x,right.y, 10, τ/2, τ) paint color.blue
 net    = rectangle((hw-1,0),(hw+1,10))       paint color.white
 ball    = circle(ball.x, ball.y, 8)             paint balkleur
-label1 = label(hw-5,90, string(score1))
-label2 = label(hw+5,90, string(score2))
+label1 = label(hw-5,90, text(score1))
+label2 = label(hw+5,90, text(score2))
 
 ball.f = √(ball.vx² + ball.vy²) / 10
 balkleur = rgb(1 - ball.f, ball.f, 0)

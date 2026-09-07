@@ -3,7 +3,6 @@ require 'parse'
 require 'typify'
 require 'build.codegen'
 require 'optimise'
-require 'translate'
 require 'solve'
 require 'vectorise'
 
@@ -74,22 +73,19 @@ function compile(code, isdebug)
 	local makevar = makevars()
 	local opt = opt or {}
 
-	local prev = nu()
+	local prev = now()
 	local asb,syntaxerroren,map = parse(code)
 	local asb = scope(asb)
 
 	if type(asb) ~= 'table' then
 		return nil, { syntaxerror(nergens, "rommel"); }
 	end
-	local delta = nu() - prev
+	local delta = now() - prev
 	local ms = math.floor(delta * 1000)
 	if opt.D then
 		print('parse\t' ..ms..' ms')
 	end
-	local prev = nu()
-
-	-- compile
-	local asb = translate(asb)
+	local prev = now()
 
 	-- types
 	local type,typeerrors,types = typify(asb)
@@ -97,12 +93,12 @@ function compile(code, isdebug)
 		return nil, cat(syntaxerroren, typeerrors)
 	end
 
-	local delta = nu() - prev
+	local delta = now() - prev
 	local ms = math.floor(delta * 1000)
 	if opt.D then
 		print('typify\t' ..ms..' ms')
 	end
-	local prev = nu()
+	local prev = now()
 
 
 
@@ -117,12 +113,12 @@ function compile(code, isdebug)
 --	local exp = vectorise(exp, types, isdebug)
 
 	
-	local delta = nu() - prev
+	local delta = now() - prev
 	local ms = math.floor(delta * 1000)
 	if opt.D then
 		print('solve\t' ..ms..' ms')
 	end
-	local prev = nu()
+	local prev = now()
 
 	if #solveerrors > 0 then
 		return nil, cat(syntaxerroren, typeerrors, solveerrors)
@@ -139,12 +135,12 @@ function compile(code, isdebug)
 
 		exp = optimise(exp)
 
-		local delta = nu() - prev
+		local delta = now() - prev
 		local ms = math.floor(delta * 1000)
 		if opt.D then
 			print('optimise\t' ..ms..' ms')
 		end
-		local prev = nu()
+		local prev = now()
 
 	else
 		exp = refunc(exp)
@@ -171,12 +167,12 @@ function compile(code, isdebug)
 	-- cachemap: exp → cacheindex
 	local app,cachemap = codegen(exp, hash2name)
 
-	local delta = nu() - prev
+	local delta = now() - prev
 	local ms = math.floor(delta * 1000)
 	if opt.D then
 		print('codegen\t' ..ms..' ms')
 	end
-	local prev = nu()
+	local prev = now()
 
 	local name2cache = {}
 	for exp,index in pairs(cachemap) do

@@ -9,7 +9,7 @@ function typify(exp)
 
 local obj2sym = {
 	[','] = symbol.tupel,
-	['[]'] = X('→', 'nat', 'iets'),
+	['[]'] = X('→', 'nat', 'something'),
 	['{}'] = symbol.set,
 	['"'] = X('→', 'nat', 'letter'),
 	--['[]u'] = symbol.text,
@@ -24,7 +24,7 @@ for i,feit in ipairs(stdbron.a) do
 			assign(eq, X('→', 'nat', arg1(eq)))
 		end
 		if atom(eq) == 'lijst' then
-			assign(eq, X('→', 'nat', 'iets'))
+			assign(eq, X('→', 'nat', 'something'))
 		end
 	end
 			
@@ -83,7 +83,7 @@ end
 		__index = function(t,k) return _types[k] end;
 		__newindex = function(t,k,v)
 			v.var = v.var or makevar()
-			if false and k == 'uit' and hash(v) ~= 'iets' then
+			if false and k == 'uit' and hash(v) ~= 'something' then
 				assert(false)
 			end
 			local f = debug.traceback():gmatch(':(%d+):')
@@ -135,20 +135,20 @@ end
 			types[m] = t
 
 		elseif obj(exp) == '[]' then
-			local lijsttype = exp[1] and types[hash(exp[1])] or X'iets'
+			local lijsttype = exp[1] and types[hash(exp[1])] or X'something'
 			for i,sub in ipairs(exp) do
 				local subtype = assert(types[hash(sub)], 'no type for node '..hash(sub))
 				local fout
 				lijsttype,fout = typegraph:intersectie(subtype, lijsttype, sub) --moetzijn(lijsttype, subtype, sub)
 				if not lijsttype then
-					lijsttype = X'iets'
+					lijsttype = X'something'
 					errors[#errors+1] = fout
 				end
 				types[hash(sub)] = lijsttype
 			end
 
 			-- metamine ondersteunt geen gemixte lijsten; gebruik tupels!
-			if false and atom(lijsttype) == 'iets' then
+			if false and atom(lijsttype) == 'something' then
 				local fout = typifyfout(exp.loc, "type of {code} is uncertain", bron(exp))
 				errors[#errors+1] = fout
 			end
@@ -157,7 +157,7 @@ end
 			if #exp > 0 then
 				types[hash(exp)] = type
 			else
-				types[hash(exp)] = X('→', 'nat', 'iets')
+				types[hash(exp)] = X('→', 'nat', 'something')
 			end
 
 		-- min
@@ -168,12 +168,12 @@ end
 		-- vanaf: lijst(A), int → lijst(A)
 		elseif fname(exp) == 'vanaf' then
 			local A = hash(arg1(exp))
-			moetzijn(types[A], X(',', 'iets', 'iets'), exp)
+			moetzijn(types[A], X(',', 'something', 'something'), exp)
 
 			local lijst = types[A][1]
 			local index = types[A][2]
 
-			moetzijn(lijst, X('→', 'nat', 'iets'), lijst or exp)
+			moetzijn(lijst, X('→', 'nat', 'something'), lijst or exp)
 			moetzijn(index, X'int', lijst or exp)
 
 			types[hash(exp)] = lijst
@@ -182,12 +182,12 @@ end
 		-- tot: lijst(A), int → lijst(A)
 		elseif fname(exp) == 'tot' then
 			local A = hash(arg1(exp))
-			moetzijn(types[A], X(',', 'iets', 'iets'), exp)
+			moetzijn(types[A], X(',', 'something', 'something'), exp)
 
 			local lijst = types[A][1]
 			local index = types[A][2]
 
-			moetzijn(lijst, X('→', 'nat', 'iets'), lijst or exp)
+			moetzijn(lijst, X('→', 'nat', 'something'), lijst or exp)
 			moetzijn(index, X'int', lijst or exp)
 
 			types[hash(exp)] = lijst
@@ -196,13 +196,13 @@ end
 		-- deel: lijst(A), int, int → lijst(A)
 		elseif fname(exp) == 'deel' then
 			local A = hash(arg1(exp))
-			moetzijn(types[A], X(',', 'iets', 'iets', 'iets'), exp)
+			moetzijn(types[A], X(',', 'something', 'something', 'something'), exp)
 
 			local lijst = types[A][1]
 			local van = types[A][2]
 			local tot = types[A][3]
 
-			moetzijn(lijst, X('→', 'nat', 'iets'), lijst or exp)
+			moetzijn(lijst, X('→', 'nat', 'something'), lijst or exp)
 			moetzijn(van, X'int', lijst or exp)
 			moetzijn(tot, X'int', lijst or exp)
 
@@ -212,13 +212,13 @@ end
 		-- _(zip, (lijst, fn))
 		elseif fname(exp) == 'rits' then
 			local A = hash(arg1(exp))
-			moetzijn(types[A], X(',', 'iets', 'iets'), exp)
+			moetzijn(types[A], X(',', 'something', 'something'), exp)
 
 			local lijstA = types[A][1]
 			local lijstB = types[A][2]
 
-			moetzijn(lijstA, X('→', 'nat', 'iets'), lijst or exp)
-			moetzijn(lijstB, X('→', 'nat', 'iets'), lijst or exp)
+			moetzijn(lijstA, X('→', 'nat', 'something'), lijst or exp)
+			moetzijn(lijstB, X('→', 'nat', 'something'), lijst or exp)
 
 			local uittype = X(',', arg1(lijstA), arg1(lijstB))
 			types[hash(exp)] = X('→', 'nat', uittype)
@@ -253,13 +253,13 @@ end
 		-- _(map, (lijst, fn))
 		elseif fname(exp) == 'map' then
 			local A = hash(arg1(exp))
-			moetzijn(types[A], X(',', 'iets', 'iets'), exp)
+			moetzijn(types[A], X(',', 'something', 'something'), exp)
 
 			local lijst   = types[A][1]
 			local functie = types[A][2]
 
-			local intype = X'iets'
-			local uittype = X'iets'
+			local intype = X'something'
+			local uittype = X'something'
 
 			moetzijn(lijst, X('→', 'nat', intype), lijst)
 			moetzijn(functie, X('→', intype, uittype), functie)
@@ -269,12 +269,12 @@ end
 		-- _(filter, (lijst, fn))
 		elseif fname(exp) == 'filter' then
 			local A = hash(arg1(exp))
-			moetzijn(types[A], X(',', 'iets', 'iets'), exp)
+			moetzijn(types[A], X(',', 'something', 'something'), exp)
 
 			local lijst   = types[A][1]
 			local functie = types[A][2]
 
-			local intype = X'iets'
+			local intype = X'something'
 
 			moetzijn(lijst, X('→', 'nat', intype), lijst)
 			moetzijn(functie, X('→', intype, 'bit'), functie)
@@ -290,12 +290,12 @@ end
 			-- functie
 			local B = hash(f)
 
-			moetzijn(types[A], X('→', 'nat', 'iets'), arg0(exp))
+			moetzijn(types[A], X('→', 'nat', 'something'), arg0(exp))
 			local lijsttype = arg1(types[A])
-			moetzijn(types[B], X('→', lijsttype, 'iets'), arg1(exp))
+			moetzijn(types[B], X('→', lijsttype, 'something'), arg1(exp))
 
 			local lijsttype = arg1(types[A])
-			local uittype = arg1(types[B]) or X'iets'
+			local uittype = arg1(types[B]) or X'something'
 
 			moetzijn(types[A], X('→', 'nat', lijsttype), arg0(exp))
 			moetzijn(types[B], X('→', lijsttype, uittype), arg1(exp))
@@ -310,10 +310,10 @@ end
 		elseif fn(exp) == '×' then
 			local A = hash(arg0(exp))
 			local B = hash(arg1(exp))
-			moetzijn(types[A], X('→', 'nat', 'iets'), arg0(exp))
+			moetzijn(types[A], X('→', 'nat', 'something'), arg0(exp))
 			local lijsttypeA = arg1(types[A])
 
-			moetzijn(types[B], X('→', 'nat', 'iets'), arg1(exp))
+			moetzijn(types[B], X('→', 'nat', 'something'), arg1(exp))
 			local lijsttypeB = arg1(types[B])
 
 			--moetzijn(lijsttypeA, X'tupel', 
@@ -388,8 +388,8 @@ end
 			local A = hash(arg0(exp))
 			local B = hash(arg1(exp))
 
-			moetzijn(types[A], X('→', 'nat', 'iets'), exp)
-			moetzijn(types[B], X('→', 'nat', 'iets'), exp)
+			moetzijn(types[A], X('→', 'nat', 'something'), exp)
+			moetzijn(types[B], X('→', 'nat', 'something'), exp)
 
 			--print('CAT A', A, e2s(types[A]))
 			--print('CAT B', B, e2s(types[B]))
@@ -400,12 +400,12 @@ end
 			if not lijsttype then
 				local fout = typifyfout(exp.loc, "{code}: ongeldige concatenatie van {exp} en {exp}", bron(exp), lijsttypeA, lijsttypeB)
 				errors[#errors+1] = fout
-				lijsttype = X('→', 'nat', 'iets')
+				lijsttype = X('→', 'nat', 'something')
 			end
 
 			--print("CAT", deparse(lijsttypeA), deparse(lijsttypeB), deparse(lijsttype))
 
-				--lijsttype = X('→', 'nat', 'iets')
+				--lijsttype = X('→', 'nat', 'something')
 			types[hash(exp)] = lijsttype
 
 		elseif fn(exp) == '=' or fn(exp) == ':=' then
@@ -429,7 +429,7 @@ end
 			local B = types[hash(arg1(exp))]
 
 			moetzijn(A, symbol.bit, arg0(exp))
-			types[hash(exp)] = X'iets'
+			types[hash(exp)] = X'something'
 
 		elseif fn(exp) == '⇒' then
 			local A = types[hash(arg0(exp))]
@@ -449,8 +449,8 @@ end
 		elseif fn(exp) == '∘' then
 			local A = types[hash(arg0(exp))]
 			local B = types[hash(arg1(exp))]
-			local anyfuncA = X('→', 'iets', 'iets')
-			local anyfuncB= X('→', 'iets', 'iets')
+			local anyfuncA = X('→', 'something', 'something')
+			local anyfuncB= X('→', 'something', 'something')
 
 			moetzijn(A, anyfuncA, arg0(exp))
 			moetzijn(B, anyfuncB, arg1(exp))
@@ -483,8 +483,8 @@ end
 			types[hash(exp)] = compositie
 
 		elseif false and fn(exp) == '_f' and atom(arg0(exp)) == 'vouw' then
-			types['vouw'] = X'functie'
-			types[hash(exp)] = X'iets'
+			types['fold'] = X'functie'
+			types[hash(exp)] = X'something'
 
 		---------- linq
 		-- vouw: lijst(A), (A,A → B) → lijst(B)
@@ -492,8 +492,8 @@ end
 			local expargs = types[hash(arg1(exp))]
 
 			--print('expargs1', deparse(expargs))
-			local anya = X'iets'
-			local anyb = X'iets'
+			local anya = X'something'
+			local anyb = X'something'
 			local lijsta = X('→', 'nat', anya)
 			local anyfunc = X('→', X(',', anya, anya), anyb)
 
@@ -552,7 +552,7 @@ end
 			assert(functype)
 			assert(argtype)
 
-			local returntype = X'iets' --X(color.green..'iets'..color.white)
+			local returntype = X'something' --X(color.green..'something'..color.white)
 
 			moetzijn(functype, X('→', argtype, returntype), exp)
 			types[hash(arg0(exp))] = functype
@@ -579,18 +579,18 @@ end
 				if not n then
 					local fout = typifyfout(exp.loc, "tupels kunnen niet dynamic worden geïndexeerd", bron(exp))
 					errors[#errors+1] = fout
-					returntype = X'iets'
+					returntype = X'something'
 				else
 					returntype = functype[n+1]
 				end
 
 			else
 
-				local anyfunc = X('→', 'iets', 'iets')
+				local anyfunc = X('→', 'something', 'something')
 				--moetzijn(functype, anyfunc, arg0(exp))
 
 				if fn(functype) ~= '→' then
-					returntype = X'iets'
+					returntype = X'something'
 
 				else
 					--print('FUNCTYPE', deparse(functype))
@@ -608,7 +608,7 @@ end
 				errors[#errors+1] = fout
 				--error(C(functype))
 				--returntype = typegraph:maaktype(X'fout')
-				returntype = X'iets'
+				returntype = X'something'
 				]]
 
 			end
@@ -674,7 +674,7 @@ end
 			if isvar(m) then
 				error'OK'
 			end
-			types[m] = types[m] or X'iets'
+			types[m] = types[m] or X'something'
 
 		end
 
@@ -686,7 +686,7 @@ end
 
 	-- is alles getypifyd?
 	for hash,exps in pairs(perhash) do
-		if false and (not types[hash] or _G.hash(types[hash]) == 'iets')
+		if false and (not types[hash] or _G.hash(types[hash]) == 'something')
 				and not std[hash]
 				and not typegraph.types[hash]
 				then

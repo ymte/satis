@@ -89,7 +89,7 @@ function doe(sfc, stack, arg0, arg1, arg2, arg3)
 			stack[#stack] = nil
 			stack[#stack] = r
 
-		elseif atom(ins) == 'niets' then
+		elseif atom(ins) == 'nothing' then
 			stack[#stack+1] = 0
 
 		elseif atom(ins) == 'lus' then
@@ -224,7 +224,7 @@ function doe(sfc, stack, arg0, arg1, arg2, arg3)
 		elseif atom(ins) == 'dup' then
 			stack[#stack+1] = stack[#stack]
 
-		elseif atom(ins) == 'vierkant' then
+		elseif atom(ins) == 'square' then
 			--sdl2.renderfillrect
 			local x = stack[#stack]
 			stack[#stack] = nil
@@ -235,11 +235,11 @@ function doe(sfc, stack, arg0, arg1, arg2, arg3)
 			local r = stack[#stack]
 			print("R", r)
 			stack[#stack] = function(args)
-				return "vierkant("..x..","..y..","..r..")"
+				return "square("..x..","..y..","..r..")"
 			end
 
 		else
-			error('weet niet hoe te doen: '..deparse(ins))
+			error("don't know how to do: "..deparse(ins))
 		end
 
 		if opt and opt.L then
