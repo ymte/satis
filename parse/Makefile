@@ -1,10 +1,13 @@
 linux: parse.so
+macos: parse_macos.so
 
 parse.so: lua.c .lex.yy.h .lex.yy.c .lang.yy.h .lang.yy.c
 	mkdir -p bin
 	gcc -g -Wall -Wno-unused -std=c11 -shared -I/usr/include/lua5.1 -o bin/parse.so -fPIC lua.c .lang.yy.c .lex.yy.c -Wno-multichar
-	#gcc -g -Wall -Wno-unused -std=c11 -shared -I/usr/local/opt/brew/Cellar/lua/5.5.0/include/lua -llua5.5 -o bin/parse.so -fPIC lua.c .lang.yy.c .lex.yy.c -Wno-multichar
-	ln -sf bin/parse.so .
+	
+parse_macos.so: lua.c .lex.yy.h .lex.yy.c .lang.yy.h .lang.yy.c
+	mkdir -p bin
+	gcc -g -Wall -Wno-unused -std=c11 -shared -I/usr/local/opt/brew/Cellar/lua/5.5.0/include/lua -llua5.5 -o bin/parse_macos.so -fPIC lua.c .lang.yy.c .lex.yy.c -Wno-multichar
 
 test: test.c lua.c .lang.yy.h .lang.yy.c .lex.yy.h .lex.yy.c
 	mkdir -p bin

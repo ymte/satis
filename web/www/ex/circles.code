@@ -1,0 +1,4 @@
+out = draw shapes
+shapes = (0..10) map (x → sq)
+pos = (50,50) + 40 · sincos (now+x·τ/10)
+sq = circle(pos,10) paint color.green

@@ -57,7 +57,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		// tekening
 		'cirkel', 'rechthoek', "vierkant", "lijn", "label", "boog", "polygoon",
 		'map', 'zip', 'rits', 'vouw', 'filter', 'getal',
-		'sin', "cos", "tan", 'atan',
+		'sin', "cos", "tan", 'atan', 'sincos',
 		'abs', 'mod',
 		'max', 'min', 'klem', 'maxindex',
 
@@ -74,7 +74,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 
 		// muis
 		'mouse.x', 'mouse.y', 'mouse.pos', 'mouse.moves',
-		'mouse.click', 'mouse.click.begin', 'mouse.click.eind',
+		'mouse.click', 'mouse.click.begin', 'mouse.click.end',
 
 		// keyboard
 		'toets.w', 'toets.a', 'toets.s', 'toets.d',
@@ -97,6 +97,8 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		// drawing
 		"draw", "render",
 		"circle", "rectangle", "square", "line", "label", "arc", "polygon", "map", "zip", "fold", "sin", "cos", "tan", "abs",
+		"color.black", "color.red", "color.yellow", "color.green", "color.cyan", "color.purple", "color.white", "color.orange", "color.lime", "color.blue", "color.gray",
+
   ]);
 	var keywords = wordRE([
 		"als","dan","andersals", "anders","eind",

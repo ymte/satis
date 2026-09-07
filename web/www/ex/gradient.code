@@ -1,0 +1,4 @@
+pos = 0..200 × 0..100
+circles = pos map (x,y → c)
+c = circle(x,y,1) paint (x/200,y/100,x/100)
+out = draw circles
