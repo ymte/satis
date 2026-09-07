@@ -12,6 +12,7 @@ screen.height = 100
 clamp = clampV,clampL,clampH → min(max(clampV,clampL),clampH)
 screen.middle = (screen.width/2,50)
 screen.size = (screen.width,100)
+screen.origin = (0,0)
 
 maxindex = maxindexL → reduceer(0, maxindexL, (maxindexA,maxindexB → (⇒)(((maxindexL maxindexA) > (maxindexL maxindexB)), maxindexA, maxindexB)))
 

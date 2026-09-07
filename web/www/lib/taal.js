@@ -50,7 +50,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		'text', 'int', 'runtime', 'now',
 		'fold', 'oval',
 		'sort', 'from', 'til', 'slice', 'find',
-		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint', 'screen.middle', 'screen.size',
+		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint', 'screen.middle', 'screen.size', 'screen.origin',
 		'teken', 'render', 'rgb',
 		'grab', 'choose', 'type', 'flatten', 'canvas.fontsize', 'split',
 		'jsonencode', 'jsondecode',
@@ -74,7 +74,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		"polygon", "map", "zip", "fold", "sin", "cos", "tan", "abs",
 		"color.black", "color.red", "color.yellow", "color.green",
 		"color.cyan", "color.purple", "color.white", "color.orange",
-		"color.lime", "color.blue", "color.gray",
+		"color.lime", "color.blue", "color.gray", 'color.brown',
 
   ]);
 	var keywords = wordRE([

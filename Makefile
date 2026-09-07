@@ -15,6 +15,7 @@ parse.so: parse/lex.l parse/lang.y parse/lua.c
 
 parse_macos.so: parse/lex.l parse/lang.y parse/lua.c
 	cd parse; make macos
+	cp parse/bin/parse_macos.so parse_macos.so
 	cp parse/bin/parse_macos.so parse.so
 
 windows:

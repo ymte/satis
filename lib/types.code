@@ -41,22 +41,22 @@ superrender: something, texture, sprog, int → something
 
 ; lol/lijst
 grab: lijst, int → something
-splits: lijst, something → lijst
+split: lijst, something → lijst
 append: lijst, something → lijst
 prepend: lijst, something → lijst
-componeer: (nat → functie) → functie
+compose: (nat → functie) → functie
 
 ; net
 socket: int
 tcp.bind: int, int → socket
-tcp.accepteer: socket → lijst socket
-tcp.schrijf: socket, lijst byte → socket
-tcp.lees: socket → lijst byte
+tcp.accept: socket → lijst socket
+tcp.write: socket, lijst byte → socket
+tcp.read: socket → lijst byte
 
-willekeurig: getal,getal → getal
+random: getal,getal → getal
 download: (nat → letter) → (nat → letter)
 
-misschien: bit
+maybe: bit
 (!): int → int
 ;(×): lijst, lijst → lijst
 
@@ -67,10 +67,10 @@ tupel: verzameling
 zak: verzameling
 
 ; webspecifiek
-vorm: functie
+shape: functie
 html: lijst(letter) → lijst(letter)
 consoleLog: lijst(letter) → bit
-tekst: something → lijst(letter)
+text: something → lijst(letter)
 ;model: lijst(getal), lijst(getal) → something
 
 setcontext: functie
@@ -80,9 +80,8 @@ zdraai: getal → (nat → (nat → getal))
 verplaats: getal,getal,getal → (nat → (nat → getal))
 schaal: getal,getal,getal → (nat → (nat → getal))
 
-;teken: (nat → functie) → functie
-teken: (nat → functie) → functie
-verf: functie, (getal,getal,getal) → functie
+draw: (nat → functie) → functie
+paint: functie, (getal,getal,getal) → functie
 rgb: (getal, getal, getal) → (getal, getal, getal)
 
 ;vierkant: (ℝ,ℝ),ℝ → vorm
@@ -90,7 +89,7 @@ rgb: (getal, getal, getal) → (getal, getal, getal)
 ;ovaal: ((ℝ,ℝ), ℝ, ℝ, ℝ) → functie
 ;boog: ((ℝ,ℝ),ℝ,ℝ,ℝ) → vorm
 ;rechthoek: (ℝ,ℝ),(ℝ,ℝ) → vorm
-lijn: (nat → getal,getal) → functie
+line: (nat → getal,getal) → functie
 newindex: lijst, nat, something → lijst
 newindex2: lijst, nat, something → lijst
 ;label: something → functie
@@ -137,7 +136,7 @@ filter: lijst, (something→bit) → lijst
 
 ; lijst
 (×) : lijst, lijst → lijst
-;(‖) :  lijst, lijst → lijst
+(‖) :  lijst, lijst → lijst
 (∘) : functie, functie → functie
 (|) : lijst → something
 (=) :  (something, something) → bit 
