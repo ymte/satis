@@ -4,14 +4,16 @@ main = (in.vars, start, nu, setcontext, setcontext3d, scherm.breedte, scherm.ver
 
 id = X → X
 
-als start dan
+if start then
 	mainuit = in.startvars,niets ;(uit.vars, uit)
-anders
+else
 	mainuit = uit.vars, uit
-eind
+end
 
-scherm.hoogte = 100
+screen.height = 100
 klem = V,L,H → min(max(V,L),H)
+screen.middle = (screen.width/2,50)
+screen.size = (screen.width,100)
 
 ; linq helpers
 ;maxindex = M → ((0..#M) zip M vouw Mfunc)₀

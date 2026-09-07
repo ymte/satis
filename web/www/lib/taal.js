@@ -67,7 +67,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		'text', 'int', 'runtime', 'now',
 		'fold', 'oval',
 		'sort', 'from', 'til', 'slice', 'find',
-		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint',
+		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint', 'screen.middle', 'screen.size',
 		'teken', 'render', 'rgb',
 		'grab', 'choose', 'type', 'flatten', 'canvas.fontsize', 'split',
 		'jsonencode', 'jsondecode',
