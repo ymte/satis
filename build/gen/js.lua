@@ -634,7 +634,7 @@ local noops = {
 		});
 	}]],
 
-	['canvas.clear'] = '(function(c) { c.clearRect(0,0,1900,1200); return c; })',
+	['canvas.clear'] = '(function(c) { c.clearRect(0,0,window.screen.width,window.screen.height); return c; })',
 
 	['sign'] = '$1 > 0 ? 1 : -1',
 	['mod'] = '(x,y) => x < 0 ? (x % y + y) % y : x % y',
