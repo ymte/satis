@@ -45,6 +45,28 @@
 			<img width="400px" src="/coord.png"></img>
 		</div>
 
+		<h2>If-statements</h2>
+		We can use regular if-statements when desired by using them in the following way.
+		<pre>
+			if runtime &lt; 5 then
+				out = "soon"
+			else
+				out = "later"
+			end
+		</pre>
+
+		This program will first display "soon", and after five seconds "later".
+
+		<h2>Variables</h2>
+		We can define variables that change when something happens using the following syntax.
+		<pre>
+			out := 0
+			if mouse.click.begin then
+				out := out + 1
+			end
+		</pre>
+		This program will output the number of clicks in the output pane. Note that the first assignment is outside any if-block and will be executed at the start of the program.
+
 		<h2>Controls</h2>
 		The forward and backward buttons are meant to navigate the various examples. When editing the code it will be stored in local storage so it survives page refreshes.
 
