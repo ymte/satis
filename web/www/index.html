@@ -27,7 +27,7 @@
 <div id="uit" tabIndex="2" >
 </div>
 
-<div class="debug"><input id="debug" type="checkbox" onclick="debugChange()"></input> debug </div>
+<!--div class="debug"><input id="debug" type="checkbox" onclick="debugChange()"></input> debug </div-->
 <div style="height:5; display: inline;"><a href="/cataloog.html">Catalogus</a></div>
 
 </body>
@@ -68,7 +68,7 @@
 	var wraps = document.getElementsByClassName("CodeMirror-wrap");
 
 	// fotos
-	var debug = document.getElementById('debug');
+	//var debug = document.getElementById('debug');
 	var naam;
 
 	function debugChange() {
@@ -119,8 +119,8 @@
 		speelknop.style.backgroundColor = '#000E42';
 		
 		var path = '/vt';
-		if (debug.checked)
-			path = '/vt/debug';
+		//if (debug.checked)
+		//	path = '/vt/debug';
 
 		var broncode = editor.getValue();
 		if (!broncode)
