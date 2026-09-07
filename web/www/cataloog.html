@@ -23,7 +23,7 @@
 			<pre>
 				out = runtime
 			</pre>
-			This program will display an increasing timer on the left.
+			This program will display an increasing timer on the right.
 
 			We can also draw shapes using the function "draw". This function takes one or more shapes and outputs them in a freshly constructed canvas.
 
@@ -162,22 +162,20 @@
 			<tr> <td>draw</td> <td>vorm of vormen</td> <td>Tekent een lijst van <b>vormen</b>. Mogelijke vormen zijn <b>cirkel</b>, <b>vierkant</b>, <b>rechthoek</b>, <b>polygoon</b>, <b>boog</b>, <b>lijn</b>, <b>label</b>. </td> </tr>
 			<tr> <td>tekst</td> <td>a</td> <td>Converteert <b>a</b> naar tekst. <pre>tekst([1,2,3]) = "1,2,3"</pre></td> </tr>
 
-			<tr> <td>out</td> <td></td> <td>De uitvoer van het programma. Dit moet je definiëren in je code, bijvoorbeeld "out = 3".</td> </tr>
 			<tr> <td>polygon</td> <td>punten</td> <td>Teken een polygoon aangegeven door een lijst van punten</td> </tr>
 			<tr> <td>rectangle</td> <td>x1, y1, x2, y2</td> <td>Teken een rechthoek tussen <b>(x,y)</b> en <b>(x2,y2)</b></td> </tr>
 			<tr> <td>rgb</td> <td>r, g, b</td> <td>Maakt een kleur van de componenten rood (<b>r</b>), groen (<b>g</b>), blauw (<b>b</b>) </td> </tr>
 			<td>
 			<tr> <td>paint</td> <td>vorm, kleur</td> <td>Verft een vorm <b>vorm</b> in de kleur <b>kleur</b></td> </tr>
-			<tr> <td>vierkant</td> <td>x, y, r</td> <td>Teken een vierkant op positie <b>(x,y)</b> met hoogte <b>r</b></td> </tr>
+			<tr> <td>square</td> <td>x, y, r</td> <td>Teken een vierkant op positie <b>(x,y)</b> met hoogte <b>r</b></td> </tr>
 
 			<tr> <td>canvas.fontsize</td> <td>tekst, fontsize</td>  <td>Tekent <b>tekst</b> met grootte <b>fontsize</b> </td> </tr>
 			<tr> <td>fout</td> <td> </td>  <td>Representeert een fout.</td> </tr>
-			<tr> <td>∅</td> <td> </td>  <td>Een lege lijst.</td> </tr>
 			<tr> <td>render</td> <td> </td>  <td>todo</td> </tr>
-			<tr> <td>sorteer</td> <td>lijst</td>  <td>Sorteert de <b>lijst</b>.</td> </tr>
-			<tr> <td>tot</td> <td>a, index</td> <td>Returnt een lijst met alle elementen in lijst <b>a</b> tot <b>index</b> </td>  </tr>
-			<tr> <td>vanaf</td> <td>a, index</td> <td>Returnt een lijst met alle elementen in lijst <b>a</b> vanaf <b>index</b> </td>  </tr>
-			<tr> <td>deel</td> <td>lijst, (van, tot)</td> <td>Returnt een sublijst van <b>lijst</b>, beginnent van <b>van</b> en tot <b>tot</b> </td>  </tr>
+			<tr> <td>sort</td> <td>lijst</td>  <td>Sorteert de <b>lijst</b>.</td> </tr>
+			<tr> <td>util</td> <td>a, index</td> <td>Returnt een lijst met alle elementen in lijst <b>a</b> tot <b>index</b> </td>  </tr>
+			<tr> <td>to</td> <td>a, index</td> <td>Returnt een lijst met alle elementen in lijst <b>a</b> vanaf <b>index</b> </td>  </tr>
+			<tr> <td>slice</td> <td>lijst, (van, tot)</td> <td>Returnt een sublijst van <b>lijst</b>, beginnent van <b>van</b> en tot <b>tot</b> </td>  </tr>
 			<tr> <td>random</td> <td>laag, hoog</td>  <td>Genereert een willekeurig getal tussen <b>laag</b> en <b>hoog</b> </td> </tr>
 			<tr> <td>scherm.ververst</td> <td> </td>  <td>Is <b>ja</b> op het moment dat het beeldscherm ververst (meestal 60x per seconde), en anders <b>nee</b> </td> </tr>
 			<tr> <td>grab</td> <td>lijst</td>  <td>Pakt een willekeurig element uit de <b>lijst</b> </td> </tr>
@@ -219,7 +217,11 @@
 			<tr> <th><b>Name</b></th> <th><b>Description</b></th></th>
 			<tr> <td>τ</td>  <td>Two times pi. Type with "tau".</td> </tr>
 			<tr> <td>runtime</td>  <td>De looptijd van het programma, in seconden, precies tot op een milliseconde. Als de app start is dit 0.</td> </tr>
+			<tr> <td>out</td>  <td>De uitvoer van het programma. Dit moet je definiëren in je code, bijvoorbeeld "out = 3".</td> </tr>
 			<tr> <td>now</td>  <td>Number of seconds since 1970.</td> </tr>
+			<tr> <td>yes</td>  <td>Boolean true</td> </tr>
+			<tr> <td>no</td>  <td>Boolean false</td> </tr>
+			<tr> <td>maybe</td>  <td>Randomly true or false</td> </tr>
 			<tr>
 				<td>screen.origin</td>
 				<td>Down left corner of the screen</td>
