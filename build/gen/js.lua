@@ -436,7 +436,7 @@ local noops = {
 	['sort'] = '(function(a){ return a[0].sort(function (c,d) { return a[1]([c, d]); }); })',
 	['floor'] = 'Math.floor',
 	['round']       = 'Math.round',
-	['ceiling'] = 'Math.ceil',
+	['ceil'] = 'Math.ceil',
 	['random'] = '(x, y) => Math.random()*(y-x) + x',
 	['int'] = 'Math.floor',
 	['abs'] = 'Math.abs',

@@ -37,17 +37,9 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		'jsonencodeer', 'jsondecodeer',
 		'id',
 
-		// tekening
-		'cirkel', 'rechthoek', "vierkant", "lijn", "label", "boog", "polygoon",
-		'map', 'zip', 'rits', 'vouw', 'filter', 'getal',
-		'sin', "cos", "tan", 'atan', 'sincos', 'cossin',
-		'abs', 'mod',
-		'max', 'min', 'klem', 'maxindex',
-
-
 		// engels
 		'none', 'out', 'yes', 'no', 'error',
-		'text', 'int', 'runtime', 'now',
+		'text', 'int', 'floor', 'ceil', 'runtime', 'now',
 		'fold', 'oval',
 		'sort', 'from', 'til', 'slice', 'find',
 		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint', 'screen.middle', 'screen.size', 'screen.origin',

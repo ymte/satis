@@ -1,0 +1,2 @@
+out = draw sq
+sq = square(0,0,10)
