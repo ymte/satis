@@ -2,13 +2,13 @@ linux: parse.so
 macos: parse_macos.so
 
 deploy: parse.so web/www/
-	scp -r web/www/* metamine.nl:/var/www/html/
+	scp -r www/* satislang.org:/var/www/
 
 run: linux
-	lua web/service.lua
+	lua service.lua
 
 run_macos: macos
-	lua web/service.lua
+	lua service.lua
 
 parse.so: parse/lex.l parse/lang.y parse/lua.c
 	cd parse; make linux

@@ -19,7 +19,10 @@ function socket.bind(...)
 	return sock
 end
 local server = socket.bind('127.0.0.1',1237)
-assert(server, 'serverpoort 1237 is niet beschikbaar')
+if not server then
+	print('serverpoort 1237 is niet beschikbaar')
+	return
+end
 local sockets = {server}
 local coros = {}
 
@@ -55,8 +58,7 @@ function vt(code, isdebug)
 	local icode,fouten,name2index = compile(code, isdebug)
 	local na = socket.gettime()
 	local delta = math.floor((na - voor) * 1000)
-	local speed = math.floor(#code / delta)
-	print(#code..' bytes in '..delta..'ms ('..speed ..' kB/s)')
+	print(#code..' bytes in '..delta..'ms')
 	local js = ''
 	if icode then
 		js = jsgen(icode)
@@ -178,14 +180,15 @@ From: vraag@metamine.nl
 
 	-- LEES!
 	else
-    pad = pad:gsub('%.%.', '%.')
+		pad = pad:gsub('%.%.', '%.')
 		pad = pad:match('([^?]+)%?') or pad
 		if pad == '/' then pad = '/index.html' end
-    pad = 'web/www' .. pad
+		pad = 'www' .. pad
 		uit = file(pad)
-		status = 200
-		if not uit then
-			uit = 'pagina niet gevonden'
+		if uit then
+			status = 200
+		else
+			uit = 'page not found'
 			status = 404
 			print('404', pad)
 		end
