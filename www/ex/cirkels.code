@@ -9,9 +9,9 @@ dy = y - mouse.y
 dst = √(dx²+dy²)
 
 ; is the block on (x,y) on?
-ison(x,y) = golf < sin(runtime)+2
+on(x,y) = golf < sin(runtime)+2
 golf = (runtime·10 - dst) mod 5
-blocks = pos filter isaan
+blocks = pos filter on
 
 ; blocks
 shape = square(a·1,b·1,1) paint color
