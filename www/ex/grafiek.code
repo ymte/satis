@@ -1,15 +1,15 @@
-; twee grafieken
+; two graphs
 
-f = c → 50 + 1 · (c mod (20 + mouse.x/10)) mod (c mod runtime)
-g = d → 50 + 20 · sin ((1.01^d) · runtime/10)
+f(c) = 50 + 1 · (c mod (20 + mouse.x/10)) mod (c mod runtime)
+g(d) = 50 + 20 · sin ((1.01^d) · runtime/10)
 
 x = 0..200
 y1 = x map f
 y2 = x map g
 
-punten1 = x zip y1
-punten2 = x zip y2
-grafiek1 = paint(line(punten1), color.red)
-grafiek2 = paint(line(punten2), color.green)
+points1 = x zip y1
+points2 = x zip y2
+graph1 = paint(line(points1), color.red)
+graph2 = paint(line(points2), color.green)
 
-out = draw [grafiek1, grafiek2]
+out = draw [graph1, graph2]

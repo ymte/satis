@@ -1,5 +1,6 @@
 posA = screen.middle + 30·sincos(i/6·τ)
 posB = screen.middle + 30·sincos((i+1)/6·τ)
-rectangles = (0..6 + runtime) map (i → rectangle(posA,posB))
+rectangles = (0..6 + runtime) map rect
+rect(i) = rectangle(posA,posB)
 out = draw rectangles
 

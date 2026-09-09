@@ -1,5 +1,5 @@
 ; displays primes under 20
-isprime = x → ⋀ range map hasrest
+isprime(x) = ⋀ range map hasrest
 range = 2 .. √(x + 1)
-hasrest = n → (x mod n ≠ 0)
+hasrest(n) = (x mod n ≠ 0)
 out = (2..20) filter isprime
