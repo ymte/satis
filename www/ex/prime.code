@@ -1,4 +1,4 @@
 isprime = x → ⋀ range map hasrest
 range = 2 .. √(x + 1)
 hasrest = n → (x mod n ≠ 0)
-out = isprime(17), isprime(16), isprime (99999199999)
+out = (2..20) filter isprime

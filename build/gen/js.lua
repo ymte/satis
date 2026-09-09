@@ -788,6 +788,7 @@ local binops = {
 	['/'] = '$1 / $2',
 	['^'] = '$1 ^ $2',
 	['..2'] = '$1 == $2 ? [] : ($1 <= $2 ? Array.from(new Array(Math.max(0,Math.floor($2 - $1))), (x,i) => $1 + i) : Array.from(new Array(Math.max(0,Math.floor($1 - $2))), (x,i) => $1 - 1 - i))',
+	['xor'] = '[false,true][$1 ^ $2]',
 
 	-- componeer
 	['∘'] = '((f,g) => (x,y,z,w) => g(f(x,y,z,w)))($1,$2)',

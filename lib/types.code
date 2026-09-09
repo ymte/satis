@@ -121,8 +121,8 @@ stdout.write: lijst(letter) → int
 app: something
 
 bit: something
-ja: bit
-nee: bit
+yes: bit
+no: bit
 
 ; functie
 something → something: functie

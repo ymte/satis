@@ -73,7 +73,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
   ]);
 	var keywords = wordRE([
 		"if","then","elseif","else","end",
-		"en", "of", "and", "or", "xof", "nor",
+		"and", "or", "xor",
 	]);
 
   var indentTokens = wordRE(["then"]);
