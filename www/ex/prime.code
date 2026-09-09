@@ -1,3 +1,4 @@
+; displays primes under 20
 isprime = x → ⋀ range map hasrest
 range = 2 .. √(x + 1)
 hasrest = n → (x mod n ≠ 0)

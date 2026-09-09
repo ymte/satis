@@ -677,8 +677,10 @@ local unops = {
 
 	-- som
 	['Σ'] = [[var sum = 0; for (var i = 0; i < $1.length; i++) sum = sum + $1[i]; $1 = sum;]],
-	['⋀'] = [[var sum = true; for (var i = 0; i < $1.length; i++) sum = sum && $1[i]; $1 = sum;]],
-	['⋁'] = [[var sum = false; for (var i = 0; i < $1.length; i++) sum = sum || $1[i]; $1 = sum;]],
+	-- AND
+	['⋀'] = [[var all = true; for (var i = 0; i < $1.length; i++) if (!$1[i]) {all = false; break; } $1 = all;]],
+	-- OR
+	['⋁'] = [[var any = false; for (var i = 0; i < $1.length; i++) if ($1[i]) {any = true; break; } $1 = any;]],
 	['|'] = 'for (var i = 0; i < $1.length; i++) if ($1[i] != null) { $1 = $1[i]; break; }',
 	['-'] = 'var $1 = -$1;',
 }
