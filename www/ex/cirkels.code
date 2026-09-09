@@ -9,7 +9,7 @@ dy = y - mouse.y
 dst = √(dx²+dy²)
 
 ; is the block on (x,y) on?
-isaan = (x,y) → golf < sin(runtime)+2
+isaan(x,y) = golf < sin(runtime)+2
 golf = (runtime·10 - dst) mod 5
 blocks = pos filter isaan
 

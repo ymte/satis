@@ -108,6 +108,60 @@ function solve(exp, voor, isdebug)
 		end
 	end
 
+	-- herschrijf (f(x) = x^2) naar
+	-- f = x -> x^2
+	-- =(call(f x) ^(~x 2))
+	for eq in pairs(eqs) do
+		--if iseq(eq) and isatom(
+		if isfn(eq) and fn(eq) == '=' then
+			if isfn(eq.a[1]) and fn(eq.a[1]) == 'call' then
+				if isatom(eq.a[1].a[1]) then
+					local funcname = eq.a[1].a[1]
+					local argname = eq.a[1].a[2]
+					local funcbody = eq.a[2]
+					local neq = X('=', funcname, X('→', argname, funcbody))
+					nieuw[neq] = true
+				end
+			end
+			if isfn(eq.a[1]) and fn(eq.a[1]) == 'call2' then
+				if isatom(eq.a[1].a[1]) then
+					local funcname = eq.a[1].a[1]
+					local argname1 = eq.a[1].a[2]
+					local argname2 = eq.a[1].a[3]
+					local args = X(',', argname1, argname2)
+					local funcbody = eq.a[2]
+					local neq = X('=', funcname, X('→', args, funcbody))
+					nieuw[neq] = true
+				end
+			end
+			if isfn(eq.a[1]) and fn(eq.a[1]) == 'call3' then
+				if isatom(eq.a[1].a[1]) then
+					local funcname = eq.a[1].a[1]
+					local argname1 = eq.a[1].a[2]
+					local argname2 = eq.a[1].a[3]
+					local argname3 = eq.a[1].a[4]
+					local args = X(',', argname1, argname2, argname3)
+					local funcbody = eq.a[2]
+					local neq = X('=', funcname, X('→', args, funcbody))
+					nieuw[neq] = true
+				end
+			end
+			if isfn(eq.a[1]) and fn(eq.a[1]) == 'call4' then
+				if isatom(eq.a[1].a[1]) then
+					local funcname = eq.a[1].a[1]
+					local argname1 = eq.a[1].a[2]
+					local argname2 = eq.a[1].a[3]
+					local argname3 = eq.a[1].a[4]
+					local argname4 = eq.a[1].a[5]
+					local args = X(',', argname1, argname2, argname3, argname4)
+					local funcbody = eq.a[2]
+					local neq = X('=', funcname, X('→', args, funcbody))
+					nieuw[neq] = true
+				end
+			end
+		end
+	end
+
 	-- herschrijf (a(b) = c) naar
 	-- bMeer = alle(b)
 	-- a = b map (bMeer → c)
