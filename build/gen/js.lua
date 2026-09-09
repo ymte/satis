@@ -673,7 +673,7 @@ local unops = {
 	['%'] = 'var $1 = $1 / 100;',
 	['¬'] = 'var $1 = ! $1;',
 	['-v'] = 'var $1 = $1.map(x => -x);',
-	['!'] = 'var $1 = num; for (var i = num - 1; i >= 1; i--) $1 *= i;',
+	['!'] = 'var tmp = $1; var $1 = tmp; for (var i = tmp - 1; i >= 1; i--) $1 *= i;',
 
 	-- som
 	['Σ'] = [[var sum = 0; for (var i = 0; i < $1.length; i++) sum = sum + $1[i]; $1 = sum;]],

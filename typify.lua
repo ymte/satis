@@ -223,8 +223,8 @@ end
 			local uittype = X(',', arg1(lijstA), arg1(lijstB))
 			types[hash(exp)] = X('→', 'nat', uittype)
 
-		-- _(reduceer, (init, lijst, func))
-		elseif fname(exp) == 'reduceer' then
+		-- _(reduce, (init, lijst, func))
+		elseif fname(exp) == 'reduce' then
 			local redarg = arg1(exp)
 			local I = hash(redarg[1])
 			local L = hash(redarg[2])
@@ -236,7 +236,7 @@ end
 
 			local itemtype = arg1(lijsttype) or arg1(functype)
 
-			-- reduceer(I, (N→B), (I,B → I))
+			-- reduce(I, (N→B), (I,B → I))
 			-- I@1 = I@3
 			-- I@3 = I@3
 			-- B@2 = B@3

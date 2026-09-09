@@ -1,8 +1,3 @@
-#vlag {
-	width: 100px;
-	float: right;
-	display: inline;
-}
 
 #vraag {
 	background: #224;
@@ -50,7 +45,7 @@ td:nth-child(1) {
 		height: 95vh;
 	}
 	button {
-		width: 20%;
+		width: 16.66%;
 	}
 	textarea {
 		width: 100%;
@@ -99,7 +94,7 @@ td:nth-child(1) {
 	}
 
 	button {
-		width: 10.01%;
+		width: 8.5%;
 	}
 
 	textarea {
@@ -173,7 +168,7 @@ button:active {
 html, body {
 	background: #050070;
 	color: white;
-	font-family: Impact, Charcoal, sans-serif;
+	font-family: ans-serif;
 	font-size: 16px;
 	margin: 0px;
 	padding: 0px;

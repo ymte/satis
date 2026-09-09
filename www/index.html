@@ -13,9 +13,8 @@
 	<button id="pause" onclick="paused = !paused;">⏸︎</button>
 	<button id="speel">▶</button>
 	<button id="fullscreen" onclick="fullscreen()">⇲</button><!--⛶-->
+	<button id="download" onclick="download()">💾</button><!--⛶-->
 	<button id="volgende" class="skip">⏭</button>
-	<!--<button id="opnieuw">⟲</button>-->
-	<!--<button id="info">🛈</button>-->
 </div>
 
 <!-- in -->
@@ -49,9 +48,10 @@
 	var demoindex = 0;
 	var demos = [
 		'hello', 'timer', 'square',
-		'gradient', 'circles', 'salvobal', 'pong', 'cirkels',
+		'gradient', 'circles', 'cirkels',
 		'sierpinski',
 		'paint', 'paint2', 'grafiek',
+		'salvobal', 'pong', 
 		'leip', 'oog',
 	];
 	var uit = document.getElementById('uit');
@@ -83,9 +83,9 @@
 		if (typeof(obj) == "string") {
 			return obj;
 		} else if (obj === true) {
-			return "ja";
+			return "yes";
 		} else if (obj === false) {
-			return "nee";
+			return "no";
 		} else if (typeof(obj) == "function") {
 			return '<pre>' + obj.toString() + '</pre>';
 		} else if (obj == null) {
@@ -106,7 +106,7 @@
 			if (obj)
 				return obj.toString();
 			else
-				return 'niets';
+				return 'nothing';
 		}
 	}
 
@@ -132,7 +132,7 @@
 			.then(x => {
 				if (!x.ok) 
 				{
-					uit.innerHTML = "Interne fout!";
+					uit.innerHTML = "internal error";
 					onerror();
 				}
 				else
@@ -434,6 +434,17 @@
 		uit.requestFullscreen();
 	}
 
+	function download() {
+		var content = "todo";
+		var name = "index.html";
+		var blob = new Blob([content], { type: 'text/html' });
+		var link = document.createElement('a');
+		link.href = URL.createObjectURL(blob);
+		link.download = name;
+		link.click();
+		URL.revokeObjectURL(link.href);
+	}
+
 	function playorstop() {
 		if (stop) {
 			playfunc();
@@ -568,13 +579,13 @@
 		"@": "∘",
 	};
 	var bimagisch = {
-		"NIET": "¬",
+		"not": "¬",
 		"!!": "¬",
 		"II": "∩",
 		"UU": "∪",
 		"IN": "∈",
-		"intersectie": "∩",
-		"unie": "∪",
+		"intersection": "∩",
+		"union": "∪",
 		"|_": "⌊",
 		"_|": "⌋",
 		"|^": "⌈",
@@ -584,7 +595,7 @@
 		"/o": "∅",
 		"ooo": "∞",
 		"tau": "τ",
-		"som": "Σ",
+		"sum": "Σ",
 		"sqrt": "√",
 		"->": "→",
 		"-->": "↦",
@@ -609,8 +620,8 @@
 		"QQ": "ℚ",
 		"HH": "ℍ",
 
-		"EN": "⋀",
-		"OF": "⋁"
+		"AND": "⋀",
+		"OR": "⋁"
 	};
 
 	editor.on("beforeChange", (cm,change) => {
