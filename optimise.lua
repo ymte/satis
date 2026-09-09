@@ -270,7 +270,8 @@ local function multiopt(exp, maakindex)
 
 		-- en
 		if fn(exp) == '⋀' then
-			local nexp = X('call4', 'reduce', '⊤', arg(exp), '∧')
+			local nexp = X('call3', 'reduce', '⊤', arg(exp), '∧')
+			-- TODO reducebreak!
 			assign(exp, nexp)
 		end
 

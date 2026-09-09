@@ -1,5 +1,0 @@
-ispriem = x → ⋀ bereik map rest
-bereik = 2 .. √(x + 1)
-rest = n → (x mod n ≠ 0)
-
-uit = ispriem ;(99999199999)

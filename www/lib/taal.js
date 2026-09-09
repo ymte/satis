@@ -40,7 +40,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		// engels
 		'none', 'out', 'yes', 'no', 'error',
 		'text', 'int', 'floor', 'ceil', 'runtime', 'now',
-		'fold', 'oval',
+		'fold', 'oval', 'mod',
 		'sort', 'from', 'til', 'slice', 'find',
 		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint', 'screen.middle', 'screen.size', 'screen.origin',
 		'teken', 'render', 'rgb',
@@ -64,6 +64,8 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		"draw", "render",
 		"circle", "rectangle", "square", "line", "label", "arc",
 		"polygon", "map", "zip", "fold", "sin", "cos", "tan", "abs",
+		'filter', 'reduce',
+		"sincos", "cossin",
 		"color.black", "color.red", "color.yellow", "color.green",
 		"color.cyan", "color.purple", "color.white", "color.orange",
 		"color.lime", "color.blue", "color.gray", 'color.brown',
