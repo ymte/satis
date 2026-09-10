@@ -196,9 +196,9 @@
 			<tr> <td>choose</td> <td>a, b, c</td>  <td>If <b>a</b>, equals <b>b</b>, and otherwise equals <b>c</b> </td> </tr>
 			<tr> <td>type</td> <td>a</td>  <td>Returns the type of <b>a</b>. Bijvoorbeeld <pre>type(3) = "int"</pre> </td> </tr>
 			<tr> <td>flatten</td> <td>lijst(lijst)</td>  <td>Takes as argument a list of lists. Concatenates all of these sublists. For example <pre>flatten([[1,2],[3,4],[5,6]) = [1,2,3,4,5,6]</pre></td> </tr>
-			<tr> <td>split</td> <td>list, token</td>  <td>Splits een list to a list of lists. For example, <pre>split([1,2,0,3,0,4,5], 0) = [[1,2], [3], [4,5]]</td> </tr>
+			<tr> <td>split</td> <td>text, token</td>  <td>split a text into a list of texts. For example, <pre>"ab c de" split " "  = ["ab", "c", "de"]</td> </tr>
 
-			<tr> <td>abs</td> <td>a</td>  <td>Takes the absolute value of a</td> </tr>
+			<tr> <td>abs</td> <td>a</td>  <td>takes the absolute value of <b>a</b></td> </tr>
 			<tr> <td>filter</td> <td>list, predicate</td> <td>Takes only the values of the <b>list</b> that satisfy <b>predicate</b>. For example: <pre> [1,2,3,4] filter (x → x &lt; 3) = [1,2] </pre> </td> </tr>
 			<tr> <td>clamp</td> <td>x, low, high</td>  <td>x becomes at least low and at most high</td> </tr>
 			<tr> <td>label</td> <td>x, y, t</td>  <td>Draws a text on position (x,y)</td> </tr>
@@ -226,43 +226,43 @@
 
 
 		<h2>Variables</h2>
-		The following variables are predefined and can be referenced in y
+		The following variables are predefined and can be referenced in your program.
 		<table>
 			<tr> <th><b>Name</b></th> <th><b>Description</b></th></th>
 			<tr> <td>τ</td>  <td>Two times pi. Type with "tau".</td> </tr>
-			<tr> <td>runtime</td>  <td>De looptijd van het programma, in seconden, precies tot op een milliseconde. Als de app start is dit 0.</td> </tr>
-			<tr> <td>out</td>  <td>De uitvoer van het programma. Dit moet je definiëren in je code, bijvoorbeeld "out = 3".</td> </tr>
-			<tr> <td>now</td>  <td>Number of seconds since 1970.</td> </tr>
-			<tr> <td>yes</td>  <td>Boolean true</td> </tr>
-			<tr> <td>no</td>  <td>Boolean false</td> </tr>
-			<tr> <td>maybe</td>  <td>Randomly true or false</td> </tr>
-			<tr> <td>nothing</td> <td></td> <td>Niets. Representeert de afwezigheid van een waarde.</td> </tr>
+			<tr> <td>runtime</td>  <td>the running time of the program in seconds</td> </tr>
+			<tr> <td>out</td>  <td>the output of your program</td> </tr>
+			<tr> <td>now</td>  <td>number of seconds since 1970</td> </tr>
+			<tr> <td>yes</td>  <td>boolean true value</td> </tr>
+			<tr> <td>no</td>  <td>boolean false value</td> </tr>
+			<tr> <td>maybe</td>  <td>randomly true or false</td> </tr>
+			<tr> <td>nothing</td> <td></td> <td>represents literally nothing</td> </tr>
 			<tr>
 				<td>screen.origin</td>
-				<td>Down left corner of the screen</td>
+				<td>down left corner of the screen</td>
 			</tr>
 			<tr>
 				<td>screen.middle</td>
-				<td>Middle position of the screen</td>
+				<td>middle position of the screen</td>
 			</tr>
 			<tr>
 				<td>screen.refreshes</td>
-				<td>True if the screen is refreshing</td>
+				<td>true if the screen is refreshing</td>
 			</tr>
 
-			<tr> <td>mouse.x</td>   <td>De x-positie van de muis. Typisch tussen de 0 en 177.</td> </tr>
-			<tr> <td>mouse.y</td>   <td>De y-positie van de muis. Altijd tussen de 0 en 100.</td> </tr>
-			<tr> <td>mouse.pos</td>   <td>Is gelijk aan (muis.x, muis.y).</td> </tr>
-			<tr> <td>mouse.moves</td>  <td><b>ja</b> op de momenten dat de muis beweegt, en anders <b>nee</b> </td> </tr>
-			<tr> <td>mouse.click</td>  <td>Of de muis ingedrukt is</td> </tr>
-			<tr> <td>mouse.click.begin</td> </td>  <td>Alleen <b>ja</b> op het moment dat de muis wordt ingedrukt</td> </tr>
-			<tr> <td>mouse.click.end</td>   <td>Alleen <b>ja</b> op het moment dat de muis wordt losgelaten</td> </tr>
+			<tr> <td>mouse.x</td>   <td>The x position of the mouse. Typically between 0 en 160, depending on your screen width.</td> </tr>
+			<tr> <td>mouse.y</td>   <td>The y position of the mouse. Between 0 and 100.</td> </tr>
+			<tr> <td>mouse.pos</td>   <td>equal to (mouse.x, mouse.y).</td> </tr>
+			<tr> <td>mouse.moves</td>  <td><b>yes</b> during mouse movement, otherwise <b>no</b> </td> </tr>
+			<tr> <td>mouse.click</td>  <td>whether the mouse button is pressed</td> </tr>
+			<tr> <td>mouse.click.begin</td> </td>  <td><b>yes</b> on the exact moment the mouse starts clicking</td> </tr>
+			<tr> <td>mouse.click.end</td>   <td><b>yes</b> on the exact moment the mouse button is released</td> </tr>
 
-		<tr> <td>toets.&lt;letter&gt;</td>  <td>Bijvoorbeeld <b>toets.a</b>, <b>toets.spatie</b>. Is <b>ja</b> als de toets aanstaat, en anders <b>nee</b>.
-		<tr> <td>toets.&lt;letter&gt;.begin</td> <td>Bijvoorbeeld <b>toets.a.begin</b>, <b>toets.spatie.begin</b>. Is <b>ja</b> op het precieze moment dat de toets ingedrukt wordt, en anders <b>nee</b>.
-		<tr> <td>toets.&lt;letter&gt;.eind</td>  <td>Bijvoorbeeld <b>toets.a.eind</b>, <b>toets.spatie.eind</b>. Is <b>ja</b> op het precieze moment dat de toets losgelaten wordt. <b>nee</b>.
-			<tr> <td>scherm.breedte</td>  <td>De breedte van het uitvoerscherm. Typisch rondt de 160 (als je een 16:10 monitor hebt).</td> </tr>
-			<tr> <td>scherm.hoogte</td>   <td>De hoogte van het uitvoerscherm. Vastgezet op 100.</td> </tr>
+		<tr> <td>key.<i>letter</i></td>  <td>For example <b>key.a</b> or <b>key.space</b>. Is <b>yes</b> only when the key is pressed.
+		<tr> <td>toets.<i>letter</i>.begin</td> <td>is true only when the key starts being pressed</td> </tr>
+		<tr> <td>toets.<i>letter</i>.end</td> <td>is true only when the key stops being pressed</td> </tr> 
+		<tr> <td>screen.width</td>  <td>The width of the screen in percentage of the screen height. Around 160 if you have a 16:10 monitor.</td> </tr>
+			<tr> <td>screen.height</td>   <td>The height of the screen. Is always 100.</td> </tr>
 			<tr> <td>color.red</td> <td>Equal to rgb(1,0,0)</td> </tr>
 			<tr> <td>color.green</td> <td>Equal to rgb(0,1,0)</td> </tr>
 			<tr> <td>color.blue</td> <td>Equal to rgb(0,0,1)</td> </tr>

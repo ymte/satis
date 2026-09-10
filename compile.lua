@@ -6,7 +6,7 @@ require 'optimise'
 require 'solve'
 require 'vectorise'
 
-socket = require 'socket'
+socket = require 'socket.core'
 now = socket.gettime
 
 

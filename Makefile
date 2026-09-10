@@ -1,7 +1,7 @@
 linux: parse.so
 macos: parse_macos.so
 
-deploy: parse.so web/www/
+deploy: parse.so www/
 	scp -r www/* satislang.org:/var/www/
 
 run: linux
