@@ -508,27 +508,6 @@ function lib()
 		return a .. b
 	end;
 
-	['catu'] = function(t)
-		return table.concat(t)
-	end;
-
-	-- lib
-	['cat'] = function(a,b)
-		local r = {f='[]'}
-		for i,v in ipairs(a) do
-			for i,v in ipairs(v) do
-				r[#r+1] = v
-			end
-			if b and i ~= #a then
-				for i,b in ipairs(b) do
-					r[#r+1] = b
-				end
-			end
-		end
-		setmetatable(r, listmeta)
-		return r
-	end;
-
 	['clock'] = function(f)
 		local voor = socket.gettime()
 		f()
