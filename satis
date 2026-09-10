@@ -20,6 +20,7 @@ require 'build.assembleer'
 require 'build.link'
 
 opt,sources = getopt({...}, "o")
+now = socket.gettime()
 
 -- currently all source is concatenatd
 for i,source in pairs(sources) do
@@ -196,7 +197,6 @@ if opt.i or opt.im then
 		io.write(lenc(uit))
 
 		while true do
-			nu = socket.gettime()
 			local res = main{vars, false, socket.gettime(), nop, 100, -1, false, false, nop, nop, false, false, false, false}
 			vars, uit = res[1], res[2]
 			io.write(ansi.wisregel, ansi.regelbegin)
@@ -226,7 +226,6 @@ elseif opt.l or opt.lua then
 		local socket = require 'socket'
 		local main = load(lua)()
 		while true do
-			nu = socket.gettime()
 			io.write(ansi.wisregel, ansi.regelbegin)
 			io.write(lenc(main), ' ')
 			io.flush()

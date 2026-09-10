@@ -6,6 +6,9 @@ require 'optimise'
 require 'solve'
 require 'vectorise'
 
+socket = require 'socket'
+now = socket.gettime
+
 
 local function vars(exp)
 	local t = {}

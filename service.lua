@@ -20,7 +20,7 @@ function socket.bind(...)
 end
 local server = socket.bind('127.0.0.1',1237)
 if not server then
-	print('serverpoort 1237 is niet beschikbaar')
+	print('serverpoort 1237 is not available')
 	return
 end
 local sockets = {server}

@@ -12,6 +12,7 @@ run_macos: macos
 
 parse.so: parse/lex.l parse/lang.y parse/lua.c
 	cd parse; make linux
+	cp parse/bin/parse.so parse.so
 
 parse_macos.so: parse/lex.l parse/lang.y parse/lua.c
 	cd parse; make macos
