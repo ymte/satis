@@ -135,7 +135,7 @@ local mappen = set('map') --, 'mapl')
 
 -- > reduce(S,L,H), H=(V,W → G(V, F(W)))
 local function mapreduceer(exp, maakindex)
-	if fname(exp) == 'reduce' and mappen[fname(arg2(exp))] then
+	if fname(exp) == 'fold' and mappen[fname(arg2(exp))] then
 		local S = arg1(exp)
 		local L = arg1(arg2(exp))
 		local F = arg2(arg2(exp))
@@ -147,12 +147,12 @@ local function mapreduceer(exp, maakindex)
 
 		local hbody = X('call2', G, V, X('call', F, W))
 		local H = X('_fn', I, hbody)
-		local nexp = X('call3', 'reduce', S, L, H)
+		local nexp = X('call3', 'fold', S, L, H)
 		assign(exp, nexp)
 	end
 -- reduceerbreak(S,map(L,F),G,B), G=(X,Y → Z)
 -- > reduceerbreak(S,L,H,B), H=(V,W → G(V, F(W)))
-	if fname(exp) == 'reducebreak' and mappen[fname(arg2(exp))] then
+	if fname(exp) == 'foldbreak' and mappen[fname(arg2(exp))] then
 		local S = arg1(exp)
 		local L = arg1(arg2(exp))
 		local F = arg2(arg2(exp))
@@ -165,7 +165,7 @@ local function mapreduceer(exp, maakindex)
 
 		local hbody = X('call2', G, V, X('call', F, W))
 		local H = X('_fn', I, hbody)
-		local nexp = X('call4', 'reducebreak', S, L, H, B)
+		local nexp = X('call4', 'foldbreak', S, L, H, B)
 		assign(exp, nexp)
 	end
 	return exp
@@ -175,7 +175,7 @@ end
 -- reduceer(S,lmap(L,F),G), G=(X,Y → Z)
 -- > reduceer(S,L,H), H=(V,W → G(V, F[W]))
 local function lmapreduceer(exp, maakindex)
-	if fname(exp) == 'reduce' and fname(arg2(exp)) == 'lmap' then
+	if fname(exp) == 'fold' and fname(arg2(exp)) == 'lmap' then
 		local S = arg1(exp)
 		local L = arg1(arg2(exp))
 		local F = arg2(arg2(exp))
@@ -187,7 +187,7 @@ local function lmapreduceer(exp, maakindex)
 
 		local hbody = X('call2', G, V, X('index', F, W))
 		local H = X('_fn', I, hbody)
-		local nexp = X('call3', 'reduce', S, L, H)
+		local nexp = X('call3', 'fold', S, L, H)
 		assign(exp, nexp)
 	end
 	return exp
@@ -236,7 +236,7 @@ local function filtervouw(exp, maakindex)
 end
 
 local function filterreduceer(exp, maakindex)
-	if fname(exp) == 'reduce' and fname(arg2(exp)) == 'filter' then
+	if fname(exp) == 'fold' and fname(arg2(exp)) == 'filter' then
 		--reduceer(S, filter(L,F),G), G=(X,Y → Z)
 		-- > reduceer(S,L,H), H=(V,W → (⇒)(F(W),G(V,W),V))
 		local S = arg1(exp)
@@ -250,7 +250,7 @@ local function filterreduceer(exp, maakindex)
 
 		local hbody = X('⇒', X('call', F, W), X('call2',G,V,W), V)
 		local H = X('_fn', I, hbody)
-		local nexp = X('call3', 'reduce', S, L, H)
+		local nexp = X('call3', 'fold', S, L, H)
 		
 		assign(exp, nexp)
 	end
@@ -264,20 +264,20 @@ local function multiopt(exp, maakindex)
 
 		-- som
 		if fn(exp) == 'Σ' then
-			local nexp = X('call3', 'reduce', '0', arg(exp), '+')
+			local nexp = X('call3', 'fold', '0', arg(exp), '+')
 			assign(exp, nexp)
 		end
 
 		-- en
 		if fn(exp) == '⋀' then
-			local nexp = X('call3', 'reduce', '⊤', arg(exp), '∧')
+			local nexp = X('call3', 'fold', '⊤', arg(exp), '∧')
 			-- TODO reducebreak!
 			assign(exp, nexp)
 		end
 
 		-- of
 		if fn(exp) == '⋁' then
-			local nexp = X('call3', 'reduce', '⊥', arg(exp), '∨')
+			local nexp = X('call3', 'fold', '⊥', arg(exp), '∨')
 			assign(exp, nexp)
 		end
 
@@ -285,7 +285,7 @@ local function multiopt(exp, maakindex)
 		if false and fn(exp) == '#' then
 			local index = tostring(maakindex())
 			local plus = X('_fn', index, X('+', X('_arg0', index), '1'))
-			local nexp = X('call3', 'reduce', '0', arg(exp), plus)
+			local nexp = X('call3', 'fold', '0', arg(exp), plus)
 			assign(exp, nexp)
 		end
 
@@ -321,7 +321,7 @@ local function multiopt(exp, maakindex)
 		end
 
 		-- lus
-		if fname(exp) == 'reduce' then
+		if fname(exp) == 'fold' then
 			local gen = devec(arg2(exp))
 			if gen then
 				local nexp = X('lus', arg1(exp), gen, arg3(exp))
@@ -330,7 +330,7 @@ local function multiopt(exp, maakindex)
 		end
 
 		-- lus
-		if fname(exp) == 'reducebreak' then
+		if fname(exp) == 'foldbreak' then
 			--error(unlisp(devec(arg2(exp))))
 			local gen = devec(arg2(exp))
 			local cond = devec(arg3(exp))
