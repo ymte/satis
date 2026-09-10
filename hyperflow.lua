@@ -285,8 +285,8 @@ if false and test then
 	graph:link(set('in'), 'a')
 	graph:link(set('b'), 'a')
 	graph:link(set('a'), 'b')
-	graph:link(set('a', 'b'), 'uit')
-	local flow = graph:sorteer(set('in'), 'uit')
+	graph:link(set('a', 'b'), 'out')
+	local flow = graph:sorteer(set('in'), 'out')
 	-- a -> b moet erin zitten
 	assert(flow:naar('b')() and flow:naar('b')().van.a, flow:text())
 

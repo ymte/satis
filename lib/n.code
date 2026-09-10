@@ -1,2 +1,1 @@
-;mainuit = uit
-main = in.vars → uit
+main = in.vars → out

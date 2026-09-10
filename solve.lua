@@ -121,6 +121,9 @@ function solve(exp, voor, isdebug)
 					local funcbody = eq.a[2]
 					local neq = X('=', funcname, X('→', argname, funcbody))
 					nieuw[neq] = true
+					oud[eq] = false
+					--TODO f(x) = x geeft een fout
+					--     omdat x -> ~x
 				end
 			end
 			if isfn(eq.a[1]) and fn(eq.a[1]) == 'call2' then
@@ -622,6 +625,7 @@ function solve(exp, voor, isdebug)
 				ok = false
 				local fout = solvefout(k.loc, '{exp} is defined recursively', k)
 				fouten[#fouten+1] = fout
+				break
 			end
 			bron[k.v] = true
 			bron2def[k.v] = k
@@ -724,7 +728,7 @@ function solve(exp, voor, isdebug)
 			local num = atom(arg(exp))
 			if not def[num] then
 				local name = argindex2name[num]
-				local fout = solvefout(name.loc, '{exp} is undefined outside function', name)
+				local fout = solvefout(name.loc, '{exp} cannot be used outside function', name)
 				fouten[#fouten+1] = fout
 			end
 		else

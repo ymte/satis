@@ -118,48 +118,51 @@
 			<tr>    <td>a × b</td>    <td>xx</td>       <td>Takes the cartesian product of <b>a</b> to <b>b</b>. For example: <pre>[1,2] × [3,4] = [(1,3), (1,4), (2,3), (2,4)]</pre> </td>
 
 			<!-- conv -->
-			<tr>    <td>⌊x⌋</td>      <td>|_ _|</td>  <td>Rondt x af naar beneden</td>
-			<tr>    <td>⌈x⌉</td>      <td>|^ ^|</td>  <td>Rondt x af naar boven</td>
-			<tr>    <td>⌊x⌉</td>      <td>|_ ^|</td>  <td>Rondt x af</td>
+			<tr>    <td>⌊x⌋</td>      <td>|_ _|</td>  <td>Rounds x down</td>
+			<tr>    <td>⌈x⌉</td>      <td>|^ ^|</td>  <td>Rounds x up</td>
+			<tr>    <td>⌊x⌉</td>      <td>|_ ^|</td>  <td>Rounds x to the nearest integer</td>
 
 			<!-- symbolen -->
-			<tr>    <td>∅</td>        <td>0/</td>     <td>Is een lege collectie</td>
-			<tr>    <td>∞</td>        <td>ooo</td>    <td>Representeert "oneindig"</td>
-			<tr>    <td>τ</td>        <td>tau</td>    <td>Tau, oftewel twee keer pi</td>
+			<tr>    <td>∅</td>        <td>o/</td>     <td>An empty collection</td>
+			<tr>    <td>∞</td>        <td>ooo</td>    <td>Infinity</td>
+			<tr>    <td>τ</td>        <td>tau</td>    <td>Tau, or two times pi</td>
 
 			<!-- set -->
-			<tr>    <td>x ∪ y</td>    <td>UU</td>     <td>Berekent de unie van de sets x en y</td>
-			<tr>    <td>x ∩ y</td>    <td>NN</td>     <td>Berekent de intersectie van de sets x en y</td>
+			<tr>    <td>x ∪ y</td>    <td>UU</td>     <td>Takes the union of x and y</td>
+			<tr>    <td>x ∩ y</td>    <td>NN</td>     <td>Takes the intersection of x and y</td>
 
 
 			<!-- logica -->
-			<tr>    <td>x en y</td>  <td></td> <td>Is "ja" als x en y "ja" zijn</td>
-			<tr>    <td>x or y</td>  <td></td> <td>Is "ja" als x of y "ja" is</td>
-			<tr>    <td>¬ x</td>  <td>!!</td>    <td>Is "ja" als x "nee" is en "nee" als x "ja" is</td>
-			<tr>    <td>⋀ x</td>  <td>AND</td>    <td>Is "ja" als alle elementen uit lijst x "ja" zijn. Is "ja" bij een lege lijst.</td>
-			<tr>    <td>⋁ x</td>  <td>OR</td>    <td>Is "ja" als één van de elementen uit lijst x "ja" is. Is "nee" bij een lege lijst.</td>
+			<tr>    <td>x and y</td>  <td></td> <td>Is true if both x and y are true</td>
+			<tr>    <td>x or y</td>  <td></td> <td>Is true if x or y is true</td>
+			<tr>    <td>¬ x</td>  <td>!!</td>    <td>Negates x</td>
+			<tr>    <td>⋀ x</td>  <td>AND</td>    <td>Is true if all elements of x are true</td>
+			<tr>    <td>⋁ x</td>  <td>OR</td>    <td>Is true if any of the elements of x is true</td>
 
 			<!-- cmp -->
-			<tr>    <td>x &gt; y</td>  <td>;</td>   <td>Berekent of x groter is dan y</td>
-			<tr>    <td>x ≥ y</td>  <td>&gt;=</td>   <td>Berekent of x groter of gelijk is aan y</td>
-			<tr>    <td>x = y</td>  <td></td>   <td>Berekent of x gelijk is aan y</td>
-			<tr>    <td>x ≠ y</td>  <td>=/</td>   <td>Berekent of x ongelijk is aan y</td>
-			<tr>    <td>x ≤ y</td>  <td>&lt;=</td>   <td>Berekent of x kleiner of gelijk is aan y</td>
-			<tr>    <td>x &lt; y</td>  <td></td>   <td>Berekent of x kleiner is dan y</td>
+			<tr>    <td>x &gt; y</td>  <td>;</td>   <td>If x is larger than y</td>
+			<tr>    <td>x ≥ y</td>  <td>&gt;=</td>   <td>If x is larger or equal to y</td>
+			<tr>    <td>x = y</td>  <td></td>   <td>If x is equal to y</td>
+			<tr>    <td>x ≠ y</td>  <td>=/</td>   <td>If x is not equal to y</td>
+			<tr>    <td>x ≤ y</td>  <td>&lt;=</td>   <td>If x is smaller or equal to pi</td>
+			<tr>    <td>x &lt; y</td>  <td></td>   <td>If x is less than y</td>
 
 			<!-- functie -->
-			<tr>    <td>x → y</td>    <td>&dash; &gt;</td>    <td>Maakt een functie die, gegeven x, y berekent. Bijvoorbeeld: <pre>f = x → x · 2</pre> is een functie die zijn invoer verdubbelt.</td>
-			<tr>    <td>f ∘ g</td>    <td>@</td>       <td>Componeert f en g. Dit geeft een functie die, gegeven een argument x, f(g(x)) berekent. </td>
+			<tr>    <td>x → y</td>    <td>&dash; &gt;</td>    <td>Defines a function with argument x and body y. For example: <pre>f = x → x · 2</pre> defines a function that doubles x</td>
+			<tr>    <td>f ∘ g</td>    <td>@</td>       <td>Composes f and g. Equal to f(g(x)). </td>
 		</table>
 			
-		<h2>Functies</h2>
+		<h2>Functions</h2>
 		<table>
-			<thead> <td>Naam</td> <td>Argument</td> <td>Beschrijving</td> </thead>
+			<thead> <td>Name</td> <td>Argument</td> <td>Description</td> </thead>
 
-			<tr> <td>arc</td> <td> </td>  <td>todo</td> </tr>
+			<tr> <td>arc</td> <td> </td>  <td>Draws an arc</td> </tr>
 			<tr> <td>circle</td> <td>x, y, r</td> <td>Teken een cirkel met centrum <b>(x,y)</b> en straal <b>r</b></td> </tr>
 			<tr> <td>number</td> <td>t</td> <td>Converteert de tekst <b>t</b> naar een getal.</td> </tr>
+			<tr> <td>round</td> <td>a</td> <td>Converteert <b>a</b> naar integer (geheel getal). Rondt af naar beneden.</td> </tr>
 			<tr> <td>int</td> <td>a</td> <td>Converteert <b>a</b> naar integer (geheel getal). Rondt af naar beneden.</td> </tr>
+			<tr> <td>floor</td> <td>a</td> <td>Converteert <b>a</b> naar integer (geheel getal). Rondt af naar beneden.</td> </tr>
+			<tr> <td>ceil</td> <td>a</td> <td>Converteert <b>a</b> naar integer (geheel getal). Rondt af naar beneden.</td> </tr>
 			<tr> <td>yes</td> <td></td> <td>Ja. Representeert 1 als bit.</td> </tr>
 			<tr> <td>label</td> <td>x, y, t</td> <td>Schrijf de tekst <b>t</b> een vierkant op positie <b>(x,y)</b></td> </tr>
 			<tr> <td>line</td> <td>punten</td> <td>Teken een lijn tussen de gegeven <b>punten</b>. Voorbeeld: <pre>uit = teken [ lijn[(0,0), (10,10), (20, 10) ] ]</td> </tr>
