@@ -678,7 +678,7 @@ function lib()
 		return r
 	end;
 
-	['fold'] = function(lijst, func)
+	['reduce'] = function(lijst, func)
 		local r = lijst[1]
 		local k = 1
 		for i=2,#lijst do
@@ -687,7 +687,7 @@ function lib()
 		return r
 	end;
 
-	['reduce'] = function(init, lijst, func)
+	['fold'] = function(init, lijst, func)
 		local k = 1
 		for i=1,#lijst do
 			init = func(init, lijst[i])

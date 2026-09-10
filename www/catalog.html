@@ -203,21 +203,21 @@
 			<tr> <td>clamp</td> <td>x, low, high</td>  <td>x becomes at least low and at most high</td> </tr>
 			<tr> <td>label</td> <td>x, y, t</td>  <td>Draws a text on position (x,y)</td> </tr>
 			<tr>
-				<td>fold</td>
+				<td>reduce</td>
 				<td>list, function</td>
 				<td>Folds a list by applying the function on each consecutive pair of list items. For example:
-					<pre>[1,2,3,4] fold (+) = 10</pre>
+					<pre>[1,2,3,4] reduce (+) = 10</pre>
 				</td>
 			</tr>
 
 			<tr>
-				<td>reduce</td>
-				<td>list, function, start</td>
+				<td>fold</td>
+				<td>start, list, function</td>
 				<td>
 					apply the function against an accumulator (starting with start)
 					and each element in the list to reduce it to a single value.
 					For example:
-					<pre>reduce([1,2,3,4], (·), 1) = 24</pre>
+					<pre>fold([1,2,3,4], (·), 1) = 24</pre>
 				</td>
 			</tr>
 			<tr> <td>zip</td> <td>a, b</td>  <td>makes a list containing tuples filled with elements from a and b</td> </tr>

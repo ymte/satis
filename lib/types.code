@@ -94,8 +94,8 @@ newindex: lijst, nat, something → lijst
 newindex2: lijst, nat, something → lijst
 ;label: something → functie
 rotate: vorm → vorm
-fold: lijst,(something,something → something) → something
-reduce: something,lijst,(something,something → something) → something
+reduce: lijst,(something,something → something) → something
+fold: something,lijst,(something,something → something) → something
 
 requestAnimationFrame: (getal → lijst(letter)) → int
 contextVan: lijst(letter) → canvas

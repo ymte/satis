@@ -223,8 +223,8 @@ end
 			local uittype = X(',', arg1(lijstA), arg1(lijstB))
 			types[hash(exp)] = X('→', 'nat', uittype)
 
-		-- _(reduce, (init, lijst, func))
-		elseif fname(exp) == 'reduce' then
+		-- _(fold, (init, lijst, func))
+		elseif fname(exp) == 'fold' then
 			local redarg = arg1(exp)
 			local I = hash(redarg[1])
 			local L = hash(redarg[2])
@@ -236,7 +236,7 @@ end
 
 			local itemtype = arg1(lijsttype) or arg1(functype)
 
-			-- reduce(I, (N→B), (I,B → I))
+			-- fold(I, (N→B), (I,B → I))
 			-- I@1 = I@3
 			-- I@3 = I@3
 			-- B@2 = B@3
@@ -483,7 +483,7 @@ end
 			types[hash(exp)] = compositie
 
 		elseif false and fn(exp) == '_f' and atom(arg0(exp)) == 'vouw' then
-			types['fold'] = X'functie'
+			types['reduce'] = X'functie'
 			types[hash(exp)] = X'something'
 
 		---------- linq
