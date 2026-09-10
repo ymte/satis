@@ -39,7 +39,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 
 		// engels
 		'none', 'out', 'yes', 'no', 'error',
-		'text', 'int', 'floor', 'ceil', 'runtime', 'now',
+		'text', 'floor', 'ceil', 'runtime', 'now',
 		'fold', 'oval', 'mod',
 		'sort', 'from', 'til', 'slice', 'find',
 		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint', 'screen.middle', 'screen.size', 'screen.origin',

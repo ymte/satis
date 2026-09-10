@@ -20,7 +20,8 @@ require 'build.assembleer'
 require 'build.link'
 
 opt,sources = getopt({...}, "o")
-now = socket.gettime()
+socket = require 'socket.core'
+now = socket.gettime
 
 -- currently all source is concatenatd
 for i,source in pairs(sources) do

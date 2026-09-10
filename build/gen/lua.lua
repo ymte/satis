@@ -163,7 +163,6 @@ local binops = {
 	['afrond.onder'] = 'math.floor($1)',
 	['afrond']       = 'math.round($1)',
 	['afrond.boven'] = 'math.ceil($1)',
-	['int'] = 'math.floor($1)',
 	['abs'] = 'math.abs($1)',
 	['sign'] = '$1 > 0 and 1 or -1',
 

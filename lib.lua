@@ -296,11 +296,10 @@ function lib()
 		return maxi
 	end;
 		
-	int = math.floor,
 	abs = math.abs,
 	absd = math.abs,
 	absi = math.abs,
-	ceil = math.ceil,
+
 	['newindex'] = function(args)
 		local t,k,v = args[1], args[2], args[3]
 		t[k] = v
@@ -738,15 +737,6 @@ function lib()
 	['floor'] = math.floor;
 	['ceil'] = math.ceil;
 	['round'] = function(a) return math.floor(a+0.5) end;
-
-	['int'] = function(a)
-		if tonumber(a) then
-			return math.floor(a)
-		end
-		local getal = tonumber(string.char(table.unpack(a)))
-		if not getal then return false end
-		return math.floor(getal)
-	end;
 
 	['digit0'] = function(a)
 		--return not not (tonumber(a) and #tostring(a) == 1)

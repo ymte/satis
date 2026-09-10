@@ -438,7 +438,6 @@ local noops = {
 	['round']       = 'Math.round',
 	['ceil'] = 'Math.ceil',
 	['random'] = '(x, y) => Math.random()*(y-x) + x',
-	['int'] = 'Math.floor',
 	['abs'] = 'Math.abs',
 	['text'] = 'toString', --'x => (typeof(x)=="object" && x.has && "{"+[...x].toString()+"}") || JSON.stringify(x) || (x || "nothing").toString()',
 	['polygon'] = [[ args => {
@@ -640,7 +639,6 @@ local noops = {
 	['mod'] = '(x,y) => x < 0 ? (x % y + y) % y : x % y',
 	--['mod'] = '(x,y) => x % y',
 
-	['int'] = 'Math.floor',
 	['sin'] = 'Math.sin',
 	['cos'] = 'Math.cos',
 	['tan'] = 'Math.tan',
