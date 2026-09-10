@@ -14,7 +14,8 @@ screen.middle = (screen.width/2,50)
 screen.size = (screen.width,100)
 screen.origin = (0,0)
 
-maxindex = maxindexL → reduce(0, maxindexL, (maxindexA,maxindexB → (⇒)(((maxindexL maxindexA) > (maxindexL maxindexB)), maxindexA, maxindexB)))
+;maxindex = maxindexL → reduce(0, maxindexL,
+;	(maxindexA,maxindexB → (⇒)(((maxindexL maxindexA) > (maxindexL maxindexB)), maxindexA, maxindexB)))
 
 ; keyboard
 keys := {}
@@ -31,7 +32,7 @@ end
 ; canvas
 canvas.clear = paint(rectangle(screen.origin,screen.size), color.black)
 
-draw = drawShapes → setcontext(canvas.clear ∘ (compose drawShapes))
+draw = drawShapes → setcontext((compose drawShapes) ∘ canvas.clear)
 ;render = Vormen → setcontext3d(reduce(Vormen, id, (∘)))
 
 ; mouse

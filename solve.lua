@@ -121,7 +121,7 @@ function solve(exp, voor, isdebug)
 					local funcbody = eq.a[2]
 					local neq = X('=', funcname, X('→', argname, funcbody))
 					nieuw[neq] = true
-					oud[eq] = false
+					--oud[eq] = false
 					--TODO f(x) = x geeft een fout
 					--     omdat x -> ~x
 				end

@@ -141,8 +141,6 @@ _			{ *yylval = A(GL, "_", nergens); return '_'; }
 \t		// negeer tabs
 " "		// negeer spaties
 
-"ja"		{ *yylval = A(GL, "⊤", nergens); return NAAM; }
-"nee"		{ *yylval = A(GL, "⊥", nergens); return NAAM; }
 "yes"		{ *yylval = A(GL, "⊤", nergens); return NAAM; }
 "no"		{ *yylval = A(GL, "⊥", nergens); return NAAM; }
 "⊤"			{ *yylval = A(GL, "⊤", nergens); return NAAM; }
@@ -151,18 +149,10 @@ _			{ *yylval = A(GL, "_", nergens); return '_'; }
 "⎔"			{ *yylval = A(GL, "⎔", nergens); return NAAM; }
 
 "map"			{ *yylval = A(GL, "map", nergens); return NAAM; }
-"reduceer"			{ *yylval = A(GL, "reduceer", nergens); return NAAM; }
-"reduce"			{ *yylval = A(GL, "reduceer", nergens); return NAAM; }
-"vouw"			{ *yylval = A(GL, "vouw", nergens); return NAAM; }
-"fold"			{ *yylval = A(GL, "vouw", nergens); return NAAM; }
+"reduce"			{ *yylval = A(GL, "reduce", nergens); return NAAM; }
+"fold"			{ *yylval = A(GL, "fold", nergens); return NAAM; }
 "filter"			{ *yylval = A(GL, "filter", nergens); return NAAM; }
 "mod"			{ *yylval = A(GL, "mod", nergens); return NAAM; }
-
-"als"					{ return ALS; }
-"dan"					{ return DAN; }
-"andersals"			{ return ANDERSALS; }
-"anders"			{ return ANDERS; }
-"eind"			{ return EIND; }
 
 "if"					{ return ALS; }
 "then"					{ return DAN; }
