@@ -378,7 +378,9 @@ local noops = {
 	['fold'] = '(i, l, f) => l.reduce(f, i)',
 	['sincos'] = 'x => [Math.cos(x), Math.sin(x)]',
 	['cossin'] = 'x => [Math.sin(x), Math.cos(x)]',
-	['atan'] = 'Math.atan2',
+	['asin'] = 'Math.asin',
+	['acos'] = 'Math.acos',
+	['atan'] = '(x) => {if (typeof x != "number") return Math.atan2(x[1],x[0]); else return Math.atan(x);}',
 
 	-- discreet
 	['min'] = '(x, y) => Math.min(x, y)',

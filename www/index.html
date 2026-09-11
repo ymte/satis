@@ -153,7 +153,8 @@
 				stop = false;
 
 				// debug info
-				wraps[0].onmousemove = (ev) => {
+				// TODO remove 2 and fix
+				wraps[0].onmousemove2 = (ev) => {
 					var pos = editor.coordsChar({left: ev.clientX, top: ev.clientY});
 					var token = editor.getTokenAt(pos);
 

@@ -64,6 +64,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		"draw", "render",
 		"circle", "rectangle", "square", "line", "label", "arc",
 		"polygon", "map", "zip", "fold", "sin", "cos", "tan", "abs",
+		'asin', 'acos', 'atan',
 		'filter', 'reduce',
 		"sincos", "cossin",
 		"color.black", "color.red", "color.yellow", "color.green",
