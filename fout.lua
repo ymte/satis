@@ -17,7 +17,7 @@ end
 function executiefout(...) return fout("executie", ...) end
 function syntaxerror(...) return fout("syntax", ...) end
 function solvefout(...) return fout("solve", ...) end
-function typifyfout(...) return fout("typify", ...) end
+function typifyfout(...) return fout("type", ...) end
 
 function jsloc(loc)
 	loc = loc or nergens
@@ -68,7 +68,7 @@ end
 
 function fout2ansi(fout)
 	local loc =  ansi.underline .. loctext(fout.loc) .. ansi.normal
-	local type = color.brightred .. fout.type:gsub('^(.)', string.upper) .. 'fout' .. color.white .. ': '
+	local type = color.brightred .. fout.type:gsub('^(.)', string.upper) .. 'error' .. color.white .. ': '
 	local i = 0
 	local t = fout.args
 	local ansi = loc .. '\t' .. type .. '\t' .. fout.fmt:gsub('{([^}]*)}', function (spec)
@@ -95,7 +95,7 @@ end
 			
 function fout2string(fout)
 	local loc =  loctext(fout.loc)
-	local type = fout.type:gsub('^(.)', string.upper) .. 'fout' .. ': '
+	local type = fout.type:gsub('^(.)', string.upper) .. 'error' .. ': '
 	local i = 0
 	local t = fout.args
 	local string = loc .. '\t' .. type .. '\t' .. fout.fmt:gsub('{([^}]*)}', function (spec)

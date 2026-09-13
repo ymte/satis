@@ -784,11 +784,10 @@ local binops = {
 	['_t'] = '$1.charCodeAt($2)',
 	['index'] = '$1[$2]',
 	['_'] = 'typeof($1) == "function" ? ($2[1] ? $1($2[0], $2[1], $2[2], $2[3]) : $1($2)) : (typeof($1) == "string" ? $1.charCodeAt($2) : $1[$2])',
-	['^r'] = '$1 ^ $2',
 	['+'] = '$1 + $2',
 	['·'] = '$1 * $2',
 	['/'] = '$1 / $2',
-	['^'] = '$1 ^ $2',
+	['^'] = 'Math.pow($1, $2)',
 	['..2'] = '$1 == $2 ? [] : ($1 <= $2 ? Array.from(new Array(Math.max(0,Math.floor($2 - $1))), (x,i) => $1 + i) : Array.from(new Array(Math.max(0,Math.floor($1 - $2))), (x,i) => $1 - 1 - i))',
 	['xor'] = '[false,true][$1 ^ $2]',
 
@@ -806,7 +805,6 @@ local binops = {
 	})($1,$2) ]],
 
 
-	['^'] = 'Math.pow($1, $2)',
 	['^f'] = [[(function (f,n) {
 		return function(x,y,z,w) {
 			if (y != null) {

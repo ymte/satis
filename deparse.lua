@@ -59,7 +59,7 @@ local function deparseR(exp, t, kind)
 	if not exp then
 		t[#t+1] = '?'
 	elseif fn(exp) == '→' and atom(arg0(exp)) == 'nat' then
-		t[#t+1] =  'lijst '
+		t[#t+1] =  'list '
 		deparseR(arg1(exp), t, true)
 	elseif isatom(exp) and postop[exp.v] or binop[exp.v] or unop[exp.v] then
 		t[#t+1] = '('

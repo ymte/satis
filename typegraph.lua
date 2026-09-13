@@ -219,7 +219,13 @@ end
 
 -- subset
 -- destructief voor a (dat moet!)
-function metatypegraph:intersectie(a, b, exp)
+function metatypegraph:intersectie(a, b, exp, level)
+	level = level or 0
+	-- HIER
+	if level > 100 then
+		error('maximum typegraph intersection exceeded')
+	end
+
 	assert(a)
 	assert(b)
 	assert(exp)
@@ -257,7 +263,7 @@ function metatypegraph:intersectie(a, b, exp)
 			sub = X(C(exp))
 			sub.loc = exp.loc
 		end
-		local aa, fout = self:intersectie(a.a, b.a, sub)
+		local aa, fout = self:intersectie(a.a, b.a, sub, level+1)
 		if aa then
 			assign(a.a, aa)
       return a
@@ -298,7 +304,7 @@ function metatypegraph:intersectie(a, b, exp)
 					sub.loc = exp.loc
 				end
 
-				local ins, fout = self:intersectie(a[i], b[i], sub)
+				local ins, fout = self:intersectie(a[i], b[i], sub, level+1)
 
 				if not ins then
 					return false, fout
