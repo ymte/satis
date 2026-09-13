@@ -675,20 +675,22 @@ function lib()
 
 	-- trig
 	['sin'] = math.sin;
-	['asin'] = math.asin;
 	['cos'] = math.cos;
-	['acos'] = math.acos;
 	['tan'] = math.tan;
-	['atan'] = function(a)
-		if type(a) == 'table'  then return math.atan2(a[1], a[2])
-			else return math.atan(a)
-		end
-	end;
 	['sincos'] = function (a)
 		return {f=',', math.sin(a), math.cos(a)}
 	end;
 	['cossin'] = function (a)
 		return {f=',', math.cos(a), math.sin(a)}
+	end;
+	['asin'] = math.asin;
+	['acos'] = math.acos;
+	['atan'] = function(a)
+			if type(a) == 'table' then
+				return math.atan(a[1], a[2])
+			else
+				return math.atan(a)
+		end
 	end;
 
 	['∨'] = function(a,b) return a or b end;

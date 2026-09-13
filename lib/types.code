@@ -143,11 +143,14 @@ filter: lijst, (something→bit) → lijst
 (:=) : (something, something) → bit
 (→) :  (something, something) → (something → something)
 
-sin :  getal → getal
-cos :  getal → getal
-tan :  getal → getal
+sin:  getal → getal
+cos:  getal → getal
+tan:  getal → getal
 sincos :  getal → getal, getal
 cossin :  getal → getal, getal
+asin: getal → getal
+acos: getal → getal
+; atan:	(getal → getal) ⋃ (getal,getal → getal)
 ;(+) :  something, something → something
 ;(+) :  int, int → getal
 ;(-) :  getal → getal

@@ -73,7 +73,7 @@ zdraai = Z → [[cos Z, sin Z, 0, 0], [-sin Z, cos Z, 0, 0], [0,0,1,0], [0,0,0,1
 ;dt = scherm.frequentie
 
 mat4.id = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
-mat4.transponeer = [A,B,C,D] → [[A₀,B₀,C₀,D₀],[A₁,B₁,C₁,D₁],[A₂,B₂,C₂,D₂],[A₃,B₃,C₃,D₃]]
+mat4.transpose = [A,B,C,D] → [[A₀,B₀,C₀,D₀],[A₁,B₁,C₁,D₁],[A₂,B₂,C₂,D₂],[A₃,B₃,C₃,D₃]]
 
 ; kleuren
 color.beige = rgb(96%, 96%, 86%)
