@@ -147,7 +147,7 @@ end
 				types[hash(sub)] = lijsttype
 			end
 
-			-- metamine ondersteunt geen gemixte lijsten; gebruik tupels!
+			-- satis ondersteunt geen gemixte lijsten; gebruik tupels!
 			if false and atom(lijsttype) == 'something' then
 				local fout = typifyfout(exp.loc, "type of {code} is uncertain", bron(exp))
 				errors[#errors+1] = fout
@@ -166,7 +166,7 @@ end
 
 
 		-- vanaf: lijst(A), int → lijst(A)
-		elseif fname(exp) == 'vanaf' then
+		elseif fname(exp) == 'from' then
 			local A = hash(arg1(exp))
 			moetzijn(types[A], X(',', 'something', 'something'), exp)
 
@@ -180,7 +180,7 @@ end
 
 
 		-- tot: lijst(A), int → lijst(A)
-		elseif fname(exp) == 'tot' then
+		elseif fname(exp) == 'until' then
 			local A = hash(arg1(exp))
 			moetzijn(types[A], X(',', 'something', 'something'), exp)
 
@@ -194,7 +194,7 @@ end
 
 
 		-- deel: lijst(A), int, int → lijst(A)
-		elseif fname(exp) == 'deel' then
+		elseif fname(exp) == 'slice' then
 			local A = hash(arg1(exp))
 			moetzijn(types[A], X(',', 'something', 'something', 'something'), exp)
 
@@ -210,7 +210,7 @@ end
 
 
 		-- _(zip, (lijst, fn))
-		elseif fname(exp) == 'rits' then
+		elseif fname(exp) == 'zip' then
 			local A = hash(arg1(exp))
 			moetzijn(types[A], X(',', 'something', 'something'), exp)
 

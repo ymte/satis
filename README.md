@@ -1,7 +1,7 @@
-# Satis
+# satis
 A completely declarative programming language. Imperative programming is a thing of the past!
 
-Instead of building code the traditional way - using for loops, a linear control flow, and variables - metamine enables you to write code using equations instead of statements. These equations are immutable and timeless: an equation such as `x = y + 1` can be placed anywhere in the source code and will always hold. An application is simply how you define the term `out`.
+Instead of building code the traditional way - using for loops, a linear control flow, and variables - satis enables you to write code using equations instead of statements. These equations are immutable and timeless: an equation such as `x = y + 1` can be placed anywhere in the source code and will always hold. An application is simply how you define the term `out`.
 
 A bunch of predefined terms (not variables) are defined, such as `now` (which refers to the current time), `mouse.x` (which refers to the x-position of the mouse), `screen.width` (the screen width), etcetera. Refer to the catalogue to view all built-in variables. All these terms are always live; simply writing `out = runtime` would result in a timer application.
 

@@ -1,2 +1,2 @@
-f = x → x
-out = f(2)
+out = f(3)
+f = x → x · 2

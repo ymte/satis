@@ -389,6 +389,7 @@ end
 
 -- _f2(_fn(1 X) Y) X[_arg(1)=Y]
 local function callopt(exp, maakindex)
+	-- TODO this bugs out with c.code
 	for exp in treepairs(exp) do
 		if calls[fn(exp)] and arg0(exp) and fn(arg0(exp)) == '_fn' then
 			local index = atom(arg0(arg0(exp)))
