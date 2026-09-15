@@ -16,6 +16,7 @@ kommagetal: getal
 π: getal
 
 icode: something → (nat → (nat → letter))
+choose: bit, something, something → something
 
 ; html
 canvas.fontsize: functie, getal → functie

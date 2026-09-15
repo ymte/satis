@@ -422,7 +422,7 @@ function optimise(exp)
 	local exp = refunc(exp, maakindex)
 	local exp = compopt(exp, maakindex)
 	local exp = argopt(exp, maakindex)
-	local exp = callopt(exp, maakindex)
+	--local exp = callopt(exp, maakindex)
 	--local exp = constoptm(exp)
 
 	return exp

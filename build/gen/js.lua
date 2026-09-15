@@ -376,6 +376,7 @@ local noops = {
   ['filter4'] = '(a, b) => a.filter(x => b(x[0], x[1], x[2], x[3]))',
   ['reduce'] = '(a, b) => a.reduce(b)',
 	['fold'] = '(i, l, f) => l.reduce(f, i)',
+	['choose'] = '(c, a, b) => c ? a : b',
 	['sincos'] = 'x => [Math.cos(x), Math.sin(x)]',
 	['cossin'] = 'x => [Math.sin(x), Math.cos(x)]',
 	['asin'] = 'Math.asin',
@@ -1129,14 +1130,6 @@ function jsgen(sfc)
 			local name = varname(focus)
 			L[#L+1] = tabs..string.format("if (%s) {", name)
 			tabs = tabs..'  '
-
-		elseif atom(ins) == 'kies' then
-			local cond = varname(focus-3)
-			local a = varname(focus-2)
-			local b = varname(focus-1)
-			local name = cond
-			L[#L+1] = tabs..string.format("var %s = %s ? %s : %s;", name, cond, a, b)
-			focus = focus - 2
 
 		-- cache
 		elseif fn(ins) == 'ld' then

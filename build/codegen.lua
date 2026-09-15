@@ -49,7 +49,7 @@
 		'>f', '<f', '≤f', '≥f', '=f',
 		'>f1', '<f1', '≤f1', '≥f1', '=f1'
 	)
-	triop  = set('call2', 'kies', '⇒')
+	triop  = set('call2', 'choose', '⇒')
 
 -- exps worden gecachet (voor debugging)
 function codegen(exp, hash2name)

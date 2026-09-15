@@ -37,7 +37,16 @@ local function cat(...)
 	return r
 end
 
-local web = lees('lib/std.code')
+local std = lees('lib/std.code')
+
+local examples = {}
+local ls = io.popen("ls www/ex")
+for example in ls:lines() do
+	local data = file('www/ex/'..example)
+	examples[data] = example
+end
+
+os.execute("mkdir -p log")
 
 -- DE webfunctie
 -- vt: code → {html?, fouten?}
@@ -50,15 +59,28 @@ local web = lees('lib/std.code')
 -- 
 -- de "fout" als los interpretabel object
 function vt(code, isdebug)
-	assert(code)
+	local ex = examples[code]
+	if not ex then
+		local s = socket.gettime()%1
+		local ms = string.format("%.3d",math.floor(s * 1000))
+		local logpath = "log/"..os.date("%Y-%m-%dT%H:%M:%S.")..ms.. ".code"
 
-	code = code .. '\n' .. web
+		file(logpath, code)
+	end
+	local size_without_std = #code
+	code = code .. '\n' .. std
 
 	local voor = socket.gettime()
 	local icode,fouten,name2index = compile(code, isdebug)
 	local na = socket.gettime()
-	local delta = math.floor((na - voor) * 1000)
-	print(#code..' bytes in '..delta..'ms')
+	local ms = math.floor((na - voor) * 1000)
+
+	if ex then
+		print('vt', ex)
+	else
+		print('vt', size_without_std .. ' bytes')
+	end
+
 	local js = ''
 	if icode then
 		js = jsgen(icode)
@@ -78,10 +100,10 @@ function vtdebug(code)
 end
 
 local statusberichten = {
-	[200] = "Okee",
-	[302] = "Permanente Omleiding",
-	[404] = "Niet Gevonden",
-	[500] = "Interne Fout",
+	[200] = "Okay",
+	[302] = "Permanent Redirect",
+	[404] = "Not Found",
+	[500] = "Internal Error",
 }
 
 function sendblocking(sock, data)
@@ -199,7 +221,7 @@ function serveer(sock)
 	local t = {}
 	t[#t+1] = h
 	t[#t+1] = "Host: localhost:1237\r\n"
-	t[#t+1] = "Server: Lua 5.5\r\n"
+	t[#t+1] = "Server: satis\r\n"
 	t[#t+1] = "Content-Length: "..#uit.."\r\n"
 	t[#t+1] = "Content-Type: "..contenttype.."\r\n"
 	t[#t+1] = "\r\n"

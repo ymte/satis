@@ -1,5 +1,7 @@
 .*
 
+log/
+
 # autogen
 *.yy.*
 *.gen.*

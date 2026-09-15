@@ -40,6 +40,7 @@ function lib()
 		return c
 	end,
 
+	['choose'] = function(cond,a,b) return cond and a or b end,
 	['grab'] = function (lijst) return lijst[math.random(1, #lijst)] end,
 	-- canvas
 	['pad.begin'] = true,

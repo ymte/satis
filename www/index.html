@@ -50,7 +50,7 @@
 		'hello', 'timer', 'square',
 		'gradient', 'circles', 'cirkels',
 		'zen', 'sierpinski',
-		'paint', 'paint2', 'grafiek',
+		'paint', 'paint2', 'drag', 'grafiek',
 		'prime',
 		'salvobal', 'pong', 
 		'leip', 'oog',
@@ -100,14 +100,10 @@
 			return "{"+[...obj].toString()+"}";
 		} else if (typeof(obj) == "number") {
 			return obj.toString();
+		} else if (typeof(obj) == "object") {
+			return "object";
 		} else {
-			var j = JSON.stringify(obj);
-			if (j)
-				return j;
-			if (obj)
-				return obj.toString();
-			else
-				return 'nothing';
+			return 'nothing';
 		}
 	}
 

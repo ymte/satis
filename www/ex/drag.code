@@ -1,0 +1,15 @@
+; drag on the screen to make a replay
+trail := [(10,10), (20,20)]
+
+if mouse.moves and mouse.click then
+	trail := trail ‖ [ mouse.pos ]
+end
+
+r = floor((100·now) mod (#trail-1))
+
+part = (100·now) mod 1
+i = trail(r+0)
+j = trail(r+1)
+
+out = draw [c]
+c = circle(i·(1-part)+j·(part), 10)
