@@ -4,20 +4,46 @@
 		<title>Application</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			#uit
+			{
+				min-height: 95vh;
+				height: 95vh;
+			}
+			canvas
+			{
+				width: 100%;
+				background: black;
+			}
+			html
+			{
+				background: #113;
+				color: white;
+				font-size: 36px;
+			}
+			body
+			{
+				margin: 0;
+			}
+		</style>
 	</head>
 	<body>
-		<div id="uit">
+		<div id="uit" tabindex="2">
 		</div>
-		<script>SATISJS</script>
-		<script>
-			try {
-				var uit = document.getElementById('uit');
-				var main = new Function("main", `MAIN`)();
-				run(uit, main);
-			} catch (e) {
-				uit.innerHTML = e + e.stack; 
-				console.trace();
-			}
-		</script>
+<script>
+SATISJS
+</script>
+
+<script>
+var uit = document.getElementById('uit');
+function makemain()
+{
+MAIN
+}
+var main = makemain();
+run(uit, main);
+
+</script>
+
 	</body>
 </html>

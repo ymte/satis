@@ -19,7 +19,7 @@
 
 <!-- in -->
 <div class="in" tabindex="1">
-	<textarea id="broncode" name="broncode">{laden}</textarea> 
+	<textarea id="broncode" name="broncode"></textarea> 
 </div>
 
 <!-- uit! -->
@@ -53,7 +53,7 @@
 		'zen', 'sierpinski',
 		'paint', 'paint2', 'drag', 'grafiek',
 		'prime',
-		'salvobal', 'pong', 
+		'pong', 'salvobal', 
 		'leip', 'oog',
 	];
 	var uit = document.getElementById('uit');
@@ -67,7 +67,7 @@
 
 	var preview = document.createElement("div", "preview");
 	preview.className = "preview";
-	var stop = true;
+	var stopped = true;
 	var paused = false;
 	var wraps = document.getElementsByClassName("CodeMirror-wrap");
 
@@ -76,12 +76,12 @@
 	var naam;
 
 	function debugChange() {
-		if (!stop) {
+		if (!stopped) {
 			playfunc();
 		}
 	}
 	/*setInterval(x => {
-		if (window.cache && window.naam2index && naam && !stop)
+		if (window.cache && window.naam2index && naam && !stopped)
 			if (naam2index[naam])
 				preview.innerHTML = toString(cache[naam2index[naam]]);
 	}, 1000/60);*/
@@ -117,7 +117,7 @@
 				}
 				naam2index = j.naam2index;
 
-				stop = false;
+				stopped = false;
 
 				// debug info
 				// TODO remove 2 and fix
@@ -145,6 +145,11 @@
 				try {
 					var main = new Function("main", j.js)();
 					run(uit, main);
+					setTimeout(() => {
+						speelknop.innerHTML = "■";
+						speelknop.style.background = 'green';
+						speelknop.style.transitionDuration = '0.0s';
+					}, 100);
 
 				} catch (e) {
 					onerror();
@@ -160,7 +165,7 @@
 		preview.innerHTML = '';
 
 		paused = false;
-		stop = true;
+		stopped = true;
 
 		alertKlaar = false;
 		setErrors([]);
@@ -200,7 +205,7 @@
 	}
 
 	function playorstop() {
-		if (stop) {
+		if (stopped) {
 			playfunc();
 		} else {
 			stopfunc(); 
@@ -230,7 +235,7 @@
 
 	function onerror(e) {
 		//stopfunc();
-		stop = true;
+		stopped = true;
 
 		speelknop.style.background = 'red';
 		speelknop.style.transitionDuration = '0.0s';

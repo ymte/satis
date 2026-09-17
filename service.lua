@@ -193,14 +193,15 @@ function serveer(sock)
 
 		if not ok then
 			status = 500
-			uit = json.encode {js="internal error",fouten={}}
+			uit = json.encode("internal error")
 		else
 			local javascript = vtuit.js
 			status = 200
 			local html = file('www/template.html')
 			local satisjs = file('www/satis.js')
 			local html = html:gsub('SATISJS', satisjs)
-			local html = html:gsub('MAIN', javascript)
+			local from,to = html:find('MAIN')
+			local html = html:sub(1,from-1) .. javascript .. html:sub(to+1)
 			uit = json.encode(html)
 		end
 

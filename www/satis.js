@@ -167,9 +167,9 @@ function run(uit, main) {
 	};
 
 	var refresh = (ev) => {
-		if (stop)
+		if (window.stopped)
 			return;
-		if (paused) {
+		if (window.paused) {
 			requestAnimationFrame(refresh);
 			return;
 		}
@@ -189,18 +189,12 @@ function run(uit, main) {
 			uit.innerHTML = toString(uitvoer);
 
 		// debug
-		if (window.cache && window.naam2index && naam && !stop)
+		if (window.cache && window.naam2index && naam && !window.stopped)
 			if (naam2index[naam])
 				preview.innerHTML = toString(cache[naam2index[naam]]);
 
-		if (!stop)
+		if (!window.stopped)
 			requestAnimationFrame(refresh);
 	}
 	requestAnimationFrame(refresh);
-
-	setTimeout(() => {
-		speelknop.innerHTML = "■";
-		speelknop.style.background = 'green';
-		speelknop.style.transitionDuration = '0.0s';
-	}, 100);
 }
