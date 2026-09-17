@@ -621,7 +621,7 @@ function lib()
 		return v
 	end;
 
-	['map4TODO'] = function(a, b)
+	['map4'] = function(a, b)
 		local r = {}
 		for i=1,#a do
 			r[i] = b(table.unpack(a[i]))

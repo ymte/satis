@@ -60,7 +60,7 @@ function vectorise(asb, types, debug)
 
 		-- filter2,3,4
 		-- TODO
-		if false then --and fname(exp) == 'filter' or fname(exp) == 'map' then
+		if fname(exp) == 'filter' or fname(exp) == 'map' then
 			local type  = types[hash(exp)]
 			local atype = types[hash(arg0(exp))]
 
