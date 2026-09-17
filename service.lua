@@ -185,6 +185,25 @@ function serveer(sock)
 			uit = json.encode(j) -- json(html, fouten)
 		end
 
+	-- GEEF WEG!
+	elseif pad == '/download' then
+		local vtuit = nil
+		local vtinn = function() vtuit = vt(inn, isdebug) end
+		local ok,j = xpcall(vtinn, debug.traceback)
+
+		if not ok then
+			status = 500
+			uit = json.encode {js="internal error",fouten={}}
+		else
+			local javascript = vtuit.js
+			status = 200
+			local html = file('www/template.html')
+			local satisjs = file('www/satis.js')
+			local html = html:gsub('SATISJS', satisjs)
+			local html = html:gsub('MAIN', javascript)
+			uit = json.encode(html)
+		end
+
 	-- LEES!
 	else
 		pad = pad:gsub('%.%.', '%.')

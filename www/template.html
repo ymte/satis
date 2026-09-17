@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Application</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div id="uit">
+		</div>
+		<script>SATISJS</script>
+		<script>
+			try {
+				var uit = document.getElementById('uit');
+				var main = new Function("main", `MAIN`)();
+				run(uit, main);
+			} catch (e) {
+				uit.innerHTML = e + e.stack; 
+				console.trace();
+			}
+		</script>
+	</body>
+</html>

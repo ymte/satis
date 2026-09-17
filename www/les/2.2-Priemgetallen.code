@@ -1,3 +1,0 @@
-delers(n) = (2 .. n/2) waarvoor (n mod ★ = 0)
-ispriem(n) = (# delers(n) = 0)
-priemgetallen = (2 .. 1000) waarvoor ispriem

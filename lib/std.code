@@ -1,6 +1,6 @@
-main = (in.vars, start, now, setcontext, setcontext3d, screen.width, screen.refreshes, key.code, key.begins, key.ends, key.begin, key.end, mouse.moves, mouse.moves.to, mouse.click.begin, mouse.click.end, maybe, dt) → mainout
+main = (in.vars, start, now, setcontext, screen.width, screen.refreshes, key.code, key.begins, key.ends, key.begin, key.end, mouse.moves, mouse.moves.to, mouse.click.begin, mouse.click.end, maybe, dt) → mainout
 
-id = X → X
+id = idX → idX
 
 if start then
 	mainout = in.startvars,∅
@@ -33,7 +33,6 @@ end
 canvas.clear = paint(rectangle(screen.origin,screen.size), color.black)
 
 draw = drawShapes → setcontext((compose drawShapes) ∘ canvas.clear)
-;render = Vormen → setcontext3d(fold(Vormen, id, (∘)))
 
 ; mouse
 mouse.pos := (0,0)

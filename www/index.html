@@ -43,12 +43,13 @@
 <script src="lib/taal.js"></script>
 <script src="lib/vim.js"></script>
 <script src="webgl.js"></script>
+<script src="satis.js"></script> <!-- toString, run -->
 <script>
 
 	var demoindex = 0;
 	var demos = [
 		'hello', 'timer', 'square',
-		'gradient', 'circles', 'cirkels',
+		'gradient', 'circles', 'concentric',
 		'zen', 'sierpinski',
 		'paint', 'paint2', 'drag', 'grafiek',
 		'prime',
@@ -79,34 +80,6 @@
 			playfunc();
 		}
 	}
-
-	function toString(obj) {
-		if (typeof(obj) == "string") {
-			return obj;
-		} else if (obj === true) {
-			return "yes";
-		} else if (obj === false) {
-			return "no";
-		} else if (typeof(obj) == "function") {
-			return '<pre>' + obj.toString() + '</pre>';
-		} else if (obj == null) {
-			return 'nothing';
-		} else if (Array.isArray(obj)) {
-			var res = "";
-			var lang = false;
-			obj.forEach(x => {var tmp = toString(x); res += ", "; res += tmp; });
-			return "[" + res.substr(2) + "]";
-		} else if (typeof(obj)=="object" && obj.has) {
-			return "{"+[...obj].toString()+"}";
-		} else if (typeof(obj) == "number") {
-			return obj.toString();
-		} else if (typeof(obj) == "object") {
-			return "object";
-		} else {
-			return 'nothing';
-		}
-	}
-
 	/*setInterval(x => {
 		if (window.cache && window.naam2index && naam && !stop)
 			if (naam2index[naam])
@@ -122,8 +95,6 @@
 		//	path = '/vt/debug';
 
 		var broncode = editor.getValue();
-		if (!broncode)
-			broncode = " ";
 
 		fetch(path, {method: "POST", body: broncode})
 			.then(x => {
@@ -172,229 +143,8 @@
 				};
 
 				try {
-					// context
-					SCHAAL = 7.2;
-					var uitBreedte = 178;
-					var context;
-					var context3d;
-
-
-					function setcontext(transform) {
-						if (!context) {
-							var width = window.screen.width;
-							var height = window.screen.height;
-							SCHAAL = height/100;
-							uitBreedte = width / height * 100;
-
-							uit.innerHTML = '<canvas width="'+width+'" height="'+height+'"></canvas>'
-							context = uit.children[0].getContext("2d");
-							context.fillStyle = 'white';
-							context.strokeStyle = 'white';
-							context.font = '48px Arial';
-							context.lineWidth = '4';
-						}
-						return transform(context);
-					}
-
-					function setcontext3d(transform) {
-						if (!context3d || !gl) {
-							var width = window.screen.width;
-							var height = window.screen.height;
-							SCHAAL = height/100;
-							uitBreedte = width / height * 100;
-
-							uit.innerHTML = '<canvas width="'+width+'" height="'+height+'"></canvas>'
-							context3d = uit.children[0].getContext("webgl2");
-							context = context3d;
-							gl = context3d;
-						}
-						return transform(context3d);
-					}
-
-					var main = new Function("IN", j.js)();
-					MAIN = main;
-					var nu = new Date().getTime() / 1000;
-					var vars = [];
-					var uitvoer;
-					gl = {};
-					var schermVerverst = false;
-					var toetsCode = null;
-					var toetsBegint = false;
-					var toetsEindigt = false;
-					var toetsBegin = (toetscode) => false;
-					var toetsEind = (toetscode) => false;
-					var muisBeweegt = false;
-					var muisBeweegtNaar = null; //[0, 0];
-					var muisKlikBegin = false;
-					var muisKlikEind = false;
-					var vroeger = nu;
-					var dt = 0;
-					var misschien = Math.random() < 0.5;
-					imgCache = {};
-					shaderCache = {};
-					programCache = {};
-					resCache = {};
-					textureCache = {};
-
-					var id = x => x;
-
-					uit.onkeydown = (ev) => {
-						var nu = new Date().getTime() / 1000;
-						var toetsBegin = (keycode) => ev.keyCode == keycode;
-						var toetsCode = ev.keyCode;
-						var toetsBegint = true;
-						var setcontext = x => x;
-						var setcontext3d = x => x;
-						var misschien = Math.random() < 0.5;
-						var uv = main([vars, false, nu, x => x, x => x, uitBreedte, schermVerverst, toetsCode, toetsBegint, toetsEindigt, toetsBegin, toetsEind, muisBeweegt, muisBeweegtNaar, muisKlikBegin, muisKlikEind, misschien]);
-
-						vars = uv[0];
-						uitvoer = uv[1];
-
-						if (!context)
-							uit.innerHTML = toString(uitvoer);
-
-						return ev.keyCode > 96;
-					};
-
-					uit.onmousedown = (ev) => {
-						var nu = new Date().getTime() / 1000;
-						var muisBeweegt = true;
-						var canvas = uit.children[0] || uit;
-						var b = canvas.getBoundingClientRect();
-						EV = ev;
-						var muisX = (ev.clientX - b.left) / canvas.clientHeight * 100;
-						var muisY = (ev.clientY - b.top) / canvas.clientHeight * 100;
-						var muisY = 100 - muisY;
-						var muisBeweegtNaar = [+muisX.toFixed(3), +muisY.toFixed(3)];
-						var muisKlikBegin = true;
-						var setcontext = id;
-						var setcontext3d = id;
-						var misschien = Math.random() < 0.5;
-						var uv = main([vars, false, nu, setcontext, setcontext3d, uitBreedte, schermVerverst, toetsCode, toetsBegint, toetsEindigt, toetsBegin, toetsEind, muisBeweegt, muisBeweegtNaar, muisKlikBegin, muisKlikEind, misschien]);
-
-						vars = uv[0];
-						uitvoer = uv[1];
-						if (!context)
-							uit.innerHTML = toString(uitvoer);
-					};
-						
-					uit.onmouseup = (ev) => {
-						var nu = new Date().getTime() / 1000;
-						var muisBeweegt = true;
-						var canvas = uit.children[0] || uit;
-						var b = canvas.getBoundingClientRect();
-						EV = ev;
-						var muisX = (ev.clientX - b.left) / canvas.clientHeight * 100;
-						var muisY = (ev.clientY - b.top) / canvas.clientHeight * 100;
-						var muisY = 100 - muisY;
-						var muisBeweegtNaar = [+muisX.toFixed(3), +muisY.toFixed(3)];
-						var muisKlikEind = true;
-						var setcontext = id;
-						var setcontext3d = id;
-						var misschien = Math.random() < 0.5;
-						var uv = main([vars, false, nu, setcontext, setcontext3d, uitBreedte, schermVerverst, toetsCode, toetsBegint, toetsEindigt, toetsBegin, toetsEind, muisBeweegt, muisBeweegtNaar, muisKlikBegin, muisKlikEind, misschien]);
-
-						vars = uv[0];
-						uitvoer = uv[1];
-						if (!context)
-							uit.innerHTML = toString(uitvoer);
-					};
-
-					uit.onmousemove = (ev) => {
-						var nu = new Date().getTime() / 1000;
-						muisBeweegt = true;
-						var canvas = uit.children[0] || uit;
-						var b = canvas.getBoundingClientRect();
-						EV = ev;
-						var muisX = (ev.clientX - b.left) / canvas.clientHeight * 100;
-						var muisY = (ev.clientY - b.top) / canvas.clientHeight * 100;
-						var muisY = 100 - muisY;
-						var muisBeweegtNaar = [+muisX.toFixed(3), +muisY.toFixed(3)];
-						var setcontext = id;
-						var setcontext3d = id;
-						var misschien = Math.random() < 0.5;
-						var uv = main([vars, false, nu, setcontext, setcontext3d, uitBreedte, schermVerverst, toetsCode, toetsBegint, toetsEindigt, toetsBegin, toetsEind, muisBeweegt, muisBeweegtNaar, muisKlikBegin, muisKlikEind, misschien]);
-						vars = uv[0];
-						return true;
-					};
-						
-
-					uit.onkeyup = (ev) => {
-						var nu = new Date().getTime() / 1000;
-						var toetsEind = (keycode) => ev.keyCode == keycode;
-						var toetsCode = ev.keyCode;
-						var toetsEindigt = true;
-						var setcontext = id;
-						var setcontext3d = id;
-						var misschien = Math.random() < 0.5;
-						var uv = main([vars, false, nu, setcontext, setcontext3d, uitBreedte, schermVerverst, toetsCode, toetsBegint, toetsEindigt, toetsBegin, toetsEind, muisBeweegt, muisBeweegtNaar, muisKlikBegin, muisKlikEind, misschien]);
-
-						vars = uv[0];
-						uitvoer = uv[1];
-						if (!context)
-							uit.innerHTML = toString(uitvoer);
-
-						return ev.keyCode > 96;
-					};
-
-					// start
-					var uv = main([vars, true, nu, setcontext, setcontext3d, uitBreedte, schermVerverst, toetsCode, toetsBegint, toetsEindigt, toetsBegin, toetsEind, muisBeweegt, muisBeweegtNaar, muisKlikBegin, muisKlikEind, misschien]);
-
-					if (!main)
-						alert("Compilation error! " + j.js);
-
-
-					vars = uv[0];
-					uitvoer = uv[1];
-
-					//alert("startvars: " + vars);
-					
-					if (!context)
-							uit.innerHTML = toString(uitvoer);
-
-					var f = (ev) => {
-						if (stop)
-							return;
-						if (paused) {
-							requestAnimationFrame(f);
-							return;
-						}
-						var vroeger = nu;
-						nu = new Date().getTime() / 1000;
-						var dt = nu - vroeger;
-						var schermVerverst = true;
-						var misschien = Math.random() < 0.5;
-
-						var uv = main([vars, false, nu, setcontext, setcontext3d, uitBreedte, schermVerverst, toetsCode, toetsBegint, toetsEindigt, toetsBegin, toetsEind, muisBeweegt, muisBeweegtNaar, muisKlikBegin, muisKlikEind, misschien, dt]);
-						var na = new Date().getTime() / 1000;
-						muisBeweegt = false;
-						//if (na - nu > 0.02)
-						//	console.log('traag..'+main);
-						vars = uv[0];
-						uitvoer = uv[1];
-
-						if (!context) {
-							uit.innerHTML = toString(uitvoer);
-						}
-
-						// debug
-						if (window.cache && window.naam2index && naam && !stop)
-							if (naam2index[naam])
-								preview.innerHTML = toString(cache[naam2index[naam]]);
-
-						if (!stop)
-							requestAnimationFrame(f);
-					}
-					requestAnimationFrame(f);
-
-					setTimeout(() => {
-						speelknop.innerHTML = "■";
-						speelknop.style.background = 'green';
-						speelknop.style.transitionDuration = '0.0s';
-					}, 100);
-
-					//uit.focus(); WAUW
+					var main = new Function("main", j.js)();
+					run(uit, main);
 
 				} catch (e) {
 					onerror();
@@ -430,17 +180,23 @@
 	// make fullscreen
 	function fullscreen() {
 		uit.requestFullscreen();
+		FULLSCREEN = true;
 	}
 
 	function download() {
-		var content = "todo";
-		var name = "index.html";
-		var blob = new Blob([content], { type: 'text/html' });
-		var link = document.createElement('a');
-		link.href = URL.createObjectURL(blob);
-		link.download = name;
-		link.click();
-		URL.revokeObjectURL(link.href);
+		var broncode = editor.getValue();
+
+		fetch('/download', {method: "POST", body: broncode})
+			.then(x => x.json())
+			.then(content => {
+				var name = "index.html";
+				var blob = new Blob([content], { type: 'text/html' });
+				var link = document.createElement('a');
+				link.href = URL.createObjectURL(blob);
+				link.download = name;
+				link.click();
+				URL.revokeObjectURL(link.href);
+			});
 	}
 
 	function playorstop() {
@@ -511,7 +267,7 @@
 		playfunc();
 	}
 	else {
-		editor.setValue("{laden}");
+		editor.setValue("");
 		fetch('/ex/' + demos[0] + '.code')
 			.then(resp => resp.text())
 			.then(text => {editor.setValue(text); playfunc(); });
