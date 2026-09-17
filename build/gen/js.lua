@@ -566,7 +566,12 @@ local noops = {
 	['circle'] = [[ (a, b, c) => {
 		return ctx => {
 			var x, y, r;
-			if (c == null) {
+			if (b == null) {
+				x = a[0] * SCHAAL;
+				y = (100 - a[1]) * SCHAAL;
+				r = a[2] * SCHAAL;
+			}
+			else if (c == null) {
 				x = a[0] * SCHAAL;
 				y = (100 - a[1]) * SCHAAL;
 				r = b * SCHAAL;

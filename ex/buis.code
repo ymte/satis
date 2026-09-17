@@ -3,23 +3,23 @@
 ; loop met pijltjes en WASD
 veld2 = -2..3 × -2..3 × -2..3 × [1]
 veld = veld2; map ((((A,B),C),D) → (X,Y,Z,1))
-X = cos ((A/5+B/25)·τ+looptijd)
-Y = sin ((A/5+B/25)·τ+looptijd)
+X = cos ((A/5+B/25)·τ+runtime)
+Y = sin ((A/5+B/25)·τ+runtime)
 Z = C/2
 
-l = looptijd / 100
+l = runtime / 100
 
 ; camera
 x := 0
 y := 0
 z := 0
 
-als toets.w dan z := z + .1 eind
-als toets.s dan z := z - .2 eind
-als toets.d dan x := x - .1 eind
-als toets.a dan x := x + .1 eind
-als toets.omhoog dan y := y - .1 eind
-als toets.omlaag dan y := y + .1 eind
+if key.w then z := z + .1 end
+if key.s then z := z - .2 end
+if key.d then x := x - .1 end
+if key.a then x := x + .1 end
+if key.up then y := y - .1 end
+if key.down then y := y + .1 end
 
 ; viewport
 rechts    = [10·cos x,0,10·sin x,0]
@@ -27,26 +27,19 @@ boven     = [0,10,0,0]
 rechtdoor = [10·sin x,0,10·-cos x,0]
 pos       = [90,55+y,-z·20+muis.x,50,1]
 
-matrix = (rechts, boven, rechtdoor, pos)
+matrix = [rechts, boven, rechtdoor, pos]
 
 K = 20/pz-10
 k = rgb(K/w₀,K/w₁,K/w₂)
-h = matrix mat4.vmul w
+h = matrix · w
 
 transformeer = w → h
-plot = px,py,pz·(muis.x-10),pw → verf(cirkel( ((px-90)/pz+90,(py-50)/pz+50), max(0,3/pz)), k)
+plot = px,py,pz·(mouse.x-10),pw → verf(cirkel( ((px-90)/pz+90,(py-50)/pz+50), max(0,3/pz)), k)
 
 
 punten = veld map transformeer
-gesorteerd = punten sorteer ggg
+gesorteerd = punten sort ggg
 ggg = fa,fb → fa₂ < fb₂
 
-; lib
-mat4.vmul = mvm,mvv → (mat4.transponeer mvm) rits1 mvv map vec.dot
-mat4.transponeer = mta,mtb,mtc,mtd → ((mta₀,mtb₀,mtc₀,mtd₀),(mta₁,mtb₁,mtc₁,mtd₁),(mta₂,mtb₂,mtc₂,mtd₂),(mta₃,mtb₃,mtc₃,mtd₃))
-vec.dot = vda,vdb → Σ (vda zip vdb map (·))
-
-
-; util
-uit = teken (gesorteerd map plot)
+out = draw (gesorteerd map plot)
 

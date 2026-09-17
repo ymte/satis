@@ -1,2 +1,4 @@
-out = f(3)
-f = x → x · 2
+;list = [1] × [2]
+list = [[1,2]]
+mat2.id = [[1,0],[0,1]]
+out = list map (x → mat2.id · x)

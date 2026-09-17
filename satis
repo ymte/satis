@@ -36,8 +36,8 @@ end
 
 if opt.h or opt.help or #sources == 0 then
 	print(
-[[usage: mm [OPTIES...] [BESTANDEN...]
-Compiles metamine code to an application.
+[[usage: ./satis [OPTIES...] [BESTANDEN...]
+Compiles satis code to an application.
 Opties:
     -h, --help        print this help
     -v, --verbose     verbose output
