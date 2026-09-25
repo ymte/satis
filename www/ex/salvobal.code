@@ -180,7 +180,7 @@ label1 = label(hw-5,90, text(score1))
 label2 = label(hw+5,90, text(score2))
 
 ball.f = √(ball.vx² + ball.vy²) / 10
-balkleur = rgb(1 - ball.f, ball.f, 0)
+balkleur = rgb(ball.f, 1 - ball.f, 0)
 
 out = draw [ flits, left, right, net, ball, label1, label2 ]
 

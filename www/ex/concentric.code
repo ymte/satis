@@ -1,6 +1,6 @@
 ; concentric circles
-w = 180
-h = 100
+w = screen.width
+h = screen.height
 pos = 0..w × 0..h
 
 ; circlepattern
