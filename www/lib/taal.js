@@ -132,6 +132,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		}
 		// exp
 		if (stream.eat(/e\-?/)) {
+			stream.eat(/\-?/);
 			stream.eatWhile(/[\d]/);
 		}
 		return 'number';

@@ -168,8 +168,8 @@ _			{ *yylval = A(GL, "_", nergens); return '_'; }
 }
 
 [0-9]*			{ *yylval = A(GL, yytext, nergens); return NAAM; }
-[0-9]*\.[0-9]*e[0-9]*			{ *yylval = A(GL, yytext, nergens); return NAAM; }
-[0-9]*e[0-9]*			{ *yylval = A(GL, yytext, nergens); return NAAM; }
+[0-9]*\.[0-9]*e-?[0-9]*			{ *yylval = A(GL, yytext, nergens); return NAAM; }
+[0-9]*e-?[0-9]*			{ *yylval = A(GL, yytext, nergens); return NAAM; }
 [0-9]*\.[0-9]+	{ *yylval = A(GL, yytext, nergens); return NAAM; }
 
 [a-zA-Z_][a-zA-Z0-9_\.@]* { /* naam */
