@@ -17,7 +17,10 @@ function toString(obj) {
 	} else if (typeof(obj)=="object" && obj.has) {
 		return "{"+[...obj].toString()+"}";
 	} else if (typeof(obj) == "number") {
-		return obj.toString();
+		if (Number.isInteger(obj))
+			return obj.toString();
+		else
+			return obj.toPrecision(4).toString();
 	} else if (typeof(obj) == "object") {
 		return "object";
 	} else {
