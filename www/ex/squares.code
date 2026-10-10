@@ -1,0 +1,4 @@
+pos = 0..10 · 10
+size = 5 + 5 · sin runtime
+squares = pos × pos × [size]
+out = draw (squares map square)
