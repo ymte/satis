@@ -20,7 +20,7 @@ function socket.bind(...)
 end
 local server = socket.bind('127.0.0.1',1237)
 if not server then
-	print('serverpoort 1237 is not available')
+	print('port 1237 is not available')
 	return
 end
 local sockets = {server}
@@ -198,10 +198,19 @@ function serveer(sock)
 			local javascript = vtuit.js
 			status = 200
 			local html = file('www/template.html')
+
+			-- import
 			local satisjs = file('www/satis.js')
 			local html = html:gsub('SATISJS', satisjs)
+
+			-- source code
+			local from,to = html:find('SOURCE')
+			local html = html:sub(1,from-1) .. inn .. html:sub(to+1)
+
+			-- main
 			local from,to = html:find('MAIN')
 			local html = html:sub(1,from-1) .. javascript .. html:sub(to+1)
+
 			uit = json.encode(html)
 		end
 

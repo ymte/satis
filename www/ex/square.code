@@ -1,2 +1,2 @@
 out = draw sq
-sq = square(0,0,10)
+sq = square(mouse.x,0,10)
