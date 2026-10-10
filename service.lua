@@ -85,7 +85,6 @@ function vt(code, isdebug)
 	if icode then
 		js = jsgen(icode)
 	end
-	--file('a.js', js)
 	local fouten = map(fouten, fout2json)
 
 	return {
@@ -116,7 +115,7 @@ function sendblocking(sock, data)
 	return #data
 end
 
--- één cliënt serveren
+-- serve one client
 function serveer(sock)
 	local len
 
@@ -168,7 +167,6 @@ function serveer(sock)
 	-- VERTAAL!
 	if pad == '/vt' or pad == '/vt/debug' then
 		local isdebug = pad == '/vt/debug'
-		--print('DEBUG', isdebug)
 		local internefout
 		local vtuit
 		local vtinn = function() vtuit = vt(inn, isdebug) end
@@ -179,24 +177,25 @@ function serveer(sock)
 		if not ok then
 			print(internefout)
 			status = 500
-			uit = json.encode {js="interne fout",fouten={}}
+			uit = json.encode {js="internal error",fouten={}}
 		else
 			status = 200
-			uit = json.encode(j) -- json(html, fouten)
+			uit = json.encode(j)
 		end
 
 	-- GEEF WEG!
 	elseif pad == '/download' then
 		local vtuit = nil
-		local vtinn = function() vtuit = vt(inn, isdebug) end
+		local vtinn = function() vtuit = vt(inn) end
 		local ok,j = xpcall(vtinn, debug.traceback)
 
 		if not ok then
 			status = 500
 			uit = json.encode("internal error")
 		else
-			local javascript = vtuit.js
 			status = 200
+
+			local javascript = vtuit.js
 			local html = file('www/template.html')
 
 			-- import

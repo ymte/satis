@@ -188,11 +188,6 @@ function run(uit, main) {
 		if (!context)
 			uit.innerHTML = toString(uitvoer);
 
-		// debug
-		if (window.cache && window.naam2index && naam && !window.stopped)
-			if (naam2index[naam])
-				preview.innerHTML = toString(cache[naam2index[naam]]);
-
 		if (!window.stopped)
 			requestAnimationFrame(refresh);
 	}

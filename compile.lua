@@ -179,14 +179,12 @@ function compile(code, isdebug)
 
 	local name2cache = {}
 	for exp,index in pairs(cachemap) do
-		--print('cachemap', exp, index)
 		local name = hash2name[exp]
 		if name then
 			name2cache[name] = index
-			--print('name2cache', name, index)
 		end
 	end
 	
-	-- varmap: {varname → cacheindex}
+	-- name2cache: {varname → cacheindex}
 	return app, {}, name2cache
 end

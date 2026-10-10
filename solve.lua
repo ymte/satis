@@ -346,8 +346,6 @@ function solve(exp, voor, isdebug)
 	nieuw = {}
 	oud = {}
 	
-	-- TODO f(x) = x + 2  →  f = x → x + 2
-
 	eqs = complement(eqs, oud)
 	eqs = unie(eqs, nieuw)
 

@@ -1,2 +1,4 @@
-f = (A,B) → A₀
-out = f([1],[2])
+cond = 1
+res = 2
+main = (cond ⇒ res)
+

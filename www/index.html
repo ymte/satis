@@ -26,7 +26,7 @@
 <div id="uit" tabIndex="2" >
 </div>
 
-<!--div class="debug"><input id="debug" type="checkbox" onclick="debugChange()"></input> debug </div-->
+<div class="debug"><input id="debug" type="checkbox" onclick="debugChange()"></input> debug </div>
 <div style="height:5; display: inline;"><a href="/catalog.html">Catalog</a></div>
 <div style="height:5; display: inline;"><a href="https://www.github.com/ymte/satis">Github</a></div>
 
@@ -72,7 +72,7 @@
 	var wraps = document.getElementsByClassName("CodeMirror-wrap");
 
 	// fotos
-	//var debug = document.getElementById('debug');
+	var debug = document.getElementById('debug');
 	var naam;
 
 	function debugChange() {
@@ -80,19 +80,20 @@
 			playfunc();
 		}
 	}
-	/*setInterval(x => {
-		if (window.cache && window.naam2index && naam && !stopped)
-			if (naam2index[naam])
-				preview.innerHTML = toString(cache[naam2index[naam]]);
-	}, 1000/60);*/
+
+	setInterval(x => {
+		if (window.cache && window.name2index && naam && !stopped)
+			if (name2index[naam])
+				preview.innerHTML = toString(cache[name2index[naam]]);
+	}, 1000/60);
 
 	function playfunc() {
 		// suspense...
 		speelknop.style.backgroundColor = '#000E42';
 		
 		var path = '/vt';
-		//if (debug.checked)
-		//	path = '/vt/debug';
+		if (debug.checked)
+			path = '/vt/debug';
 
 		var broncode = editor.getValue();
 
@@ -115,21 +116,21 @@
 					onerror();
 					return;
 				}
-				naam2index = j.naam2index;
+				name2index = j.name2index;
 
 				stopped = false;
 
 				// debug info
-				// TODO remove 2 and fix
-				wraps[0].onmousemove2 = (ev) => {
+				wraps[0].onmousemove = (ev) => {
 					var pos = editor.coordsChar({left: ev.clientX, top: ev.clientY});
 					var token = editor.getTokenAt(pos);
+					preview.innerHTML = 'loading...';
 
 					var widgetpos = {line: pos.line, ch: token.start};
 					if (token.type == "variable") {
 						naam = token.string;
-						if (naam2index[naam] && window.debug)
-							preview.innerHTML = toString(cache[naam2index[naam]]);
+						if (name2index[naam] && window.debug)
+							preview.innerHTML = toString(cache[name2index[naam]]);
 						else {
 							preview.innerHTML = '';
 							naam = null;

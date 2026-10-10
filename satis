@@ -36,28 +36,26 @@ end
 
 if opt.h or opt.help or #sources == 0 then
 	print(
-[[usage: ./satis [OPTIES...] [BESTANDEN...]
+[[usage: ./satis [OPTIONS...] [FILES...]
 Compiles satis code to an application.
-Opties:
+Options:
     -h, --help        print this help
     -v, --verbose     verbose output
     -g, --debug       generate debug information
     -d, --do          execute output
-    -u, --uitvoer=UIT	output file
+    -u, --uitvoer=UIT output file
 
-    -i      					generate intermediary code
-    -n, --naakt       compile without library
-    -j,	--javascript	compile to javascript
-    -x,	--demo				compile to javascript applet
+    -i                generate intermediary code
+    -n, --naked       compile without library
+    -j,	--javascript  compile to javascript
 		
-    -O								DON'T optimise output
-    -D								profile compilation steps
+    -O                DON'T optimise output
+    -D                profile compilation steps
 
-    -S                generate assembly-code
-    -R                generate extended rapport
+    -B                print source files
+    -S                print parsed syntax
 
-    -B                print parsed syntax
-		-R                print back-end tree
+    -R                print back-end tree
     -G                print info graph
     -K                print solved equations
 
@@ -78,25 +76,20 @@ Opties:
 	return
 end
 
-if not opt.n then
-	sources[#sources+1] = 'lib/std.code'
+if opt.n or opt.naked then
+	-- NOOP
 else
-	sources[#sources+1] = 'lib/n.code'
-end
-
-if opt.n then
-	opt.u = true
+	sources[#sources+1] = 'lib/std.code'
 end
 
 if opt.d or opt.do0 then
 	do0 = true
 end
-if opt.v or opt.verboos then
+if opt.v or opt.verbose then
 	verboos = true
 end
 if opt.javascript then opt.j = true end
 
-if opt.R then verbozeRapport = true end
 if opt.S then verbozeSyntax = true end
 if opt.D then verbozeDeductie = true end
 if opt.K then verbozeKennis = true end
@@ -116,13 +109,22 @@ if opt.T then verbozeTypes = true end
 if opt.Y then verbozeTypegraaf = true end
 if opt.i or opt.n then opt.veilig = true end
 
-if opt.g or opt.debug or opt.ontkever then
+if opt.g or opt.debug then
 	opt.g = true
 	ontkever = true
 	isdebug = true
 end
 
-local code = table.concat(map(sources, lees), '\n')
+local codes = {}
+for i,source in ipairs(sources) do
+	local subcode = lees(source) 
+	if not subcode then
+		print('file '..source..' not found')
+	else
+		codes[#codes+1] = lees(source)
+	end
+end
+local code = table.concat(codes, '\n')
 
 if verbozeBroncode then
 	print('=== BRONCODE ===')
@@ -137,8 +139,17 @@ if verbozeSyntax then
 	print()
 end
 
-local app,fouten = compile(code, isdebug)
+local app,fouten,name2index = compile(code, isdebug)
 assert(app or #fouten > 0)
+
+-- debug info
+if opt.g and name2index then
+	print('=== NAME TABLE ===')
+	for name,index in spairs(name2index) do
+		print(name, index)
+	end
+	print()
+end
 
 -- foutjuhhs
 if #fouten > 0 then
