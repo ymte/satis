@@ -68,7 +68,7 @@ function codegen(exp, hash2name)
 	local exps = {}
 	local dubbel = {} -- exp → cacheindex
 	local cachemap = {} -- exp → int
-
+	local debugmap = {}
 
 	local function rec(exp)
 		if exps[hash(exp)] then
@@ -359,10 +359,11 @@ function codegen(exp, hash2name)
 
 		if not isatom(exp) and dubbel[hash(exp)] or hash2name[hash(exp)] then
 			cachemap[hash(exp)] = maakcacheindex()
+			debugmap[hash(exp)] = cachemap[hash(exp)]
 			ins[#ins+1] = X('st', tostring(cachemap[hash(exp)]))
 		end
 
-		return ins, cachemap
+		return ins, cachemap, debugmap
 	end
 
 	local ins = {o='[]'}

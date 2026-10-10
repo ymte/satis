@@ -168,7 +168,7 @@ function compile(code, isdebug)
 	end
 		
 	-- cachemap: exp → cacheindex
-	local app,cachemap = codegen(exp, hash2name)
+	local app,cachemap,debugmap = codegen(exp, hash2name)
 
 	local delta = now() - prev
 	local ms = math.floor(delta * 1000)
@@ -178,7 +178,7 @@ function compile(code, isdebug)
 	local prev = now()
 
 	local name2cache = {}
-	for exp,index in pairs(cachemap) do
+	for exp,index in pairs(debugmap) do
 		local name = hash2name[exp]
 		if name then
 			name2cache[name] = index

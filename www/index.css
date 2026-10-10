@@ -23,8 +23,8 @@
 }
 
 .preview {
-	background: #330;
-	color: #FF7;
+	background: #130;
+	color: #9F7;
 	z-index: 999;
 	position: absolute;
 }

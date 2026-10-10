@@ -124,7 +124,6 @@
 				wraps[0].onmousemove = (ev) => {
 					var pos = editor.coordsChar({left: ev.clientX, top: ev.clientY});
 					var token = editor.getTokenAt(pos);
-					preview.innerHTML = 'loading...';
 
 					var widgetpos = {line: pos.line, ch: token.start};
 					if (token.type == "variable") {
