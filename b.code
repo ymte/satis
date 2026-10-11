@@ -1,4 +1,0 @@
-cond = 1
-res = 2
-main = (cond ⇒ res)
-

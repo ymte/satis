@@ -184,6 +184,7 @@ function compile(code, isdebug)
 			name2cache[name] = index
 		end
 	end
+
 	
 	-- name2cache: {varname → cacheindex}
 	return app, {}, name2cache

@@ -126,7 +126,7 @@
 					var token = editor.getTokenAt(pos);
 
 					var widgetpos = {line: pos.line, ch: token.start};
-					if (token.type == "variable") {
+					if (token.type == "variable" || token.type == "builtin") {
 						naam = token.string;
 						if (name2index[naam] && window.debug)
 							preview.innerHTML = toString(cache[name2index[naam]]);
