@@ -28,24 +28,15 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 
   // long list of standard functions from lua manual
   var builtins = wordRE([
-    	'∅',
-		'icode', 'newindex',
-		'canvas.fontsize', 'canvas.linewidth', 'splits', 'split',
-		'vertexbuffer', 'shaderbind', 'shaderprogram',
-		'uniformbind', 'matrixbind',
-		'download', 'texturebind', 'texture', 'cubemap', 'cubemapbind',
-		'jsonencodeer', 'jsondecodeer',
-		'id',
+    	'∅', 'id',
+		'runtime', 'now', 'start',
 
-		// engels
+		// screen
+		'screen.width', 'screen.height',
+		'maybe', 'screen.refreshes',
+		'screen.middle', 'screen.size', 'screen.origin',
+
 		'none', 'out', 'yes', 'no', 'error',
-		'text', 'floor', 'ceil', 'runtime', 'now', 'start',
-		'fold', 'oval', 'mod',
-		'sort', 'from', 'til', 'slice', 'find',
-		'screen.width', 'screen.height', 'random', 'maybe', 'screen.refreshes', 'paint', 'screen.middle', 'screen.size', 'screen.origin',
-		'render', 'rgb',
-		'grab', 'choose', 'type', 'flatten', 'canvas.fontsize', 'split',
-		'jsonencode', 'jsondecode',
 
 		// mouse
 		'mouse.x', 'mouse.y', 'mouse.pos', 'mouse.moves',
@@ -61,18 +52,34 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		'key.space', 'key.space.begin', 'key.space.end',
 	 
 		// drawing
-		"draw",
-		"circle", "rectangle", "square", "line", "label", "arc",
-		"polygon", "map", "zip", 'zip1', "fold", "sin", "cos", "tan", "abs",
+		'color.black', 'color.red', 'color.yellow', 'color.green',
+		'color.cyan', 'color.purple', 'color.white', 'color.orange',
+		'color.lime', 'color.blue', 'color.gray', 'color.brown',
+
+  ]);
+
+  var functions = wordRE([
+		'icode', 'newindex',
+		'canvas.fontsize', 'canvas.linewidth', 'split',
+		'vertexbuffer', 'shaderbind', 'shaderprogram',
+		'uniformbind', 'matrixbind',
+		'download', 'texturebind', 'texture', 'cubemap', 'cubemapbind',
+		'text', 'floor', 'ceil', 
+		'fold', 'oval', 'mod',
+		'sort', 'from', 'til', 'slice', 'find',
+		'random',  'paint', 
+		'render', 'rgb',
+		'grab', 'choose', 'type', 'flatten', 'canvas.fontsize', 'split',
+		'draw',
+		'circle', 'rectangle', 'square', 'line', 'label', 'arc',
+		'polygon', 'map', 'zip', 'zip1', 'fold',
+		'sin', 'cos', 'tan', 'abs',
 		'asin', 'acos', 'atan',
 		'min', 'max',
 		'filter', 'reduce',
-		"sincos", "cossin",
-		"color.black", "color.red", "color.yellow", "color.green",
-		"color.cyan", "color.purple", "color.white", "color.orange",
-		"color.lime", "color.blue", "color.gray", 'color.brown',
-
+		'sincos', 'cossin',
   ]);
+
 	var keywords = wordRE([
 		"if","then","elseif","else","end",
 		"and", "or", "xor",
@@ -205,6 +212,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
       if (style == "variable") {
         if (keywords.test(word)) style = "keyword";
         else if (builtins.test(word)) style = "builtin";
+        else if (functions.test(word)) style = "function";
         else if (specials.test(word)) style = "variable-2";
       }
       if ((style != "comment") && (style != "string")){

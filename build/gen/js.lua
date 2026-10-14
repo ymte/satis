@@ -399,8 +399,6 @@ local noops = {
 	}]],
 
 	-- webgl
-	 ['jsonencode'] = 'x => { try { return JSON.stringify(x); } catch (e) {return e.message; }}',
-	 ['jsondecode'] = 'x => { try { return JSON.parse(x); } catch (e) {return e.message; }}',
 	 ['slice'] = '(x,y,z) => x.slice(y, z)',
 	 ['find'] = [[(lijst, doel, index) => {
 		 var doel = JSON.stringify(doel);

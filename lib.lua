@@ -52,8 +52,6 @@ function lib()
 	['canvas.linewidth'] = true,
 	['canvas.drawImage'] = true,
 	['flatten'] = true,
-	['jsonencode'] = true,
-	['jsondecode'] = true,
 
 	-- webgl
 	['alert'] = true,

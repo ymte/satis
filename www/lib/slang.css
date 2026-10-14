@@ -23,7 +23,8 @@
 .cm-s-slang span.cm-string { color: yellow; }
 .cm-s-slang span.cm-meta { color: #C9F; }
 .cm-s-slang span.cm-qualifier { color: purple; }
-.cm-s-slang span.cm-builtin { color: #8ab; /*#30aabc;*/ }
+.cm-s-slang span.cm-builtin { color: #6cb; }
+.cm-s-slang span.cm-function { color: #8ab; }
 .cm-s-slang span.cm-bracket { color: orange; }
 .cm-s-slang span.cm-tag { color: #FFDD44; }
 .cm-s-slang span.cm-attribute { color: #DDFF00; }
