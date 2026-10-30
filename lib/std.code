@@ -56,16 +56,16 @@ end
 runtime = now - starttime
 starttime := now
 
-; transformatie
-verplaats = Px,Py,Pz → [[1,0,0,0],[0,1,0,0],[0,0,1,0],[Px,Py,Pz,1]]
-schaal = Sx,Sy,Sz → [[Sx,0,0,0],[0,Sy,0,0],[0,0,Sz,0],[0,0,0,1]]
+; transform
+mat4.move = Px,Py,Pz → [[1,0,0,0],[0,1,0,0],[0,0,1,0],[Px,Py,Pz,1]]
+mat4.scale = Sx,Sy,Sz → [[Sx,0,0,0],[0,Sy,0,0],[0,0,Sz,0],[0,0,0,1]]
 
 ; [a b 0]  [a 0 b]  [1 0 0]
 ; [c d 0]  [0 1 0]  [0 a b]
 ; [0 0 1]  [c 0 d]  [0 c d]
-xdraai = X → [[1,0,0,0], [0, cos X, -sin X, 0], [0, sin X, cos X, 0], [0,0,0,1]]
-ydraai = Y → [[cos Y, 0, sin Y, 0], [0,1,0,0], [-sin Y, 0, cos Y, 0], [0,0,0,1]]
-zdraai = Z → [[cos Z, sin Z, 0, 0], [-sin Z, cos Z, 0, 0], [0,0,1,0], [0,0,0,1]]
+mat4.rotatex = X → [[1,0,0,0], [0, cos X, -sin X, 0], [0, sin X, cos X, 0], [0,0,0,1]]
+mat4.rotatey = Y → [[cos Y, 0, sin Y, 0], [0,1,0,0], [-sin Y, 0, cos Y, 0], [0,0,0,1]]
+mat4.rotatez = Z → [[cos Z, sin Z, 0, 0], [-sin Z, cos Z, 0, 0], [0,0,1,0], [0,0,0,1]]
 
 ; scherm
 ;scherm.frequentie = ?

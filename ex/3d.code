@@ -6,11 +6,11 @@ gpunten = spunten
 
 naarscherm = tx,ty,tz,tw → (tx-80)/tw+80, (ty-50)/tw+50, tz
 
-als toets.links dan cam.hoek := cam.hoek - 0.03 eind
-als toets.rechts dan cam.hoek := cam.hoek + 0.03 eind
+if key.left then cam.hoek := cam.hoek - 0.03 end
+if key.right then cam.hoek := cam.hoek + 0.03 end
 
 v = verplaats(30,0,100)
-cam = ydraai(looptijd) · v
+cam = ydraai(runtime) · v
 
 ; matrix math
 z1 = (0.1+1000)/(1000-0.1)
@@ -28,13 +28,13 @@ zichtbaar = zp → (zc₂ > 0)
 za = (zp₃ - zp₀)
 zb = (zp₁ - zp₀)
 zc = cross(za, zb)
-kleuren = [kleur.rood, kleur.groen, kleur.blauw, kleur.geel, kleur.paars, kleur.cyaan]
+kleuren = [color.red, color.green, color.blue, color.yellow, color.purple, kleur.cyan]
 
 cross = (ax,ay,az),(bx,by,bz) → (ay·bz-az·by, az·bx - ax·bz, ax·by-ay·bx)
 
-polygonen = fdata map polygoon
-kpolygonen = polygonen zip kleuren map verf
-uit = teken (kpolygonen ‖ debug)
+polygonen = fdata map polygon
+kpolygonen = polygonen zip kleuren map paint
+out = draw (kpolygonen ‖ debug)
 
 debug = label(1,1,type(cross))
 P = pdata₀
