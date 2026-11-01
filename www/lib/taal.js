@@ -75,7 +75,7 @@ CodeMirror.defineMode("taal", function(config, parserConfig) {
 		'polygon', 'map', 'zip', 'zip1', 'fold',
 		'sin', 'cos', 'tan', 'abs',
 		'asin', 'acos', 'atan',
-		'min', 'max',
+		'min', 'max', 'clamp',
 		'filter', 'reduce',
 		'sincos', 'cossin',
   ]);
